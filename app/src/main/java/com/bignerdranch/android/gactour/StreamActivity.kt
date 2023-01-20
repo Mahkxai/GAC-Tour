@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -21,21 +22,33 @@ import com.google.android.gms.location.*
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.lang.Math.pow
 import java.util.*
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 const val TAG = "StreamActivity"
 
 class StreamActivity : AppCompatActivity() {
+    private  val beck = Triple(44.32401340322511,-93.97310743842756, 50f)
+    private  val nobel = Triple(44.3220737848025, -93.97273944205695, 50f)
+    private  val olin = Triple(44.32279045172101, -93.97334009636947, 50f)
+
     private lateinit var storageRef: StorageReference
     private lateinit var dbRef: DatabaseReference
 
-    private var buildingName: String = ""
+    private var currentBuilding: String = "Walking"
+    private var oldBuilding: String = ""
     private var picCount: Long = 1
 
     private lateinit var imageview: ImageView
     private lateinit var textViewBuilding: TextView
     private lateinit var textViewLatitude: TextView
     private lateinit var textViewLongitude: TextView
+    private lateinit var textViewBeckDistance: TextView
+    private lateinit var textViewNobelDistance: TextView
+    private lateinit var textViewOlinDistance: TextView
+    private lateinit var textViewImageId: TextView
     private lateinit var buttonPrev: Button
     private lateinit var buttonNext: Button
 
@@ -49,22 +62,33 @@ class StreamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stream)
 
-        buildingName = intent.getStringExtra("Building").toString()
-        storageRef = buildingName?.let { FirebaseStorage.getInstance().getReference(it) }
-        dbRef = buildingName?.let { FirebaseDatabase.getInstance().getReference(it) }!!
-
         imageview = findViewById(R.id.imageCurrentMedia)
+        textViewBuilding= findViewById(R.id.textCurrentBuilding)
+        textViewLatitude= findViewById(R.id.textLatitude)
+        textViewLongitude= findViewById(R.id.textLongitude)
+        textViewImageId = findViewById(R.id.textImageId)
+        textViewBeckDistance = findViewById(R.id.textDistanceFromBeck)
+        textViewNobelDistance = findViewById(R.id.textDistanceFromNobel)
+        textViewOlinDistance = findViewById(R.id.textDistanceFromOlin)
 
-        dbRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                picCount = dataSnapshot.childrenCount
-            }
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-            }
-        })
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        getLocationUpdates()
+
+//        if (currentBuilding != "Walking") {
+//            storageRef = currentBuilding?.let { FirebaseStorage.getInstance().getReference(it) }
+//            dbRef = currentBuilding?.let { FirebaseDatabase.getInstance().getReference(it) }!!
+//
+//            dbRef.addValueEventListener(object : ValueEventListener {
+//                override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                    // This method is called once with the initial value and again
+//                    // whenever data at this location is updated.
+//                    picCount = dataSnapshot.childrenCount
+//                }
+//                override fun onCancelled(error: DatabaseError) {
+//                    // Failed to read value
+//                }
+//            })
+//        }
 
 //        dbRef.get().addOnSuccessListener {
 //            picCount = (1..it.childrenCount).random()
@@ -74,7 +98,7 @@ class StreamActivity : AppCompatActivity() {
 //        }
 
         var num = 1L
-        displayImage(num)
+        displayImage(num, currentBuilding)
 
         buttonPrev = findViewById(R.id.buttonPrev)
         buttonNext = findViewById(R.id.buttonNext)
@@ -92,23 +116,41 @@ class StreamActivity : AppCompatActivity() {
             Log.d(TAG, "Next $num")
             displayImage(num)
         }
-
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLocationUpdates()
     }
 
-    private fun displayImage(num: Long) {
-        val imageID = "IMG_${buildingName}_$num.jpg"
-        Log.d(TAG, imageID)
+    private fun displayImage(num: Long, building: String = currentBuilding) {
+        if (building != "Walking") {
+            val imageID = "IMG_${building}_$num.jpg"
+            textViewImageId.text = imageID
+            buttonPrev.visibility = View.VISIBLE
+            buttonNext.visibility = View.VISIBLE
 
-        // using glide library to display the image
-        storageRef?.child("$imageID")?.downloadUrl?.addOnSuccessListener {
-            Glide.with(this@StreamActivity)
-                .load(it)
-                .into(imageview)
-            Log.e("Firebase", "download passed")
-        }?.addOnFailureListener {
-            Log.e("Firebase", "Failed in downloading")
+            // using glide library to display the image
+            storageRef = currentBuilding?.let { FirebaseStorage.getInstance().getReference(it) }
+            dbRef = currentBuilding?.let { FirebaseDatabase.getInstance().getReference(it) }!!
+
+            dbRef.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    // This method is called once with the initial value and again
+                    // whenever data at this location is updated.
+                    picCount = dataSnapshot.childrenCount
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    // Failed to read value
+                }
+            })
+
+            storageRef?.child("$imageID")?.downloadUrl?.addOnSuccessListener {
+                Glide.with(this@StreamActivity)
+                    .load(it)
+                    .into(imageview)
+                Log.e("Firebase", "download passed")
+            }?.addOnFailureListener {
+                Log.e("Firebase", "Failed in downloading")
+            }
+        } else {
+            textViewImageId.text = "No images found in the current location"
+            imageview.setImageResource(R.mipmap.ic_launcher)
         }
     }
 
@@ -131,7 +173,7 @@ class StreamActivity : AppCompatActivity() {
                             textViewLatitude= findViewById(R.id.textLatitude)
                             textViewLongitude= findViewById(R.id.textLongitude)
 
-                            textViewBuilding.text = "You're near: \n$buildingName"
+                            textViewBuilding.text = "You're near: \n$currentBuilding"
                             textViewLatitude.text = "Latitude: $latitude"
                             textViewLongitude.text = "Longitude: $longitude"
 
@@ -179,11 +221,14 @@ class StreamActivity : AppCompatActivity() {
                                 val latitude = location.latitude
                                 val longitude = location.longitude
 
-                                textViewBuilding= findViewById(R.id.textCurrentBuilding)
-                                textViewLatitude= findViewById(R.id.textLatitude)
-                                textViewLongitude= findViewById(R.id.textLongitude)
+                                oldBuilding = currentBuilding
+                                currentBuilding = getCurrentBuilding(latitude, longitude)
 
-                                textViewBuilding.text = "You're near: \n$buildingName"
+                                if (oldBuilding != currentBuilding) {
+                                    displayImage(1L, currentBuilding)
+                                }
+
+                                textViewBuilding.text = "You're near: $currentBuilding"
                                 textViewLatitude.text = "Latitude: $latitude"
                                 textViewLongitude.text = "Longitude: $longitude"
 
@@ -196,6 +241,35 @@ class StreamActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
+    }
+
+    private fun getCurrentBuilding(currentLat: Double, currentLong: Double): String {
+        val distanceFromBeckDeg = sqrt((currentLat - beck.first).pow(2) + (currentLong - beck.second).pow(2))
+        val distanceFromNobelDeg = sqrt((currentLat - nobel.first).pow(2) + (currentLong - nobel.second).pow(2))
+        val distanceFromOlinDeg = sqrt((currentLat - olin.first).pow(2) + (currentLong - olin.second).pow(2))
+
+        val distanceFromBeckM = distanceFromBeckDeg/0.001f * 111f
+        val distanceFromNobelM = distanceFromNobelDeg/0.001f * 111f
+        val distanceFromOlinM = distanceFromOlinDeg/0.001f * 111f
+
+        textViewBeckDistance.text = "Beck: $distanceFromBeckM"
+        textViewNobelDistance.text = "Nobel: $distanceFromNobelM"
+        textViewOlinDistance.text = "Olin: $distanceFromOlinM"
+        Log.d(TAG, "Beck: $distanceFromBeckM, Nobel: $distanceFromNobelM, Olin: $distanceFromOlinM")
+
+        if (distanceFromBeckM < beck.third) {
+            // check if Beck
+            return "Beck"
+        }
+        else if (distanceFromNobelM < nobel.third) {
+            // check if Nobel
+            return "Nobel"
+        }
+        else if (distanceFromOlinM < olin.third) {
+            // check if Olin
+            return "Olin"
+        }
+        return "Walking"
     }
 
     //start location updates
@@ -215,7 +289,6 @@ class StreamActivity : AppCompatActivity() {
                 Looper.getMainLooper())
         }
     }
-
 
     // stop location updates
     private fun stopLocationUpdates() {
