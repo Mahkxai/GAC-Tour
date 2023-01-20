@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical" >
+    <Button
+        android:id="@+id/buttonBeck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beck"/>
+
+    <Button
+        android:id="@+id/buttonNobel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nobel" />
+
+
+    <Button
+        android:id="@+id/buttonOlin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Olin" />
+
+    <Button
+        android:id="@+id/buttonStream"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stream"/>
+</LinearLayout>
