@@ -1,32 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="vertical" >
-    <Button
-        android:id="@+id/buttonBeck"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/txtBuildingMsg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Beck"/>
+        android:background="#9000"
+        android:padding="10dp"
+        android:shadowColor="@color/gold"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="50"
+        android:text="Select a Building"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:translationZ="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+            android:src="@drawable/gustavus_adolphus_map_3d"
+            android:tint="#99000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+    </HorizontalScrollView>
+
+    <Button
+        android:id="@+id/buttonBeck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beck"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNobel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtBuildingMsg" />
+
 
     <Button
         android:id="@+id/buttonNobel"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nobel" />
-
+        android:text="Nobel"
+        app:layout_constraintBottom_toTopOf="@+id/buttonOlin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonBeck" />
 
     <Button
         android:id="@+id/buttonOlin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Olin" />
+        android:text="Olin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNobel" />
 
-    <Button
-        android:id="@+id/buttonStream"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stream"/>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

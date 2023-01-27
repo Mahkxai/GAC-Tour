@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Camera
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
@@ -17,6 +18,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private var currentBuilding: String = "Walking"
     private var oldBuilding: String = ""
     private var picCount: Long = 1
+    private var clicked: Boolean = false
 
     private lateinit var imageview: ImageView
     private lateinit var textViewBuilding: TextView
@@ -53,18 +56,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonPrev: ImageButton
     private lateinit var buttonNext: ImageButton
     private lateinit var buttonUpload: ImageButton
+    private lateinit var buttonCamera: ImageButton
+    private lateinit var buttonGallery: ImageButton
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
-//    private var locationCallback: LocationCallback? = null
-    private lateinit var locationCallback: LocationCallback
+    private var locationCallback: LocationCallback? = null
+//    private lateinit var locationCallback: LocationCallback
 
 //    private var currentLocation: Location? = null
     private val permissionId = 2
+    private var user: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        user = intent.getStringExtra("user").toString()
 
         imageview = findViewById(R.id.imageCurrentMedia)
         textViewBuilding= findViewById(R.id.textCurrentBuilding)
@@ -77,6 +85,8 @@ class MainActivity : AppCompatActivity() {
         buttonPrev = findViewById(R.id.buttonPrev)
         buttonNext = findViewById(R.id.buttonNext)
         buttonUpload = findViewById(R.id.btnUpload)
+        buttonCamera = findViewById(R.id.btnCamera)
+        buttonGallery = findViewById(R.id.btnGallery)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         getLocationUpdates()
@@ -98,8 +108,40 @@ class MainActivity : AppCompatActivity() {
             displayImage(num)
         }
 
+        if (user == "guest") {
+            buttonUpload.visibility = View.GONE
+            buttonCamera.visibility = View.GONE
+            buttonGallery.visibility = View.GONE
+        } else {
+            buttonUpload.visibility = View.VISIBLE
+            buttonCamera.visibility = View.VISIBLE
+            buttonGallery.visibility = View.VISIBLE
+        }
+
         buttonUpload.setOnClickListener {
+            if (clicked) {
+                buttonCamera.animate().alpha(0f).translationXBy(150f).translationYBy(150f).setDuration(250);
+                buttonGallery.animate().alpha(0f).translationXBy(-150f).translationYBy(150f).setDuration(250);
+//                buttonCamera.visibility = View.INVISIBLE
+//                buttonGallery.visibility = View.INVISIBLE
+            } else {
+//                buttonCamera.visibility = View.VISIBLE
+//                buttonGallery.visibility = View.VISIBLE
+                buttonCamera.animate().alpha(1f).translationXBy(-150f).translationYBy(-150f).setDuration(250);
+                buttonGallery.animate().alpha(1f).translationXBy(150f).translationYBy(-150f).setDuration(250);
+            }
+            clicked = !clicked
+        }
+
+        buttonCamera.setOnClickListener {
             val intent = Intent(this, StreamActivity::class.java)
+                .putExtra("UploadType","Camera")
+            startActivity(intent)
+        }
+
+        buttonGallery.setOnClickListener {
+            val intent = Intent(this, StreamActivity::class.java)
+                .putExtra("UploadType","Gallery")
             startActivity(intent)
         }
     }
@@ -112,8 +154,8 @@ class MainActivity : AppCompatActivity() {
             buttonNext.visibility = View.VISIBLE
 
             // using glide library to display the image
-            storageRef = currentBuilding?.let { FirebaseStorage.getInstance().getReference(it) }
-            dbRef = currentBuilding?.let { FirebaseDatabase.getInstance().getReference(it) }!!
+            storageRef = currentBuilding.let { FirebaseStorage.getInstance().getReference(it) }
+            dbRef = currentBuilding.let { FirebaseDatabase.getInstance().getReference(it) }!!
 
             dbRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -126,17 +168,17 @@ class MainActivity : AppCompatActivity() {
                 }
             })
 
-            storageRef?.child("$imageID")?.downloadUrl?.addOnSuccessListener {
+            storageRef.child(imageID).downloadUrl.addOnSuccessListener {
                 Glide.with(this@MainActivity)
                     .load(it)
                     .into(imageview)
                 Log.e("Firebase", "download passed")
-            }?.addOnFailureListener {
+            }.addOnFailureListener {
                 Log.e("Firebase", "Failed in downloading")
             }
         } else {
             textViewImageId.text = "No images found in the current location"
-            imageview.setImageResource(R.mipmap.ic_launcher)
+            imageview.setImageResource(R.drawable.gac_logo)
             buttonPrev.visibility = View.GONE
             buttonNext.visibility = View.GONE
         }
@@ -161,7 +203,9 @@ class MainActivity : AppCompatActivity() {
                         textViewLatitude= findViewById(R.id.textLatitude)
                         textViewLongitude= findViewById(R.id.textLongitude)
 
-                        textViewBuilding.text = "You're near: \n$currentBuilding"
+
+                        textViewBuilding.text = if (currentBuilding == "Walking") "No Images Found in the Current Location"
+                            else "You're in $currentBuilding"
                         textViewLatitude.text = "Latitude: $latitude"
                         textViewLongitude.text = "Longitude: $longitude"
 
@@ -214,7 +258,8 @@ class MainActivity : AppCompatActivity() {
                                     displayImage(1L, currentBuilding)
                                 }
 
-                                textViewBuilding.text = "You're near: $currentBuilding"
+                                textViewBuilding.text = if (currentBuilding == "Walking") "No Images Found in the Current Location"
+                                else "You're in $currentBuilding"
                                 textViewLatitude.text = "Latitude: $latitude"
                                 textViewLongitude.text = "Longitude: $longitude"
 

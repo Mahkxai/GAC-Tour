@@ -4,48 +4,72 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import java.util.*
 
 class StreamActivity : AppCompatActivity() {
     private lateinit var beck: Button
     private lateinit var nobel: Button
     private lateinit var olin: Button
-    private lateinit var stream: Button
 
+    private var uploadMethod: String = ""
+    private lateinit var uploadMsg: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
         setContentView(R.layout.activity_stream)
+
+        uploadMethod = intent.getStringExtra("UploadType").toString()
+
+//        uploadMsg = findViewById(R.id.txtUploadMsg)
         beck = findViewById(R.id.buttonBeck)
         nobel = findViewById(R.id.buttonNobel)
         olin = findViewById(R.id.buttonOlin)
-        stream = findViewById(R.id.buttonStream)
 
-        beck.setOnClickListener {
-            val intent = Intent(this, UploadActivity::class.java)
-                .putExtra("Building","Beck")
-            startActivity(intent)
-        }
+        if (uploadMethod == "Gallery") {
+//            uploadMsg.text = "Select a building where \nyou want to upload your picture."
 
-        nobel.setOnClickListener {
-            val intent = Intent(this, UploadActivity::class.java)
-                .putExtra("Building","Nobel")
-            startActivity(intent)
-        }
+            beck.setOnClickListener {
+                val intent = Intent(this, UploadActivity::class.java)
+                    .putExtra("Building","Beck")
+                startActivity(intent)
+            }
 
-        olin.setOnClickListener {
-            val intent = Intent(this, UploadActivity::class.java)
-                .putExtra("Building","Olin")
-            startActivity(intent)
-        }
+            nobel.setOnClickListener {
+                val intent = Intent(this, UploadActivity::class.java)
+                    .putExtra("Building","Nobel")
+                startActivity(intent)
+            }
 
-        stream.setOnClickListener {
-            val intent = Intent(this, StreamActivity::class.java)
-                .putExtra("Building", "Olin")
-            startActivity(intent)
+            olin.setOnClickListener {
+                val intent = Intent(this, UploadActivity::class.java)
+                    .putExtra("Building","Olin")
+                startActivity(intent)
+            }
+        } else {
+//            uploadMsg.text = "Select a building where \nyou want to take your picture."
+
+            beck.setOnClickListener {
+                val intent = Intent(this, CameraActivity::class.java)
+                    .putExtra("Building","Beck")
+                startActivity(intent)
+            }
+
+            nobel.setOnClickListener {
+                val intent = Intent(this, CameraActivity::class.java)
+                    .putExtra("Building","Nobel")
+                startActivity(intent)
+            }
+
+            olin.setOnClickListener {
+                val intent = Intent(this, CameraActivity::class.java)
+                    .putExtra("Building","Olin")
+                startActivity(intent)
+            }
         }
     }
 
