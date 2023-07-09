@@ -35,7 +35,6 @@ class UploadActivity : AppCompatActivity() {
     private var picCount: Long = 0
     private var buildingName: String = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_upload)
