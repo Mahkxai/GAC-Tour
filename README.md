@@ -1,11 +1,7 @@
 # GAC Tour
 GAC Tour is a crowd-sourced app that streams media based on the user's location. The app serves as a social media platform where current students can share their stories from particular campus buildings onto the app whereby the visitors can view these stories as they pass by various locations during their tour.
 
-*Insert Screenshots here*
-
-**Link to project:** http://recruiters-love-seeing-live-demos.com/
-
-![alt tag](http://placecorgi.com/1200/650)
+![login_page](https://github.com/hardikshr/GAC-Tour/assets/110008888/54b4b36e-dbee-4ba0-8bac-f23a68770512)
 
 ## How It's Made:
 
@@ -14,8 +10,7 @@ GAC Tour is a crowd-sourced app that streams media based on the user's location.
 The starting screen of the app prompts the user to login
 as a student or a guest. Both the parties will be streamed
 the same media but the students will have an additional permission to
-upload media of their liking as well. Below is a demonstration of the process:
-![login_page](https://github.com/hardikshr/GAC-Tour/assets/110008888/54b4b36e-dbee-4ba0-8bac-f23a68770512)
+upload media of their liking as well. 
 
 For the prototype, the students can select from a list of
 buildings where they want to upload the media. The media
