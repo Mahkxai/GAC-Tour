@@ -31,9 +31,6 @@ scheduling algorithms for streaming the appropriate media.
 ### Firebase Database Snapshot
 ![fb_database](https://github.com/hardikshr/GAC-Tour/assets/110008888/56d0e4fb-61ca-4e11-8527-a308b0129291)
 
-For the final version, the students will have access to a
-map where they can drop a pin to a desired location and
-upload a media for the region enclosing the pin.
 Currently, the media for a particular building is streamed
 onto the app once the user is within 50 meters of the building.
 This is achieved by having a reference latitude and longitude
@@ -44,6 +41,11 @@ overlap. The user’s current location can then be gathered
 using the GeoLocationApi and the app detects if the current
 location is within the specified area of a building and streams
 media accordingly.
+
+## Future Changes
+- The students will have access to a
+map where they can drop a pin to a desired location and
+upload a media for the region enclosing the pin.
 
 ## Optimizations
 *(optional)*
