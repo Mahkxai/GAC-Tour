@@ -9,11 +9,11 @@ Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLoc
 ## How It Works
 **1. User Authentication:** The app greets users with a login screen where they can identify as students or guests. Both groups can enjoy the same media streams, but students enjoy the added privilege of contributing their own media.
 
-**1. Media Sharing:** For the prototype, students can choose from a curated list of buildings where they can upload their media. The media content is stored in Firebase storage, organized neatly into folders that correspond to each building on the list.
+**2. Media Sharing:** For the prototype, students can choose from a curated list of buildings where they can upload their media. The media content is stored in Firebase storage, organized neatly into folders that correspond to each building on the list.
 
-**1. Smart Metadata Handling:** To enhance the media streaming experience, metadata about the media is stored separately in a Firebase database. This separation allows for the implementation of intelligent scheduling algorithms, ensuring that the right media is streamed to the right location at the right time.
+**3. Smart Metadata Handling:** To enhance the media streaming experience, metadata about the media is stored separately in a Firebase database. This separation allows for the implementation of intelligent scheduling algorithms, ensuring that the right media is streamed to the right location at the right time.
 
-**1. Location-Based Streaming:** Currently, media associated with a particular building is streamed to the app when the user is within a 50-meter radius of the building. By leveraging reference latitude and longitude coordinates, the app identifies designated areas around each building. These coordinates are meticulously chosen to avoid overlapping areas. Using the GeoLocationApi, the app determines the user's location and triggers media streaming when the user enters a designated area.
+**4. Location-Based Streaming:** Currently, media associated with a particular building is streamed to the app when the user is within a 50-meter radius of the building. By leveraging reference latitude and longitude coordinates, the app identifies designated areas around each building. These coordinates are meticulously chosen to avoid overlapping areas. Using the GeoLocationApi, the app determines the user's location and triggers media streaming when the user enters a designated area.
 
 ### Student's Screen
 ![student](https://github.com/hardikshr/GAC-Tour/assets/110008888/259c86d1-04ff-4d40-b8a0-61e34c646b4c)
@@ -31,7 +31,7 @@ Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLoc
 **Interactive Mapping:** Soon, students will have access to an interactive map feature. This will allow them to drop a pin on any desired location and upload media for that specific geographical area.
 
 ## Optimization Ideas
-**2. Real-Time Notifications:** Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
+**1. Real-Time Notifications:** Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
 
 **2. Personalized Recommendations:** Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
 
