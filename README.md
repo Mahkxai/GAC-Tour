@@ -1,5 +1,5 @@
 # GAC Tour - Discover Campus Stories in Real Time
-Welcome to GAC Tour, an innovative crowd-sourced app that brings campus stories to life through dynamic media streams based on users' locations. Designed as a social media platform, this app empowers current students to share their unique stories from specific campus buildings. Visitors, in turn, can access and enjoy these stories as they explore different buildings during their tour.
+Welcome to GAC Tour, an innovative crowd-sourced app that brings campus stories to life through dynamic media streams based on users' locations. Designed as a social media platform, this app empowers current students to share their unique stories from specific campus buildings. Visitors, in turn, can access and enjoy these stories as they explore different buildings during their tour and gain a deeper insight into the daily campus-life experience of students.
 
 ![login_page](https://github.com/hardikshr/GAC-Tour/assets/110008888/54b4b36e-dbee-4ba0-8bac-f23a68770512)
 
@@ -27,17 +27,18 @@ Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLoc
 ### Firebase Database Snapshot
 ![fb_database](https://github.com/hardikshr/GAC-Tour/assets/110008888/56d0e4fb-61ca-4e11-8527-a308b0129291)
 
-## Future Enhancements
-**Interactive Mapping:** Soon, students will have access to an interactive map feature. This will allow them to drop a pin on any desired location and upload media for that specific geographical area.
+## Future Enhancements and Optimization Ideas
+**1. Interactive Mapping:** Soon, students will have access to an interactive map feature. This will allow them to drop a pin on any desired location and upload media for that specific geographical area.
 
-## Optimization Ideas
-**1. Real-Time Notifications:** Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
+**2. Real-Time Notifications:** Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
 
-**2. Personalized Recommendations:** Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
+**3. Personalized Recommendations:** Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
+
+**4. Student Verification:** Implement a verification process to ensure only students can upload media, maintaining the authenticity of contributions.
 
 ## Lessons Learned
 
-Through the development of GAC Tour, the team gained insights into effective integration of Firebase services, handling location-based triggers, and designing user-centric features. The project also highlighted the potential for future optimizations to create an even more seamless and engaging user experience.
+Through the development of GAC Tour, I gained insights into effective integration of Firebase services, handling location-based triggers, and designing user-centric features. The project also highlighted the potential for future optimizations to create an even more seamless and engaging user experience.
 
 ## Project Disclaimer
 
