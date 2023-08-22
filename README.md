@@ -1,23 +1,19 @@
-# GAC Tour
-GAC Tour is a crowd-sourced app that streams media based on the user's location. The app serves as a social media platform where current students can share their stories from particular campus buildings onto the app whereby the visitors can view these stories as they pass by various locations during their tour.
+# GAC Tour - Discover Campus Stories in Real Time
+Welcome to GAC Tour, an innovative crowd-sourced app that brings campus stories to life through dynamic media streams based on users' locations. Designed as a social media platform, this app empowers current students to share their unique stories from specific campus buildings. Visitors, in turn, can access and enjoy these stories as they explore different buildings during their tour.
 
 ![login_page](https://github.com/hardikshr/GAC-Tour/assets/110008888/54b4b36e-dbee-4ba0-8bac-f23a68770512)
 
-## How It's Made:
+## Tech Stack
+Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLocationApi
 
-**Tech used:** Android Studio, Kotlin, Firebase Database, Firebase Storage, GeoLocationApi
+## How It Works
+###User Authentication: The app greets users with a login screen where they can identify as students or guests. Both groups can enjoy the same media streams, but students enjoy the added privilege of contributing their own media.
 
-The starting screen of the app prompts the user to login
-as a student or a guest. Both the parties will be streamed
-the same media but the students will have an additional permission to
-upload media of their liking as well. 
+###Media Sharing: For the prototype, students can choose from a curated list of buildings where they can upload their media. The media content is stored in Firebase storage, organized neatly into folders that correspond to each building on the list.
 
-For the prototype, the students can select from a list of
-buildings where they want to upload the media. The media
-is stored in a firebase storage containing media folders for
-every building on the list. The metadata about the media is
-stored separately on a firebase database in order to facilitate
-scheduling algorithms for streaming the appropriate media.
+###Smart Metadata Handling: To enhance the media streaming experience, metadata about the media is stored separately in a Firebase database. This separation allows for the implementation of intelligent scheduling algorithms, ensuring that the right media is streamed to the right location at the right time.
+
+###Location-Based Streaming: Currently, media associated with a particular building is streamed to the app when the user is within a 50-meter radius of the building. By leveraging reference latitude and longitude coordinates, the app identifies designated areas around each building. These coordinates are meticulously chosen to avoid overlapping areas. Using the GeoLocationApi, the app determines the user's location and triggers media streaming when the user enters a designated area.
 
 ### Student's Screen
 ![student](https://github.com/hardikshr/GAC-Tour/assets/110008888/259c86d1-04ff-4d40-b8a0-61e34c646b4c)
@@ -31,30 +27,28 @@ scheduling algorithms for streaming the appropriate media.
 ### Firebase Database Snapshot
 ![fb_database](https://github.com/hardikshr/GAC-Tour/assets/110008888/56d0e4fb-61ca-4e11-8527-a308b0129291)
 
-Currently, the media for a particular building is streamed
-onto the app once the user is within 50 meters of the building.
-This is achieved by having a reference latitude and longitude
-for a building and specifying a 50 meter radius around those
-coordinates indicating the area covered by the building. The
-reference coordinates are chosen in a way that no two areas
-overlap. The user’s current location can then be gathered
-using the GeoLocationApi and the app detects if the current
-location is within the specified area of a building and streams
-media accordingly.
+##Future Enhancements
+Interactive Mapping: Soon, students will have access to an interactive map feature. This will allow them to drop a pin on any desired location and upload media for that specific geographical area.
 
-## Future Changes
-- The students will have access to a
-map where they can drop a pin to a desired location and
-upload a media for the region enclosing the pin.
+##Optimization Ideas
+###Real-Time Notifications: Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
 
-## Optimizations
-*(optional)*
+###Personalized Recommendations: Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
 
-You don't have to include this section but interviewers *love* that you can not only deliver a final product that looks great but also functions efficiently. Did you write something then refactor it later and the result was 5x faster than the original implementation? Did you cache your assets? Things that you write in this section are **GREAT** to bring up in interviews and you can use this section as reference when studying for technical interviews!
+Lessons Learned
+Through the development of GAC Tour, the team gained insights into effective integration of Firebase services, handling location-based triggers, and designing user-centric features. The project also highlighted the potential for future optimizations to create an even more seamless and engaging user experience.
 
-## Lessons Learned:
+## Project Disclaimer
 
-No matter what your experience level, being an engineer means continuously learning. Every time you build something you always have those *whoa this is awesome* or *fuck yeah I did it!* moments. This is where you should share those moments! Recruiters and interviewers love to see that you're self-aware and passionate about growing.
+This project and its contents are intended to showcase a unique concept and idea. The primary focus is on the innovative concept, and while code and implementation details are provided, they are not released under an open-source license. The project owner retains all rights to the idea and its implementation.
+
+Any use, modification, or distribution of the code or content provided in this repository without explicit permission from the project owner is strictly prohibited. This includes, but is not limited to, copying the concept, replicating functionality, or using any design elements.
+
+## License
+
+This project is **All Rights Reserved**, meaning that all rights for the code and content in this repository are reserved by the owner (you). No one is allowed to use, modify, or distribute the code without explicit permission from the owner. For inquiries or requests related to the concept, please contact shr.hardik@gmail.com.
+
+(C) 2023 Hardik Shrestha
 
 
 
