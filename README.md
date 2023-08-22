@@ -36,6 +36,7 @@ Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLoc
 **2. Personalized Recommendations:** Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
 
 ## Lessons Learned
+
 Through the development of GAC Tour, the team gained insights into effective integration of Firebase services, handling location-based triggers, and designing user-centric features. The project also highlighted the potential for future optimizations to create an even more seamless and engaging user experience.
 
 ## Project Disclaimer
