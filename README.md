@@ -27,13 +27,13 @@ Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLoc
 ### Firebase Database Snapshot
 ![fb_database](https://github.com/hardikshr/GAC-Tour/assets/110008888/56d0e4fb-61ca-4e11-8527-a308b0129291)
 
-##Future Enhancements
+## Future Enhancements
 Interactive Mapping: Soon, students will have access to an interactive map feature. This will allow them to drop a pin on any desired location and upload media for that specific geographical area.
 
-##Optimization Ideas
-###Real-Time Notifications: Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
+## Optimization Ideas
+### Real-Time Notifications: Implement real-time notifications to inform users when they enter an area with available media, enhancing their experience and engagement.
 
-###Personalized Recommendations: Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
+### Personalized Recommendations: Use machine learning algorithms to provide personalized media recommendations based on user preferences and historical interactions.
 
 Lessons Learned
 Through the development of GAC Tour, the team gained insights into effective integration of Firebase services, handling location-based triggers, and designing user-centric features. The project also highlighted the potential for future optimizations to create an even more seamless and engaging user experience.
