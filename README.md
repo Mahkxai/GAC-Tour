@@ -3,10 +3,11 @@ Welcome to GAC Tour, an innovative crowd-sourced app that brings campus stories 
 
 ![login_page](https://github.com/hardikshr/GAC-Tour/assets/110008888/54b4b36e-dbee-4ba0-8bac-f23a68770512)
 
-## Tech Stack
-Built with: Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLocationApi
-
 ## How It Works
+
+### Tech Stack
+**Built with:** Android Studio (Kotlin), Firebase Database, Firebase Storage, GeoLocationApi
+
 **1. User Authentication:** The app greets users with a login screen where they can identify as students or guests. Both groups can enjoy the same media streams, but students enjoy the added privilege of contributing their own media.
 
 **2. Media Sharing:** For the prototype, students can choose from a curated list of buildings where they can upload their media. The media content is stored in Firebase storage, organized neatly into folders that correspond to each building on the list.
