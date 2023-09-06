@@ -62,7 +62,7 @@ class CameraActivity : AppCompatActivity() {
         binding.txtUploadMsg.text = "Taking a Picture for $buildingName..."
 
         storageRef = buildingName.let { FirebaseStorage.getInstance().getReference(it) }
-        dbRef = buildingName.let { FirebaseDatabase.getInstance().getReference(it) }!!
+        dbRef = buildingName.let { FirebaseDatabase.getInstance().getReference(it) }
 
         dbRef.get().addOnSuccessListener {
             picCount = it.childrenCount
