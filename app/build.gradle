@@ -78,4 +78,7 @@ dependencies {
 
     // CameraX View class
     implementation "androidx.camera:camera-view:1.0.0-alpha27"
+
+    // PhotoView library for better image handling
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 }

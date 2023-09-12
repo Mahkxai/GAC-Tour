@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MapActivity">
 
     <TextView
         android:id="@+id/txtBuildingMsg"
@@ -24,31 +26,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <HorizontalScrollView
+
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/custom_map"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/gustavus_adolphus_map_3d_mini_3"
+        android:tint="#99000000"
+        android:scaleType="centerCrop"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
-            android:scaleType="fitStart"
-            android:adjustViewBounds="true"
-            android:src="@drawable/gustavus_adolphus_map_3d"
-            android:tint="#99000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
-    </HorizontalScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/buttonBeck"

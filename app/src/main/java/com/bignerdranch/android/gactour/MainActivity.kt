@@ -5,12 +5,10 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Camera
 import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -18,14 +16,12 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
-import java.lang.Math.pow
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -134,13 +130,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonCamera.setOnClickListener {
-            val intent = Intent(this, StreamActivity::class.java)
+            val intent = Intent(this, MapActivity::class.java)
                 .putExtra("UploadType","Camera")
             startActivity(intent)
         }
 
         buttonGallery.setOnClickListener {
-            val intent = Intent(this, StreamActivity::class.java)
+            val intent = Intent(this, MapActivity::class.java)
                 .putExtra("UploadType","Gallery")
             startActivity(intent)
         }
