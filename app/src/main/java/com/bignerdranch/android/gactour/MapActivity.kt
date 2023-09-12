@@ -2,15 +2,19 @@ package com.bignerdranch.android.gactour
 
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Matrix
+import android.graphics.RectF
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
+import android.provider.ContactsContract.Contacts.Photo
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import java.util.*
+import com.github.chrisbanes.photoview.OnMatrixChangedListener
+import com.github.chrisbanes.photoview.PhotoView
 
-class StreamActivity : AppCompatActivity() {
+class MapActivity : AppCompatActivity() {
     private lateinit var beck: Button
     private lateinit var nobel: Button
     private lateinit var olin: Button
@@ -21,18 +25,36 @@ class StreamActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate(Bundle?) called")
-        setContentView(R.layout.activity_stream)
+        setContentView(R.layout.activity_custom_map)
 
         uploadMethod = intent.getStringExtra("UploadType").toString()
 
-//        uploadMsg = findViewById(R.id.txtUploadMsg)
+        val mapPhotoView: MapPhotoView = findViewById(R.id.custom_map)
+        val pin1: Button = findViewById(R.id.buttonBeck)
+        mapPhotoView.addPin(pin1, 100f, 200f) // Replace x and y with desired positions
+
+        val customMap: PhotoView = findViewById(R.id.custom_map)
+        customMap.minimumScale = 1f
+        customMap.maximumScale = 10.0f
+
+//      adjust scaling and position after view load
+        customMap.post {
+            val scale = 4.0f
+            customMap.setScale(scale, false)
+
+            // Calculate the offset (considering the scaled image)
+//            val offsetX = (10 * scale).toInt()
+//            val offsetY = (100 * scale).toInt()
+
+            // Scroll to the desired position
+//            customMap.scrollTo(-offsetX, -offsetY)
+        }
+
         beck = findViewById(R.id.buttonBeck)
         nobel = findViewById(R.id.buttonNobel)
         olin = findViewById(R.id.buttonOlin)
 
         if (uploadMethod == "Gallery") {
-//            uploadMsg.text = "Select a building where \nyou want to upload your picture."
-
             beck.setOnClickListener {
                 val intent = Intent(this, UploadActivity::class.java)
                     .putExtra("Building","Beck")
