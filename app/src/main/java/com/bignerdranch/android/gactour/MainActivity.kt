@@ -168,10 +168,11 @@ class MainActivity : AppCompatActivity() {
                 Glide.with(this@MainActivity)
                     .load(it)
                     .into(imageview)
-                Log.e("Firebase", "download passed")
+                Log.e("Firebase", "Download passed")
             }.addOnFailureListener {
-                Log.e("Firebase", "Failed in downloading")
+                Log.e("Firebase", "Download Failed")
             }
+
         } else {
             textViewImageId.text = "No images found in the current location"
             imageview.setImageResource(R.drawable.gac_logo)

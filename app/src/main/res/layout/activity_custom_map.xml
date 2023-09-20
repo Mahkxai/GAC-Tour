@@ -8,7 +8,7 @@
     tools:context=".MapActivity">
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/mapFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -38,37 +38,32 @@
         <com.bignerdranch.android.gactour.MapPhotoView
             android:id="@+id/custom_map"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@drawable/gustavus_adolphus_map_3d_mini_3" />
+            android:src="@drawable/gustavus_adolphus_map_3d_mini" />
 
-        <Button
-            android:id="@+id/buttonBeck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beck"
-            app:layout_constraintTop_toTopOf="@id/frameLayout"
-            app:layout_constraintBottom_toBottomOf="@id/frameLayout"
-            app:layout_constraintStart_toStartOf="@id/frameLayout"
-            app:layout_constraintEnd_toEndOf="@id/frameLayout"
-            app:layout_constraintWidth_percent="1.0"
-            app:layout_constraintHeight_percent="1.0"
-            />
-
-
-        <Button
-            android:id="@+id/buttonNobel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nobel"
-           />
-
-        <Button
-            android:id="@+id/buttonOlin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Olin"
-           />
     </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonStream"
+        android:text="Stream"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonUpload"
+        />
+
+    <Button
+        android:id="@+id/buttonUpload"
+        android:visibility="gone"
+        android:text="Upload"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/buttonStream"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 
