@@ -1,169 +1,580 @@
 package com.bignerdranch.android.gactour
 
-import android.content.ContentValues.TAG
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
-import com.github.chrisbanes.photoview.PhotoView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import com.google.android.gms.location.*
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.*
+import java.util.*
 
-class MapActivity : AppCompatActivity() {
-    // first: latitude (X); second: longitude (Y); third: distance to display media
-    private val coordinatesBeck = Triple(-93.97309072033401, 44.32398138197456, 50f)
-    private val coordinatesNobel = Triple(-93.97277916957361, 44.32207370488806, 50f)
-    private val coordinatesOlin = Triple(-93.97341709197065, 44.322791458399685, 50f)
 
-    // Calculate scale factor to translate coordinate position to map position
-    private val coordinatesThreeflags = Triple(-93.969900, 44.324488, 50f)
-    private val coordinatesArb = Triple(-93.975110, 44.320171, 50f)
+const val TAGX = "MapActivity"
+const val PERMISSION_ID = 2
 
-    private val posThreeflags = Pair(3273, 1518)  // Switched the first two parameters
-    private val posArb = Pair(1230, 1693)        // Switched the first two parameters
 
-    private val imgSize = Pair(4346, 2735)       // Switched the first two parameters
+class MapActivity : AppCompatActivity(), OnMapReadyCallback {
+    private lateinit var googleMap: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationRequest: LocationRequest
+    private var locationCallback: LocationCallback? = null
+    private var currentLocation: Location? = null
 
-    private lateinit var beck: Button
-    private lateinit var nobel: Button
-    private lateinit var olin: Button
+    private var currentLoc: Button? = null
+    private lateinit var streamButton: Button
 
     private var uploadMethod: String = ""
     private lateinit var uploadMsg: TextView
+    private lateinit var mapPhotoView: MapPhotoView
+    private lateinit var mapFrameLayout: FrameLayout
 
+    private val coordinatesThreeflags = Triple(-93.969900, 44.324488, 50f)
+
+
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onCreate(Bundle?) called")
         setContentView(R.layout.activity_custom_map)
+//        uploadMethod = intent.getStringExtra("UploadType").toString()
+        uploadMethod = "Gallery"
 
-        uploadMethod = intent.getStringExtra("UploadType").toString()
+        mapPhotoView = findViewById(R.id.custom_map)
+        mapFrameLayout = findViewById(R.id.mapFrameLayout)
 
-        val mapPhotoView: MapPhotoView = findViewById(R.id.custom_map)
-        val drawable = mapPhotoView.drawable
-        val imageWidth = drawable.intrinsicWidth.toFloat()
-        val imageHeight = drawable.intrinsicHeight.toFloat()
-        Log.d("MapActivity", "$imageHeight $imageWidth")
-
-        val beckPin: Button = findViewById(R.id.buttonBeck)
-        val nobelPin: Button = findViewById(R.id.buttonNobel)
-        val olinPin: Button = findViewById(R.id.buttonOlin)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        setupLocationUpdates()
 
 
-//        val locX = coordinatesThreeflags.first
-//        val locY = coordinatesThreeflags.second
-//        val locX = coordinatesArb.first
-//        val locY = coordinatesArb.second
-        val beckX = coordinatesBeck.first
-        val beckY = coordinatesBeck.second
-        val nobelX = coordinatesNobel.first
-        val nobelY = coordinatesNobel.second
-        val olinX = coordinatesOlin.first
-        val olinY = coordinatesOlin.second
-
-        mapPhotoView.addPin(beckPin, beckX, beckY)
-        mapPhotoView.addPin(nobelPin, nobelX, nobelY)
-        mapPhotoView.addPin(olinPin, olinX, olinY)
-
-//        mapPhotoView.addPin(pin1, posArb.first.toFloat() * imgScale, posArb.second.toFloat() * imgScale)
-
-        val customMap: PhotoView = findViewById(R.id.custom_map)
-        customMap.minimumScale = 1f
-        customMap.maximumScale = 10.0f
-        customMap.post {
-            val scale = 1.0f
-            customMap.setScale(scale, false)
-
-            // Calculate the offset (considering the scaled image)
-            // val offsetX = (10 * scale).toInt()
-            //  val offsetY = (100 * scale).toInt()
-
-            // Scroll to the desired position
-            // customMap.scrollTo(-offsetX, -offsetY)
+        try {
+            mapPhotoView.maximumScale = 8f
+            mapPhotoView.mediumScale = 3f
+            mapPhotoView.minimumScale = 1f
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Log.e("ZoomError", "Error setting zoom: ${e.message}")
         }
 
-        beck = findViewById(R.id.buttonBeck)
-        nobel = findViewById(R.id.buttonNobel)
-        olin = findViewById(R.id.buttonOlin)
+        val scale = 5f
+        mapPhotoView.post {
+            mapPhotoView.setScale(scale, false)
 
-        if (uploadMethod == "Gallery") {
-            beck.setOnClickListener {
-                val intent = Intent(this, UploadActivity::class.java)
-                    .putExtra("Building","Beck")
-                startActivity(intent)
+            /* Set Scroll to current location  */
+            fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                if (location != null) {
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+
+                    // Convert current lat/lng to x/y pixels.
+                    val (locX, locY) = mapPhotoView.getPinPosition(longitude, latitude)
+
+                    // Compute how far the desired position is from the center.
+                    // val centerXOffset = mapPhotoView.width / 2 - locX
+                    // val centerYOffset = mapPhotoView.height / 2 - locY
+                    // mapPhotoView.scrollTo((-centerXOffset).toInt(), (-centerYOffset).toInt())
+                }
+            }
+        }
+
+        // Inflate Landmark Buttons onto the MapView
+        LocationProvider.locations.forEach { locationData ->
+            val button = Button(this)
+            button.text = locationData.name
+
+            if (uploadMethod == "Gallery") {
+                button.setOnClickListener {
+                    val intent = Intent(this, UploadActivity::class.java)
+                        .putExtra("Building",button.text)
+                    startActivity(intent)
+                }
+            } else {
+                button.setOnClickListener {
+                    val intent = Intent(this, CameraActivity::class.java)
+                        .putExtra("Building", button.text)
+                    startActivity(intent)
+                }
             }
 
-            nobel.setOnClickListener {
-                val intent = Intent(this, UploadActivity::class.java)
-                    .putExtra("Building","Nobel")
-                startActivity(intent)
-            }
+            button.layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
+                FrameLayout.LayoutParams.WRAP_CONTENT   // Height
+            )
 
-            olin.setOnClickListener {
-                val intent = Intent(this, UploadActivity::class.java)
-                    .putExtra("Building","Olin")
-                startActivity(intent)
+            // Set the button's position on the custom map
+            mapPhotoView.addPin(button, locationData.longitude, locationData.latitude)
+
+            // Inflate button to layout
+            mapFrameLayout.addView(button)
+        }
+
+        streamButton = findViewById(R.id.buttonStream)
+        streamButton.setOnClickListener {
+//            val mediaIntent = Intent(Intent.ACTION_PICK)
+//            mediaIntent.type = "*/*"
+//            val mimeTypes = arrayOf("image/*", "video/*", "audio/*", "text/plain")
+//            mediaIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+
+            val intent = Intent(this, MainActivity::class.java)
+                .putExtra("user","guest")
+            startActivity(intent)
+        }
+
+        /* Load Google Maps
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map_fragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+        */
+
+    }
+
+    private fun setupLocationUpdates() {
+        // Setup the location request
+        locationRequest = LocationRequest.create().apply {
+            interval = 10000 // 10 seconds
+            fastestInterval = 5000 // 5 seconds
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                super.onLocationResult(locationResult)
+                locationResult?.locations?.forEach { location ->
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    Log.d(TAGX, "Lat: $latitude , Long: $longitude")
+
+                    // Inflate Current Location Dynamically
+                    // If the button (marker) hasn't been initialized, create it
+                    if (currentLoc == null) {
+                        currentLoc = Button(this@MapActivity)
+                        currentLoc!!.isClickable = false
+                        currentLoc!!.setBackgroundResource(R.drawable.ic_my_location)
+
+                        currentLoc?.layoutParams = FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
+                            FrameLayout.LayoutParams.WRAP_CONTENT   // Height
+                        )
+
+                        currentLoc!!.setOnClickListener {
+
+                        }
+
+                        // Inflate button to layout
+                        mapFrameLayout.addView(currentLoc)
+                    }
+
+                    // Set the button's position on the custom map
+                    mapPhotoView.addPin(currentLoc!!, longitude, latitude)
+
+                }
             }
+        }
+
+        if (checkPermissions()) {
+            startLocationUpdates()
         } else {
-//            uploadMsg.text = "Select a building where \nyou want to take your picture."
+            requestPermissions()
+        }
+    }
 
-            beck.setOnClickListener {
-                val intent = Intent(this, CameraActivity::class.java)
-                    .putExtra("Building","Beck")
-                startActivity(intent)
-            }
+    @SuppressLint("MissingPermission")
+    private fun startLocationUpdates() {
+        if (checkPermissions()) {  // Check permissions
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper())
+        } else {
+            requestPermissions()
+        }
+    }
 
-            nobel.setOnClickListener {
-                val intent = Intent(this, CameraActivity::class.java)
-                    .putExtra("Building","Nobel")
-                startActivity(intent)
-            }
+    private fun stopLocationUpdates() {
+        locationCallback?.let { fusedLocationClient.removeLocationUpdates(it) }
+    }
 
-            olin.setOnClickListener {
-                val intent = Intent(this, CameraActivity::class.java)
-                    .putExtra("Building","Olin")
-                startActivity(intent)
+    private fun isLocationEnabled(): Boolean {
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
+    }
+
+    private fun checkPermissions(): Boolean {
+        return ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            PERMISSION_ID
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)  // Call the super method
+
+        if (requestCode == PERMISSION_ID) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startLocationUpdates()  // Call startLocationUpdates again here after permissions are granted
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show()
             }
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+        stopLocationUpdates()
+    }
 
-//    val square = { x: Double -> x * x }
-//    val posDistX = posThreeflags.first - posArb.first
-//    val posDistY = posThreeflags.second - posArb.second
-//    val coordinatesDistanceX = coordinatesThreeflags.first - coordinatesArb.first
-//    val coordinatesDistanceY = coordinatesThreeflags.second - coordinatesArb.second
-//    val mapScale = posDistX/coordinatesDistanceX
-//    val imgScale = imageWidth / imgSize.first
-//    val screenScale = mapScale * imgScale
-//
-//    val posDistance = sqrt(square((posThreeflags.first - posArb.first).toDouble())
-//        + square((posThreeflags.second - posArb.second).toDouble()))
-//    val coordinatesDistance = sqrt(square((coordinatesThreeflags.first - coordinatesArb.first).toDouble())
-//            + square((coordinatesThreeflags.second - coordinatesArb.second).toDouble()))
-//    val beckX = ((coordinatesBeck.first - coordinatesThreeflags.first) * screenScale).toFloat() +
-//        posThreeflags.first
-//    val beckY = ((coordinatesBeck.second - coordinatesThreeflags.second) * screenScale).toFloat() +
-//            posThreeflags.second
-
+    override fun onResume() {
+        super.onResume()
+        if (checkPermissions() && isLocationEnabled()) {
+            startLocationUpdates()
+        } else {
+            requestPermissions()
+        }
+    }
 
     override fun onStart() {
         super.onStart()
-        Log.d(TAG, "onStart() called")
+        Log.d(TAGX, "onStart() called")
     }
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume() called")
-    }
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause() called")
-    }
+
     override fun onStop() {
         super.onStop()
-        Log.d(TAG, "onStop() called")
+        Log.d(TAGX, "onStop() called")
     }
+
     override fun onDestroy() {
         super.onDestroy()
-        Log.d(TAG, "onDestroy() called")
+        Log.d(TAGX, "onDestroy() called")
     }
+
+    /* Get a handle to the GoogleMap object and display marker. */
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+        googleMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        googleMap.addMarker(
+            MarkerOptions()
+                .position(LatLng(coordinatesThreeflags.second, coordinatesThreeflags.first))
+                .title("Marker")
+        )
+
+        setupMap()
+    }
+
+    private fun setupMap() {
+        // Set the initial camera position
+        val cameraPosition = CameraPosition.Builder()
+            .target(LatLng(coordinatesThreeflags.second, coordinatesThreeflags.first))
+            .zoom(16f)
+            .bearing(-57f)
+            .build()
+
+        googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition))
+
+        overlay2DMap()
+    }
+
+    private fun overlay2DMap() {
+        // Geographical bounds of image
+        val southWestLat = 44.320107
+        val southWestLon = -93.985287
+
+        val northEastLat = 44.326857
+        val northEastLon = -93.963462
+
+        val imageBounds = LatLngBounds(
+            LatLng(southWestLat, southWestLon),
+            LatLng(northEastLat, northEastLon)
+        )
+
+        /* Add image overlay to Google Maps
+        googleMap.addGroundOverlay(
+            GroundOverlayOptions()
+                .image(BitmapDescriptorFactory.fromResource(R.drawable.gustavus_adolphus_map_2d_mini))
+                .positionFromBounds(imageBounds)
+                .transparency(0.5f)  // Set some transparency
+
+        )
+        */
+
+        googleMap.setLatLngBoundsForCameraTarget(imageBounds)
+        googleMap.setMinZoomPreference(18.0f)
+        // Optional: Hide the underlying Google Map
+//        googleMap.mapType = GoogleMap.MAP_TYPE_NONE
+    }
+
 }
+
+    /* Test Custom Buttons
+    val drawable = mapPhotoView.drawable
+    val imageWidth = drawable.intrinsicWidth.toFloat()
+    val imageHeight = drawable.intrinsicHeight.toFloat()
+    Log.d("MapActivity", "$imageHeight $imageWidth")
+
+    val locX = coordinatesThreeflags.first
+    val locY = coordinatesThreeflags.second
+    val locX = coordinatesArb.first
+    val locY = coordinatesArb.second
+    mapPhotoView.addPin(beckPin, locX, locY)
+
+    val beckPin: Button = findViewById(R.id.buttonBeck)
+    val nobelPin: Button = findViewById(R.id.buttonNobel)
+    val olinPin: Button = findViewById(R.id.buttonOlin)
+    val beckX = coordinatesBeck.first
+    val beckY = coordinatesBeck.second
+    val nobelX = coordinatesNobel.first
+    val nobelY = coordinatesNobel.second
+    val olinX = coordinatesOlin.first
+    val olinY = coordinatesOlin.second
+    mapPhotoView.addPin(beckPin, beckX, beckY)
+    mapPhotoView.addPin(nobelPin, nobelX, nobelY)
+    mapPhotoView.addPin(olinPin, olinX, olinY)
+    */
+
+    /* Extra Test Code
+    val square = { x: Double -> x * x }
+    val posDistX = posThreeflags.first - posArb.first
+    val posDistY = posThreeflags.second - posArb.second
+    val coordinatesDistanceX = coordinatesThreeflags.first - coordinatesArb.first
+    val coordinatesDistanceY = coordinatesThreeflags.second - coordinatesArb.second
+    val mapScale = posDistX/coordinatesDistanceX
+    val imgScale = imageWidth / imgSize.first
+    val screenScale = mapScale * imgScale
+
+    val posDistance = sqrt(square((posThreeflags.first - posArb.first).toDouble())
+        + square((posThreeflags.second - posArb.second).toDouble()))
+    val coordinatesDistance = sqrt(square((coordinatesThreeflags.first - coordinatesArb.first).toDouble())
+            + square((coordinatesThreeflags.second - coordinatesArb.second).toDouble()))
+    val beckX = ((coordinatesBeck.first - coordinatesThreeflags.first) * screenScale).toFloat() +
+        posThreeflags.first
+    val beckY = ((coordinatesBeck.second - coordinatesThreeflags.second) * screenScale).toFloat() +
+            posThreeflags.second
+    */
+
+    /* Previous Code to Get Dynamic Locations Updates
+    private fun setupLocationUpdates() {
+        Log.d(TAGX, "Successful Call")
+
+        if (!checkPermissions()) {
+            requestPermissions()
+            return
+        }
+
+        if (!isLocationEnabled()) {
+            Toast.makeText(this, "Please turn on location", Toast.LENGTH_LONG).show()
+            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+            startActivity(intent)
+            return
+        }
+
+        // Setup the location request
+        locationRequest = LocationRequest.create().apply {
+            interval = 10000 // 10 seconds
+            fastestInterval = 5000 // 5 seconds
+            smallestDisplacement = 3f
+            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        }
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                super.onLocationResult(locationResult)
+                locationResult?.locations?.forEach { location ->
+                    val latitude = location.latitude
+                    val longitude = location.longitude
+                    Log.d(TAGX, "Lat: $latitude , Long: $longitude")
+                }
+            }
+        }
+
+        startLocationUpdates()
+    }
+
+
+
+    @SuppressLint("MissingPermission", "SetTextI18n")
+    /* private fun getLocation() {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                fusedLocationClient.lastLocation.addOnCompleteListener(this) { task ->
+                    val location: Location? = task.result
+                    if (location != null) {
+                        val geocoder = Geocoder(this, Locale.getDefault())
+                        val list: List<Address> =
+                            geocoder.getFromLocation(location.latitude, location.longitude, 1)
+
+                        val address = list[0].getAddressLine(0)
+                        val latitude = list[0].latitude
+                        val longitude = list[0].longitude
+
+                        Log.d(TAGX, "Lat: $latitude , Long: $longitude")
+//                            tvCountryName.text = "Country Name\n${list[0].countryName}"
+//                            tvLocality.text = "Locality\n${list[0].locality}"
+//                            tvAddress.text = "Address\n${list[0].getAddressLine(0)}"
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please turn on location", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            requestPermissions()
+        }
+    } */
+
+    /* Current Location Updates */
+    /* private fun getLocationUpdates() {
+        if (checkPermissions()) {
+            if (isLocationEnabled()) {
+                locationRequest = LocationRequest.create()?.apply {
+                    interval = 1000
+                    fastestInterval = 500
+                    smallestDisplacement = 3f
+                    priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+                }!!
+
+                locationCallback = object : LocationCallback() {
+                    override fun onLocationResult(locationResult: LocationResult?) {
+                        super.onLocationResult(locationResult)
+//                        locationResult ?: return
+                        Log.d(TAGX, "location object created")
+
+                        if (locationResult != null) {
+                            Log.d(TAGX, "location received")
+
+                            for (location in locationResult.locations){
+                                // Update UI with location data
+                                val latitude = location.latitude
+                                val longitude = location.longitude
+
+                                Log.d(TAGX, "Lat: $latitude , Long: $longitude")
+                            }
+                        }
+                    }
+                }
+            } else {
+                Toast.makeText(this, "Please turn on location", Toast.LENGTH_LONG).show()
+                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                startActivity(intent)
+            }
+        } else {
+            requestPermissions()
+        }
+    } */
+
+    //start location updates
+    private fun startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper())
+        }
+    }
+
+    // stop location updates
+    private fun stopLocationUpdates() {
+    }
+
+    private fun isLocationEnabled(): Boolean {
+        val locationManager: LocationManager =
+            getSystemService(Context.LOCATION_SERVICE) as LocationManager
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+            LocationManager.NETWORK_PROVIDER
+        )
+    }
+
+    private fun checkPermissions(): Boolean {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            return true
+        }
+        return false
+    }
+
+    private fun requestPermissions() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ),
+            permissionId
+        )
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == permissionId) {
+            if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                getLocationUpdates()
+            }
+        }
+    }
+
+
+    // stop receiving location update when activity not visible/foreground
+    override fun onPause() {
+        super.onPause()
+        if (locationCallback != null) {
+            fusedLocationClient.removeLocationUpdates(locationCallback)
+        }
+    }
+
+    // start receiving location update when activity  visible/foreground
+    override fun onResume() {
+        super.onResume()
+        startLocationUpdates()
+    }
+    */

@@ -1,3 +1,5 @@
+// https://yangcha.github.io/iview/iview.html to find pixel coordinates
+
 package com.bignerdranch.android.gactour
 
 import android.content.Context
@@ -6,23 +8,50 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.Button
 import com.github.chrisbanes.photoview.PhotoView
-import java.util.zip.InflaterOutputStream
-import kotlin.math.sqrt
+import org.opencv.android.OpenCVLoader
+import org.opencv.calib3d.Calib3d.findHomography
+import org.opencv.core.Core.perspectiveTransform
+import kotlin.math.*
+import org.opencv.core.MatOfPoint2f
+import org.opencv.core.Point
 
 class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, attrs) {
 
     private val pins = mutableListOf<Button>()
-    // Calculate scale factor to translate coordinate position to map position
-    private val coordinatesThreeflags = Triple(-93.969900, 44.324488, 50f)
-    private val coordinatesArb = Triple(-93.975110, 44.320171, 50f)
-    private val posThreeflags = Pair(3273.0, -1518.0)
-    private val posArb = Pair(1230.0, -1693.0)
-    private val imgSize = Pair(4346.0, 2735.0)
-    private val refLoc = Pair(coordinatesThreeflags.first, coordinatesThreeflags.second)
-//    private val refLoc : Pair<Float, Float> = Pair(coordinatesThreeflags.first.toFloat(), coordinatesThreeflags.second.toFloat())
 
+    // Reference Real Coordinates
+    private val realTennis = Pair(-93.972493, 44.329580)
+    private val realPlex = Pair(-93.967557, 44.324720)
+    private val realPitt = Pair(-93.973291, 44.319415)
+    private val realRound = Pair(-93.984849, 44.326233)
+    private val realTornado = Pair(-93.972247, 44.323026)
+    private val realArb = Triple(-93.975110, 44.320171, 50f)
+    private val realThreeFlags = Triple(-93.969900, 44.324488, 50f)
+
+    //  3D Map Reference Pixel Coordinates
+    private val imgSize = Pair(4346.0, 2735.0)
+    private val pixelTennis = Pair(3612.0, -634.0)  // Top Left corner of NE Tennis Court
+    private val pixelPlex = Pair(3839.0, -1773.0)   // Bottom right of Plex
+    private val pixelPitt = Pair(1287.0, -2112.0)   // Bottom left of Pittman
+    private val pixelRound = Pair(1426.0, -242.0)   // Roundabout near the High School (Top Left)
+    private val pixelTornado = Pair(2495.0, -1510.0)
+    private val pixelThreeFlags = Pair(3274.0, -1518.0)
+    private val pixelArb = Pair(1230.0, -1693.0)
+
+    /* //    2D Map Reference Pixel Coordinates
+    private val imgSize = Pair(2866.0, 2098.0)
+    private val pixelThreeflags = Pair(1947.0, -1493.0)
+    private val pixelArb = Pair(742.0, -1305.0)
+    */
 
     init {
+        // Initialize OpenCV for Matrix transformations
+        if (!OpenCVLoader.initDebug()) {
+            Log.e("OpenCV", "Unable to load OpenCV");
+        } else {
+            Log.d("OpenCV", "OpenCV loaded");
+        }
+
         setOnMatrixChangeListener {
             for (button in pins) {
                 val originalX = button.tag as FloatArray
@@ -31,111 +60,72 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         }
     }
 
+    // Helper function to communicate with Activities
     fun addPin(button: Button, x: Double, y: Double) {
         pins.add(button)
         button.tag = floatArrayOf(x.toFloat(), y.toFloat())
 
+        val (newX, newY) = getPinPosition(x, y)
+        updatePinPosition(button, newX, newY)
+
+        /*
         val buildingLoc = Pair(x, y)
-
-        val rotatedLoc = rotatePoint(buildingLoc, getRotationAngle().toDouble(), refLoc)
+        val rotatedLoc = rotatePoint(buildingLoc, getRotationAngle(), refLoc)
         val newPos = scalePoint(rotatedLoc)
-
-//        val newPos = scalePoint(buildingLoc)
-//        val rotatedLoc = rotatePoint(newPos, getRotationAngle().toDouble(), refLoc)
-
-//        Log.d("MapActivity", "Before: $x $y")
-//        Log.d("MapActivity", "After: $rotatedLoc")
-        Log.d("MapActivity", "Final: $newPos")
-
         updatePinPosition(button, newPos.first, newPos.second)
+        */
     }
 
-    private fun getRotationAngle(): Double {
-        val calculateAngle: (Double, Double, Double, Double) -> Double = { x1, y1, x2, y2 ->
-            Math.atan2((y2 - y1), (x2 - x1)).toDouble()
-        }
-
-        val realAngle = calculateAngle(coordinatesThreeflags.first, coordinatesThreeflags.second,
-            coordinatesArb.first, coordinatesArb.second)
-//        Log.d("MapActivity", "real ${Math.toDegrees(realAngle.toDouble())}")
-
-
-        val imageAngle = calculateAngle(posThreeflags.first, posThreeflags.second,
-            posArb.first, posArb.second)
-
-//        Log.d("MapActivity", "Pos ${posThreeflags.first} ${posThreeflags.second} ${posArb.first} ${posArb.second}")
-//        Log.d("MapActivity", "img ${Math.toDegrees(imageAngle.toDouble())}")
-
-
-        return realAngle - imageAngle
-    }
-
-    fun rotatePoint(
-        buildingLoc: Pair<Double, Double>, angle: Double, refLoc: Pair<Double, Double>
-    ): Pair<Double, Double> {
-
-        val (x0, y0) = refLoc
-        val (x1, y1) = buildingLoc
-        val rotationAngle = angle * -1f
-        // Translate point to origin
-        val translatedX = x1 - x0
-        val translatedY = y1 - y0
-
-        // Rotate the point
-        val xnew = translatedX * Math.cos(rotationAngle) - translatedY * Math.sin(rotationAngle)
-        val ynew = translatedX * Math.sin(rotationAngle) + translatedY * Math.cos(rotationAngle)
-
-        // Translate the point back
-        val finalX = xnew + x0
-        val finalY = ynew + y0
-
-        return Pair(finalX.toDouble(), finalY.toDouble())
-    }
-
-
-    private fun scalePoint(pos: Pair<Double, Double>): Pair<Double, Double> {
+    // Transforms real coordiantes to pixel coordinates
+    fun getPinPosition(x: Double, y: Double): Pair<Double, Double> {
+        val distance = { dx: Double, dy: Double -> sqrt(dx * dx + dy * dy) }
         val drawable = this.drawable
         val imageWidth = drawable.intrinsicWidth.toDouble()
         val imageHeight = drawable.intrinsicHeight.toDouble()
-
-        val posDistX = posThreeflags.first - posArb.first
-        val posDistY = posThreeflags.second - posArb.second
-        val coordinatesDistanceX = coordinatesThreeflags.first - coordinatesArb.first
-        val coordinatesDistanceY = coordinatesThreeflags.second - coordinatesArb.second
-        val imgScaleX = imageWidth / imgSize.first
-        val imgScaleY = imageHeight / imgSize.second
-        val mapScaleX = posDistX/coordinatesDistanceX
-        val mapScaleY = posDistY/coordinatesDistanceY
-        val screenScaleX =  mapScaleX * imgScaleX
-        val screenScaleY =  mapScaleY * imgScaleY
-
-//        val square = { x: Double -> x * x }
-        val distance = { dx: Double, dy: Double -> sqrt(dx * dx + dy * dy) }
-        val posDistance = distance(posDistX,  posDistY)
-        val coordDistance = distance(coordinatesDistanceX, coordinatesDistanceY)
         val imgDistance = distance(imgSize.first, imgSize.second)
         val scrnDistance = distance(imageWidth, imageHeight)
         val imgScale =  scrnDistance / imgDistance
-        val mapScale = posDistance / coordDistance
-        val screenScale =  mapScale * imgScale * 0.87f
 
-//        val posDistance = sqrt(square(posDistX) + square(posDistY))
-//        val coordDistance = sqrt(square(coordinatesDistanceX) + square(coordinatesDistanceY))
-//        val imgDistance = sqrt(square())
+        // Defining your four real-world points
+        val realPoints = listOf(
+            Point(realTennis.first, realTennis.second),
+            Point(realPlex.first, realPlex.second),
+            Point(realPitt.first, realPitt.second),
+            Point(realRound.first, realRound.second)
+        )
 
-        val xDiff = pos.first - refLoc.first
-        val yDiff = pos.second - refLoc.second
+        // Defining your corresponding four pixel points
+        val pixelPoints = listOf(
+            Point(pixelTennis.first, pixelTennis.second),
+            Point(pixelPlex.first, pixelPlex.second),
+            Point(pixelPitt.first, pixelPitt.second),
+            Point(pixelRound.first, pixelRound.second)
+        )
 
-        val finalX = ( (xDiff * screenScale) + (posThreeflags.first*imgScale) )
-        val finalY = ( (yDiff * screenScale) + (posThreeflags.second*imgScale) )
+        // Converting points to MatOfPoint2f format which is required by the findHomography method
+        val realMat = MatOfPoint2f()
+        val pixelMat = MatOfPoint2f()
+        realMat.fromList(realPoints)
+        pixelMat.fromList(pixelPoints)
 
-        Log.d("MapActivity", "Diff: $xDiff $yDiff")
-        Log.d("MapActivity", "IMG: $imgScaleX $imgScaleY MAP: $mapScaleX $mapScaleY SCR: $screenScaleX $screenScaleY")
-        Log.d("MapActivity", "Before: $pos After: ${Pair(finalX, -1* finalY)}")
+        // Calculating the transformation matrix
+        val homographyMatrix = findHomography(realMat, pixelMat)
 
-        return Pair(finalX, -1 * finalY)
+        // Transforming the points using the perspectiveTransform method
+        val srcPoint = MatOfPoint2f(Point(x, y))
+        val dstPoint = MatOfPoint2f()
+        perspectiveTransform(srcPoint, dstPoint, homographyMatrix)
+
+        // Adjusting the transformed points with device scaling
+        val transformed = dstPoint.toArray()[0]
+        val finalX = transformed.x * imgScale
+        val finalY = -1 * transformed.y * imgScale
+
+        return Pair(finalX, finalY)
+        // Log.d("MapActivity", "Transformed Point: x = $finalX, y = $finalY")
     }
 
+    // Maps transformed points to matrix and applies to PhotoView
     private fun updatePinPosition(button: Button, x: Double, y: Double) {
         val matrix = Matrix(imageMatrix)
         val points = floatArrayOf(x.toFloat(), y.toFloat())
@@ -144,5 +134,102 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         button.translationX = points[0] - button.width / 2
         button.translationY = points[1] - button.height / 2
         button.tag = floatArrayOf(x.toFloat(), y.toFloat())
+
+        // Log.d("MapActivity", "${button.text} Map Point: x = ${button.translationX}, y = ${button.translationY}")
     }
+
+    /*
+    private fun scalePoint(pos: Pair<Double, Double>): Pair<Double, Double> {
+        val distance = { dx: Double, dy: Double -> sqrt(dx * dx + dy * dy) }
+
+        // Image information
+        val drawable = this.drawable
+
+        val imageWidth = drawable.intrinsicWidth.toDouble()
+        val imageHeight = drawable.intrinsicHeight.toDouble()
+
+        val imgScaleX = imageWidth / imgSize.first
+        val imgScaleY = imageHeight / imgSize.second
+
+        // Calculate pixel density
+        val pixelDensity = context.resources.displayMetrics.density
+
+        // Calculate vector difference of input coordinates and reference coordinates
+        val deltaX = pos.first - realTornado.first
+        val deltaY = pos.second - realTornado.second
+
+        // Calculate the pixel and real-world distances for reference points
+        val pixelDistX = pixelTornado.first - pixelTennis.first
+        val pixelDistY = pixelTornado.second - pixelTennis.second
+
+        val realDistX = realTornado.first - realTennis.first
+        val realDistY = realTornado.second - realTennis.second
+
+        val mapScaleX = abs(pixelDistX/realDistX)
+        val mapScaleY = abs(pixelDistY/realDistY)
+
+        val screenScaleX =  abs(mapScaleX * imgScaleX)
+        val screenScaleY =  abs(mapScaleY * imgScaleY)
+
+        val imgDistance = distance(imgSize.first, imgSize.second)
+        val scrnDistance = distance(imageWidth, imageHeight)
+        val imgScale =  scrnDistance / imgDistance
+        val pixelDistance = distance(pixelDistX,  pixelDistY)
+        val realDistance = distance(realDistX, realDistY)
+        val mapScale = abs(pixelDistance / realDistance)
+        val screenScale =  abs(mapScale * imgScale)
+
+        val finalX = ( (deltaX * mapScale * imgScaleX) + (pixelTornado.first * imgScaleX) )
+        val finalY = ( (deltaY * mapScale * imgScaleY) + (pixelTornado.second * imgScaleY) )
+
+//        val finalX = ( (deltaX * scaleX) + (pixelTornado.first) )
+//        val finalY = ( (deltaY * scaleY) + (pixelTornado.second) )
+
+        Log.d("MapActivity", "Diff: $deltaX $deltaY  PxDensity: $pixelDensity")
+        Log.d("MapActivity", "IMG: $imgScale MAP: $mapScale SCR: $screenScale")
+        Log.d("MapActivity", "IMG: $imgScaleX $imgScaleY MAP: $mapScaleX $mapScaleY SCR: $screenScaleX $screenScaleY")
+
+        Log.d("MapActivity", "Before: $pos After: ${Pair(finalX, -1* finalY)}")
+
+        return Pair(finalX, -1 * finalY)
+    }
+    */
+
+    /*
+    private fun getRotationAngle(): Double {
+        val calculateAngle: (Double, Double, Double, Double) -> Double = { x1, y1, x2, y2 ->
+            atan2((y2 - y1), (x2 - x1))
+        }
+        val realAngle = calculateAngle(realTornado.first, realTornado.second,
+            realTennis.first, realTennis.second)
+        val imageAngle = calculateAngle(pixelTornado.first, pixelTornado.second,
+            pixelTennis.first, pixelTennis.second)
+        return realAngle - imageAngle
+    }
+    */
+
+    /*
+    private fun rotatePoint(
+        buildingLoc: Pair<Double, Double>, angle: Double, refLoc: Pair<Double, Double>
+    ): Pair<Double, Double> {
+
+        val (x0, y0) = refLoc
+        val (x1, y1) = buildingLoc
+        val rotationAngle = angle * -1f
+
+        // Translate point to origin
+        val translatedX = x1 - x0
+        val translatedY = y1 - y0
+
+        // Rotate the point
+        val xNew = translatedX * cos(rotationAngle) - translatedY * sin(rotationAngle)
+        val yNew = translatedX * sin(rotationAngle) + translatedY * cos(rotationAngle)
+
+        // Translate the point back
+        val finalX = xNew + x0
+        val finalY = yNew + y0
+
+        return Pair(finalX, finalY)
+    }
+    */
 }
