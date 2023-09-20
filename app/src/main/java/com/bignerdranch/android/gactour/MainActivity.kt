@@ -9,8 +9,11 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.media.MediaPlayer
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
@@ -23,6 +26,7 @@ import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.util.*
+import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -54,21 +58,44 @@ class MainActivity : AppCompatActivity() {
     private lateinit var buttonUpload: ImageButton
     private lateinit var buttonCamera: ImageButton
     private lateinit var buttonGallery: ImageButton
+    private lateinit var buttonMap: Button
+
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
     private var locationCallback: LocationCallback? = null
 //    private lateinit var locationCallback: LocationCallback
 
+    private var address: String = "Current Location"
+
 //    private var currentLocation: Location? = null
     private val permissionId = 2
     private var user: String = ""
+
+    private var mediaFileIds: List<String> = listOf()
+    private var currentIndex: Int = 0
+
+    private var isMediaPlayerValid = true
+    private val mediaPlayer = MediaPlayer()
+    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var updateRunnable: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//        getLocation()
+        getLocationUpdates()
+
         user = intent.getStringExtra("user").toString()
+
+        buttonMap = findViewById(R.id.buttonMap)
+        buttonMap.setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+                .putExtra("UploadType","Camera")
+            startActivity(intent)
+        }
 
         imageview = findViewById(R.id.imageCurrentMedia)
         textViewBuilding= findViewById(R.id.textCurrentBuilding)
@@ -84,25 +111,32 @@ class MainActivity : AppCompatActivity() {
         buttonCamera = findViewById(R.id.btnCamera)
         buttonGallery = findViewById(R.id.btnGallery)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        getLocationUpdates()
-
         var num = 1L
-        displayImage(num, currentBuilding)
+//        displayImage(num, currentBuilding)
 
         buttonPrev.setOnClickListener {
-            num--;
-            if (num == 0L) num = picCount
-            Log.d(TAG, "Prev $num")
-            displayImage(num)
+            currentIndex = (currentIndex - 1 + mediaFileIds.size) % mediaFileIds.size
+            displayMedia(currentIndex)
         }
 
         buttonNext.setOnClickListener {
-            num++;
-            if (num > picCount) num = 1
-            Log.d(TAG, "Next $num")
-            displayImage(num)
+            currentIndex = (currentIndex + 1) % mediaFileIds.size
+            displayMedia(currentIndex)
         }
+
+//        buttonPrev.setOnClickListener {
+//            num--;
+//            if (num == 0L) num = picCount
+//            Log.d(TAG, "Prev $num")
+//            displayImage(num)
+//        }
+//
+//        buttonNext.setOnClickListener {
+//            num++;
+//            if (num > picCount) num = 1
+//            Log.d(TAG, "Next $num")
+//            displayImage(num)
+//        }
 
         if (user == "guest") {
             buttonUpload.visibility = View.GONE
@@ -142,6 +176,231 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun getCurrentBuilding(currentLat: Double, currentLong: Double): String {
+        val distanceFromBeckDeg = sqrt((currentLat - beck.first).pow(2) + (currentLong - beck.second).pow(2))
+        val distanceFromNobelDeg = sqrt((currentLat - nobel.first).pow(2) + (currentLong - nobel.second).pow(2))
+        val distanceFromOlinDeg = sqrt((currentLat - olin.first).pow(2) + (currentLong - olin.second).pow(2))
+
+        val distanceFromBeckM = distanceFromBeckDeg/0.001f * 111f
+        val distanceFromNobelM = distanceFromNobelDeg/0.001f * 111f
+        val distanceFromOlinM = distanceFromOlinDeg/0.001f * 111f
+
+        textViewBeckDistance.text = "Beck: $distanceFromBeckM"
+        textViewNobelDistance.text = "Nobel: $distanceFromNobelM"
+        textViewOlinDistance.text = "Olin: $distanceFromOlinM"
+//        Log.d(TAG, "Beck: $distanceFromBeckM, Nobel: $distanceFromNobelM, Olin: $distanceFromOlinM")
+
+        if (distanceFromBeckM < beck.third) {
+            // check if Beck
+            return "Beck"
+        }
+        else if (distanceFromNobelM < nobel.third) {
+            // check if Nobel
+            return "Nobel"
+        }
+        else if (distanceFromOlinM < olin.third) {
+            // check if Olin
+            return "Olin"
+        }
+        return "Walking"
+    }
+
+    private fun displayMedia(index: Int) {
+        val videoView: VideoView = findViewById(R.id.videoView)
+        val playButton: ImageButton = findViewById(R.id.playButton)
+
+        val playPauseButton = findViewById<Button>(R.id.playPauseButton)
+        val seekBar = findViewById<SeekBar>(R.id.seekBar)
+        var isPlaying = false
+
+        videoView.visibility = View.GONE
+        videoView.stopPlayback()
+        seekBar.visibility = View.GONE
+        playPauseButton.visibility = View.GONE
+        playButton.visibility = View.GONE
+        // Stop the video playback if any
+//        imageview.visibility = View.GONE
+        // For audio, you can reset or stop the media player if it's playing
+        if(mediaPlayer.isPlaying) {
+            mediaPlayer.stop()
+            mediaPlayer.reset()
+        }
+
+        if (mediaFileIds.isNotEmpty()) {
+            val fileId = mediaFileIds[index]
+            buttonPrev.visibility = View.VISIBLE
+            buttonNext.visibility = View.VISIBLE
+
+            val extension = fileId.substringAfterLast(".", "")
+
+            Log.d(TAG, "$fileId")
+
+            // Use fileId to download from Firebase Storage
+            storageRef.child(fileId).downloadUrl.addOnSuccessListener { uri ->
+                playPauseButton.setOnClickListener {
+                    if (isPlaying) {
+                        mediaPlayer.pause()
+                        playPauseButton.text = "Play"
+                    } else {
+                        mediaPlayer.start()
+                        playPauseButton.text = "Pause"
+                    }
+                    isPlaying = !isPlaying
+                }
+
+                // Update SeekBar while song is playing
+                val updateSeekBar = object : Runnable {
+                    override fun run() {
+                        if (isMediaPlayerValid) {
+                            seekBar.progress = mediaPlayer.currentPosition
+                            handler.postDelayed(this, 1000)
+                        }
+                    }
+                }
+
+                mediaPlayer.setOnPreparedListener {
+                    seekBar.max = mediaPlayer.duration
+                    seekBar.visibility = View.VISIBLE
+                    playPauseButton.visibility = View.VISIBLE
+                    handler.post(updateSeekBar)
+                }
+
+                seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+                    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                        if (fromUser) {
+                            mediaPlayer.seekTo(progress)
+                        }
+                    }
+                    override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+
+                    override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+                })
+
+
+                when (extension) {
+
+                    "jpg", "jpeg", "png" -> {
+                        Glide.with(this).load(uri).into(imageview)
+                        videoView.visibility = View.GONE
+                        imageview.visibility = View.VISIBLE
+                    }
+                    "mp4", "3gp" -> {
+                        val progressBar: ProgressBar = findViewById(R.id.progressBar)
+
+                        videoView.setOnInfoListener { _, what, _ ->
+                            when (what) {
+                                MediaPlayer.MEDIA_INFO_BUFFERING_START -> progressBar.visibility = View.VISIBLE
+                                MediaPlayer.MEDIA_INFO_BUFFERING_END -> progressBar.visibility = View.GONE
+                            }
+                            true
+                        }
+
+                        videoView.setOnPreparedListener { mediaPlayer ->
+                            mediaPlayer.setVideoScalingMode(MediaPlayer.VIDEO_SCALING_MODE_SCALE_TO_FIT)
+                            progressBar.visibility = View.GONE
+                            videoView.start()
+                        }
+
+                        videoView.setOnCompletionListener {
+                            playButton.visibility = View.VISIBLE
+                        }
+
+                        videoView.setVideoURI(uri)
+                        videoView.visibility = View.VISIBLE
+                        imageview.visibility = View.GONE
+
+                        playButton.setOnClickListener {
+                            videoView.start()
+                            playButton.visibility = View.GONE
+                        }
+
+                        /*********/
+//                        videoView.setVideoURI(uri)
+//                        videoView.visibility = View.VISIBLE
+//                        imageview.visibility = View.GONE
+//                        videoView.start()
+//
+//                        playButton.setOnClickListener {
+//                            videoView.start()
+//                            playButton.visibility = View.GONE
+//                        }
+
+                    }
+                    "mp3", "wav" -> {
+                        mediaPlayer.reset()
+                        mediaPlayer.setDataSource(this, uri)
+                        mediaPlayer.prepare()  // Asynchronous preparation might be better, using prepareAsync()
+                        mediaPlayer.start()
+                        isPlaying = true
+                        playPauseButton.text = "Pause"
+                    }
+                }
+
+                videoView.setOnCompletionListener {
+                    playButton.visibility = View.VISIBLE
+                }
+
+                // Release the MediaPlayer resources when you no longer need them
+                mediaPlayer.setOnCompletionListener {
+                    isMediaPlayerValid = false
+                }
+//                when (extension) {
+//                    "jpg", "jpeg", "png" -> playImage(uri)
+//                    "mp4", "3gp" -> playVideo(uri)
+//                    "mp3", "wav" -> playAudio(uri)
+//                    else -> {
+//                        // Handle unrecognized extensions
+//                    }
+//                }
+                textViewImageId.text = fileId
+            }.addOnFailureListener {
+                Log.e("Firebase", "Download Failed")
+            }
+        } else {
+            textViewImageId.text = "No media files found in $address"
+            imageview.setImageResource(R.drawable.gac_logo)
+        }
+    }
+
+    private fun playImage(uri: Uri) {
+        Glide.with(this@MainActivity)
+            .load(uri)
+            .into(imageview)
+        imageview.visibility = View.VISIBLE
+        // Hide VideoView and stop any other media players
+    }
+
+    private fun playVideo(uri: Uri) {
+        val videoView: VideoView = findViewById(R.id.videoView)
+        val playButton: ImageButton = findViewById(R.id.playButton)
+
+        videoView.setVideoURI(uri)
+        videoView.start()
+
+        playButton.setOnClickListener {
+            videoView.start()
+            playButton.visibility = View.GONE
+        }
+
+        videoView.setOnCompletionListener {
+            playButton.visibility = View.VISIBLE
+        }
+    }
+
+    private fun playAudio(uri: Uri) {
+        val mediaPlayer = MediaPlayer().apply {
+            setDataSource(applicationContext, uri)
+            prepare()  // Asynchronous preparation might be better using prepareAsync()
+            start()
+        }
+
+        // ... set up your audio controls and listeners as in your upload code ...
+        // Ensure you have isMediaPlayerValid and other required properties defined at the class level
+    }
+
+
+
+    /* Previous function used to display on images
     private fun displayImage(num: Long, building: String = currentBuilding) {
         if (building != "Walking") {
             val imageID = "IMG_${building}_$num.jpg"
@@ -158,6 +417,7 @@ class MainActivity : AppCompatActivity() {
                     // This method is called once with the initial value and again
                     // whenever data at this location is updated.
                     picCount = dataSnapshot.childrenCount
+//                    Log.d(TAG, "${dataSnapshot.value} $picCount")
                 }
                 override fun onCancelled(error: DatabaseError) {
                     // Failed to read value
@@ -174,12 +434,13 @@ class MainActivity : AppCompatActivity() {
             }
 
         } else {
-            textViewImageId.text = "No images found in the current location"
+            textViewImageId.text = "No images found in $address"
             imageview.setImageResource(R.drawable.gac_logo)
             buttonPrev.visibility = View.GONE
             buttonNext.visibility = View.GONE
         }
     }
+    */
 
     @SuppressLint("MissingPermission", "SetTextI18n")
     private fun getLocation() {
@@ -192,7 +453,7 @@ class MainActivity : AppCompatActivity() {
                         val list: List<Address> =
                             geocoder.getFromLocation(location.latitude, location.longitude, 1)
 
-                        val address = list[0].getAddressLine(0)
+                        address = list[0].getAddressLine(0)
                         val latitude = list[0].latitude
                         val longitude = list[0].longitude
 
@@ -200,13 +461,13 @@ class MainActivity : AppCompatActivity() {
                         textViewLatitude= findViewById(R.id.textLatitude)
                         textViewLongitude= findViewById(R.id.textLongitude)
 
-
-                        textViewBuilding.text = if (currentBuilding == "Walking") "No Images Found in the Current Location"
+                        textViewBuilding.text =
+                            if (currentBuilding == "Walking") "No Images Found in $address"
                             else "You're in $currentBuilding"
                         textViewLatitude.text = "Latitude: $latitude"
                         textViewLongitude.text = "Longitude: $longitude"
 
-                        Log.d(TAG, "Lat: $latitude , Long: $longitude")
+//                        Log.d(TAG, "Lat: $latitude , Long: $longitude")
 //                            tvCountryName.text = "Country Name\n${list[0].countryName}"
 //                            tvLocality.text = "Locality\n${list[0].locality}"
 //                            tvAddress.text = "Address\n${list[0].getAddressLine(0)}"
@@ -221,7 +482,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissions()
         }
     }
-
 
     private fun getLocationUpdates() {
         if (checkPermissions()) {
@@ -238,10 +498,10 @@ class MainActivity : AppCompatActivity() {
                     override fun onLocationResult(locationResult: LocationResult?) {
                         super.onLocationResult(locationResult)
 //                        locationResult ?: return
-                        Log.d(TAG, "location object created")
+//                        Log.d(TAG, "location object created")
 
                         if (locationResult != null) {
-                            Log.d(TAG, "location received")
+//                            Log.d(TAG, "location received")
 
                             for (location in locationResult.locations){
                                 // Update UI with location data
@@ -251,16 +511,30 @@ class MainActivity : AppCompatActivity() {
                                 oldBuilding = currentBuilding
                                 currentBuilding = getCurrentBuilding(latitude, longitude)
 
+                                Log.d(TAG, "$currentBuilding")
+
                                 if (oldBuilding != currentBuilding) {
-                                    displayImage(1L, currentBuilding)
+                                    // Initialize references
+                                    storageRef = FirebaseStorage.getInstance().getReference(currentBuilding)
+                                    dbRef = FirebaseDatabase.getInstance().getReference(currentBuilding)
+
+                                    // Fetch media IDs once
+                                    dbRef.get().addOnSuccessListener { dataSnapshot ->
+                                        mediaFileIds = dataSnapshot.children.mapNotNull { it.value?.toString() }
+                                        Log.d(TAG, "First Call: $mediaFileIds IX: $currentIndex")
+                                        displayMedia(currentIndex)
+                                    }.addOnFailureListener {
+                                        Log.e("Firebase", "Failed to fetch file IDs")
+                                    }
                                 }
 
-                                textViewBuilding.text = if (currentBuilding == "Walking") "No Images Found in the Current Location"
-                                else "You're in $currentBuilding"
+                                textViewBuilding.text =
+                                    if (currentBuilding == "Walking") "No Images Found in $address"
+                                    else "You're in $currentBuilding"
                                 textViewLatitude.text = "Latitude: $latitude"
                                 textViewLongitude.text = "Longitude: $longitude"
 
-                                Log.d(TAG, "Lat: $latitude , Long: $longitude")
+//                                Log.d(TAG, "Lat: $latitude , Long: $longitude")
                             }
                         }
                     }
@@ -273,35 +547,6 @@ class MainActivity : AppCompatActivity() {
         } else {
             requestPermissions()
         }
-    }
-
-    private fun getCurrentBuilding(currentLat: Double, currentLong: Double): String {
-        val distanceFromBeckDeg = sqrt((currentLat - beck.first).pow(2) + (currentLong - beck.second).pow(2))
-        val distanceFromNobelDeg = sqrt((currentLat - nobel.first).pow(2) + (currentLong - nobel.second).pow(2))
-        val distanceFromOlinDeg = sqrt((currentLat - olin.first).pow(2) + (currentLong - olin.second).pow(2))
-
-        val distanceFromBeckM = distanceFromBeckDeg/0.001f * 111f
-        val distanceFromNobelM = distanceFromNobelDeg/0.001f * 111f
-        val distanceFromOlinM = distanceFromOlinDeg/0.001f * 111f
-
-        textViewBeckDistance.text = "Beck: $distanceFromBeckM"
-        textViewNobelDistance.text = "Nobel: $distanceFromNobelM"
-        textViewOlinDistance.text = "Olin: $distanceFromOlinM"
-        Log.d(TAG, "Beck: $distanceFromBeckM, Nobel: $distanceFromNobelM, Olin: $distanceFromOlinM")
-
-        if (distanceFromBeckM < beck.third) {
-            // check if Beck
-            return "Beck"
-        }
-        else if (distanceFromNobelM < nobel.third) {
-            // check if Nobel
-            return "Nobel"
-        }
-        else if (distanceFromOlinM < olin.third) {
-            // check if Olin
-            return "Olin"
-        }
-        return "Walking"
     }
 
     //start location updates
