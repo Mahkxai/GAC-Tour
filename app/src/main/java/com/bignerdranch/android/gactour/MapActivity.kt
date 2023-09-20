@@ -5,6 +5,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Matrix
+import android.graphics.RectF
 import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
@@ -36,6 +38,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private var currentLocation: Location? = null
 
     private var currentLoc: Button? = null
+    private var dropPin: Button? = null
     private lateinit var streamButton: Button
 
     private var uploadMethod: String = ""
@@ -46,7 +49,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private val coordinatesThreeflags = Triple(-93.969900, 44.324488, 50f)
 
 
-    @SuppressLint("MissingPermission", "ClickableViewAccessibility")
+    @SuppressLint("MissingPermission")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_map)
@@ -134,19 +137,70 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         */
 
         mapPhotoView.setOnPhotoTapListener(object : OnPhotoTapListener {
-            override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
-                val displayX = x * view?.width!! ?: 0f
-                val displayY = y * view?.height ?: 0f
+//            override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
+//                var displayX = x * view?.width!! ?: 0f
+//                var displayY = y * view?.height ?: 0f
+//
+//                if (dropPin == null) {
+//                    dropPin = Button(this@MapActivity)
+//                    dropPin!!.isClickable = false
+//                    dropPin!!.setBackgroundResource(R.drawable.drop_pin)
+//
+//                    dropPin?.layoutParams = FrameLayout.LayoutParams(
+//                        FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
+//                        FrameLayout.LayoutParams.WRAP_CONTENT   // Height
+//                    )
+//                    // Inflate button to layout
+//                    mapFrameLayout.addView(dropPin)
+//                }
+//
+//                displayX -= dropPin!!.width / 2f
+//                displayY -= dropPin!!.height / 2f
+//
+//                mapPhotoView.addPin(dropPin!!, displayX.toDouble(), displayY.toDouble(), true)
+//                Log.d(TAGX, "Tapped at pixel coordinates: ($displayX, $displayY)")
+//            }
 
-                Log.d(TAGX, "Tapped at pixel coordinates: ($displayX, $displayY)")
+            override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
+                // Image's original dimensions
+                val imageWidth = mapPhotoView.drawable.intrinsicWidth
+                val imageHeight = mapPhotoView.drawable.intrinsicHeight
+
+                // Calculate tapped position in image's pixel coordinates
+                val imageX = (x * imageWidth).toInt()
+                val imageY = (y * imageHeight).toInt()
+
+                if (dropPin == null) {
+                    dropPin = Button(this@MapActivity)
+                    dropPin!!.isClickable = false
+                    dropPin!!.setBackgroundResource(R.drawable.drop_pin)
+
+                    dropPin?.layoutParams = FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
+                        FrameLayout.LayoutParams.WRAP_CONTENT   // Height
+                    )
+                    mapFrameLayout.addView(dropPin)
+                }
+                val offsetX = 13.0f // Adjust as per your observation
+                val offsetY = -14.0f // Adjust as per your observation
+
+                val adjustedX = imageX + offsetX
+                val adjustedY = imageY + offsetY
+                // Adjust for button's width and height to make sure the center of the button is at the tapped point
+//                val adjustedX = imageX - dropPin!!.width / 2.0f
+//                val adjustedY = imageY - dropPin!!.height / 2.0f
+
+                mapPhotoView.addPin(dropPin!!, adjustedX.toDouble(), adjustedY.toDouble(), true)
+                Log.d(TAGX, "Tapped at image pixel coordinates: ($imageX, $imageY)")
             }
+
+
+
 
             fun onOutsidePhotoTap() {
                 // You can leave this blank or add code if you want to detect taps outside the photo within the `PhotoView`
             }
         })
-
-
 
     }
 
