@@ -11,11 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.widget.*
 import androidx.core.app.ActivityCompat
+import com.github.chrisbanes.photoview.OnPhotoTapListener
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -46,7 +46,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     private val coordinatesThreeflags = Triple(-93.969900, 44.324488, 50f)
 
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint("MissingPermission", "ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_map)
@@ -58,7 +58,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupLocationUpdates()
-
 
         try {
             mapPhotoView.maximumScale = 8f
@@ -98,7 +97,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             if (uploadMethod == "Gallery") {
                 button.setOnClickListener {
                     val intent = Intent(this, UploadActivity::class.java)
-                        .putExtra("Building",button.text)
+                        .putExtra("Building", button.text)
                     startActivity(intent)
                 }
             } else {
@@ -123,11 +122,6 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         streamButton = findViewById(R.id.buttonStream)
         streamButton.setOnClickListener {
-//            val mediaIntent = Intent(Intent.ACTION_PICK)
-//            mediaIntent.type = "*/*"
-//            val mimeTypes = arrayOf("image/*", "video/*", "audio/*", "text/plain")
-//            mediaIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
-
             val intent = Intent(this, MainActivity::class.java)
                 .putExtra("user","guest")
             startActivity(intent)
@@ -138,6 +132,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             .findFragmentById(R.id.map_fragment) as SupportMapFragment
         mapFragment.getMapAsync(this)
         */
+
+        mapPhotoView.setOnPhotoTapListener(object : OnPhotoTapListener {
+            override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
+                val displayX = x * view?.width!! ?: 0f
+                val displayY = y * view?.height ?: 0f
+
+                Log.d(TAGX, "Tapped at pixel coordinates: ($displayX, $displayY)")
+            }
+
+            fun onOutsidePhotoTap() {
+                // You can leave this blank or add code if you want to detect taps outside the photo within the `PhotoView`
+            }
+        })
+
+
 
     }
 

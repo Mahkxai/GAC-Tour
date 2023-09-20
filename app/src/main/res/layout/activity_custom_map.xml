@@ -7,6 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".MapActivity">
 
+    <TextView
+        android:id="@+id/txtBuildingMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#9000"
+        android:padding="10dp"
+        android:shadowColor="@color/gold"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="50"
+        android:text="Select a Building"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:translationZ="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <FrameLayout
         android:id="@+id/mapFrameLayout"
         android:layout_width="match_parent"
@@ -15,25 +35,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
-
-
-        <TextView
-            android:id="@+id/txtBuildingMsg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#9000"
-            android:padding="10dp"
-            android:shadowColor="@color/gold"
-            android:shadowDx="2"
-            android:shadowDy="2"
-            android:shadowRadius="50"
-            android:text="Select a Building"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:translationZ="2dp"
-           />
-
 
         <com.bignerdranch.android.gactour.MapPhotoView
             android:id="@+id/custom_map"
