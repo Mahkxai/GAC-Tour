@@ -7,11 +7,11 @@ import android.graphics.Matrix
 import android.util.AttributeSet
 import android.util.Log
 import android.widget.Button
+import android.widget.FrameLayout
 import com.github.chrisbanes.photoview.PhotoView
 import org.opencv.android.OpenCVLoader
 import org.opencv.calib3d.Calib3d.findHomography
 import org.opencv.core.Core.perspectiveTransform
-import org.opencv.core.Mat
 import kotlin.math.*
 import org.opencv.core.MatOfPoint2f
 import org.opencv.core.Point
@@ -61,30 +61,14 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         }
     }
 
-    // Helper function to communicate with Activities
+    /* Helper function to communicate with Activities */
     fun addPin(button: Button, x: Double, y: Double, isPixel: Boolean = false) {
         pins.add(button)
-        button.tag = floatArrayOf(x.toFloat(), y.toFloat())
-
-//        if (isPixel) {
-//            updatePinPosition(button, x, y)
-//        } else {
-//            val (newX, newY) = getPinPosition(x, y)
-//            updatePinPosition(button, newX, newY)
-//        }
-
         val (newX, newY) = getPinPosition(x, y, isPixel)
         updatePinPosition(button, newX, newY)
-
-        /*
-        val buildingLoc = Pair(x, y)
-        val rotatedLoc = rotatePoint(buildingLoc, getRotationAngle(), refLoc)
-        val newPos = scalePoint(rotatedLoc)
-        updatePinPosition(button, newPos.first, newPos.second)
-        */
     }
 
-    // Transforms real coordinates to pixel coordinates
+    /* Transforms real coordinates to pixel coordinates */
     fun getPinPosition(x: Double, y: Double, isPixel: Boolean = false): Pair<Double, Double> {
 
         val distance = { dx: Double, dy: Double -> sqrt(dx * dx + dy * dy) }
@@ -97,12 +81,6 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         val scrnDistance = distance(imageWidth, imageHeight)
         val imgScale =  scrnDistance / imgDistance
 
-
-        if (isPixel) {
-            Log.d("MapActivity", "Drop Pin: x = ${x}, y = ${y}")
-            return Pair(x, y)
-        }
-
         // Defining your four real-world points
         val realPoints = listOf(
             Point(realTennis.first, realTennis.second),
@@ -112,19 +90,11 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         )
 
         // Defining your corresponding four pixel points
-//        val pixelPoints = listOf(
-//            Point(pixelTennis.first, pixelTennis.second),
-//            Point(pixelPlex.first, pixelPlex.second),
-//            Point(pixelPitt.first, pixelPitt.second),
-//            Point(pixelRound.first, pixelRound.second)
-//        )
-
-        // Defining your corresponding four pixel points
         val pixelPoints = listOf(
-            Point(pixelTennis.first * imgScaleX, pixelTennis.second * imgScaleY),
-            Point(pixelPlex.first * imgScaleX, pixelPlex.second * imgScaleY),
-            Point(pixelPitt.first * imgScaleX, pixelPitt.second * imgScaleY),
-            Point(pixelRound.first * imgScaleX, pixelRound.second * imgScaleY)
+            Point(pixelTennis.first, pixelTennis.second),
+            Point(pixelPlex.first, pixelPlex.second),
+            Point(pixelPitt.first, pixelPitt.second),
+            Point(pixelRound.first, pixelRound.second)
         )
 
         // Converting points to MatOfPoint2f format which is required by the findHomography method
@@ -133,7 +103,8 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         realMat.fromList(realPoints)
         pixelMat.fromList(pixelPoints)
 
-        // Calculating the transformation matrix
+        // Calculating the transformation matrix for both pixel -> real and v.v.
+        // todo: Apply pixel scaling for pixel -> real transformation
         val homographyMatrix = if (isPixel) {
             findHomography(pixelMat, realMat)
         } else {
@@ -147,19 +118,19 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
 
         // Adjusting the transformed points with device scaling
         val transformed = dstPoint.toArray()[0]
-//        val finalX = transformed.x * imgScale
-//        val finalY = if (isPixel) {transformed.y * imgScale} else {-1 * transformed.y * imgScale}
+        val finalX = transformed.x * imgScale
+        val finalY = -1 * transformed.y * imgScale
 
-        val finalX = transformed.x
-        val finalY = -1 * transformed.y
 
-        Log.d("MapActivity", "Transformed Point ($isPixel): x = $finalX, y = $finalY")
-
+        if (isPixel) {
+//            Log.d("MapActivity", "Drop Pin: x = ${x}, y = ${y}")
+            return Pair(x, y)
+        }
 
         return Pair(finalX, finalY)
     }
 
-    // Maps transformed points to matrix and applies to PhotoView
+    /* Maps transformed points to matrix and applies to PhotoView */
     private fun updatePinPosition(button: Button, x: Double, y: Double) {
         val matrix = Matrix(imageMatrix)
         val points = floatArrayOf(x.toFloat(), y.toFloat())
@@ -167,10 +138,37 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
 
         button.translationX = points[0] - button.width / 2
         button.translationY = points[1] - button.height / 2
+
+        /*
+        if (button.tag == "CURRENT_LOCATION") {
+            Log.d("MapActivity", "hi curr loc")
+            // Resize the button based on the inverse of the scale factor
+            val originalButtonSize = 500F
+            button.layoutParams = FrameLayout.LayoutParams(
+                originalButtonSize.toInt(),
+                originalButtonSize.toInt()
+            )
+            button.requestLayout()  // This line may be optional depending on your implementation.
+        }
+        */
+
         button.tag = floatArrayOf(x.toFloat(), y.toFloat())
 
-//         Log.d("MapActivity", "${button.text} Map Point: x = ${button.translationX}, y = ${button.translationY}")
+
+        // Log.d("MapActivity", "${button.text} Map Point: x = ${button.translationX}, y = ${button.translationY}")
     }
+}
+
+
+
+
+    /*
+    val buildingLoc = Pair(x, y)
+    val rotatedLoc = rotatePoint(buildingLoc, getRotationAngle(), refLoc)
+    val newPos = scalePoint(rotatedLoc)
+    updatePinPosition(button, newPos.first, newPos.second)
+    */
+
 
     /*
     private fun scalePoint(pos: Pair<Double, Double>): Pair<Double, Double> {
@@ -216,8 +214,8 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         val finalX = ( (deltaX * mapScale * imgScaleX) + (pixelTornado.first * imgScaleX) )
         val finalY = ( (deltaY * mapScale * imgScaleY) + (pixelTornado.second * imgScaleY) )
 
-//        val finalX = ( (deltaX * scaleX) + (pixelTornado.first) )
-//        val finalY = ( (deltaY * scaleY) + (pixelTornado.second) )
+    //        val finalX = ( (deltaX * scaleX) + (pixelTornado.first) )
+    //        val finalY = ( (deltaY * scaleY) + (pixelTornado.second) )
 
         Log.d("MapActivity", "Diff: $deltaX $deltaY  PxDensity: $pixelDensity")
         Log.d("MapActivity", "IMG: $imgScale MAP: $mapScale SCR: $screenScale")
@@ -266,4 +264,3 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         return Pair(finalX, finalY)
     }
     */
-}

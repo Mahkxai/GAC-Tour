@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">GAC Tour</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiaHNocmVzdGgiLCJhIjoiY2xmdnQ4NHo3MDBoODNkcDZxZGs0NzNzZSJ9.sVpDe9kTictNk6W5Q_rvyA</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

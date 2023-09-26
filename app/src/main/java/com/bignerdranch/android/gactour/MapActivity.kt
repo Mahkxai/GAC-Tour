@@ -5,16 +5,12 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Matrix
-import android.graphics.RectF
 import android.location.Location
 import android.location.LocationManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import com.github.chrisbanes.photoview.OnPhotoTapListener
@@ -24,10 +20,11 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import java.util.*
+import kotlin.math.roundToInt
 
 
 const val TAGX = "MapActivity"
-const val PERMISSION_ID = 2
+const val PERMISSIONID = 2
 
 
 class MapActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -53,14 +50,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_map)
-//        uploadMethod = intent.getStringExtra("UploadType").toString()
+        // uploadMethod = intent.getStringExtra("UploadType").toString()
         uploadMethod = "Gallery"
-
-        mapPhotoView = findViewById(R.id.custom_map)
-        mapFrameLayout = findViewById(R.id.mapFrameLayout)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         setupLocationUpdates()
+
+        mapPhotoView = findViewById(R.id.custom_map)
+        mapFrameLayout = findViewById(R.id.mapFrameLayout)
 
         try {
             mapPhotoView.maximumScale = 8f
@@ -72,6 +69,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         val scale = 5f
+        /* Set Starting Position of Map*/
         mapPhotoView.post {
             mapPhotoView.setScale(scale, false)
 
@@ -92,7 +90,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        // Inflate Landmark Buttons onto the MapView
+        /* Inflate Landmark Buttons onto the MapView */
         LocationProvider.locations.forEach { locationData ->
             val button = Button(this)
             button.text = locationData.name
@@ -125,7 +123,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         streamButton = findViewById(R.id.buttonStream)
         streamButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, StreamActivity::class.java)
                 .putExtra("user","guest")
             startActivity(intent)
         }
@@ -136,31 +134,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
         */
 
-        mapPhotoView.setOnPhotoTapListener(object : OnPhotoTapListener {
-//            override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
-//                var displayX = x * view?.width!! ?: 0f
-//                var displayY = y * view?.height ?: 0f
-//
-//                if (dropPin == null) {
-//                    dropPin = Button(this@MapActivity)
-//                    dropPin!!.isClickable = false
-//                    dropPin!!.setBackgroundResource(R.drawable.drop_pin)
-//
-//                    dropPin?.layoutParams = FrameLayout.LayoutParams(
-//                        FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
-//                        FrameLayout.LayoutParams.WRAP_CONTENT   // Height
-//                    )
-//                    // Inflate button to layout
-//                    mapFrameLayout.addView(dropPin)
-//                }
-//
-//                displayX -= dropPin!!.width / 2f
-//                displayY -= dropPin!!.height / 2f
-//
-//                mapPhotoView.addPin(dropPin!!, displayX.toDouble(), displayY.toDouble(), true)
-//                Log.d(TAGX, "Tapped at pixel coordinates: ($displayX, $displayY)")
-//            }
+        // Extension function to convert DP to Pixels
+        fun Int.dpToPx(context: Context): Int {
+            val density = context.resources.displayMetrics.density
+            return (this * density).roundToInt()
+        }
 
+        /* Drop Pin at Clicked Location */
+        // todo: use pin to upload media
+        mapPhotoView.setOnPhotoTapListener(object : OnPhotoTapListener {
             override fun onPhotoTap(view: ImageView?, x: Float, y: Float) {
                 // Image's original dimensions
                 val imageWidth = mapPhotoView.drawable.intrinsicWidth
@@ -171,34 +153,25 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 val imageY = (y * imageHeight).toInt()
 
                 if (dropPin == null) {
-                    dropPin = Button(this@MapActivity)
-                    dropPin!!.isClickable = false
-                    dropPin!!.setBackgroundResource(R.drawable.drop_pin)
+                    dropPin = Button(this@MapActivity).apply {
+                        isClickable = false
+                        setBackgroundResource(R.drawable.map_drop_pin)
 
-                    dropPin?.layoutParams = FrameLayout.LayoutParams(
-                        FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
-                        FrameLayout.LayoutParams.WRAP_CONTENT   // Height
-                    )
+                        // Set size for the button
+                        layoutParams = FrameLayout.LayoutParams(
+                            6.dpToPx(this@MapActivity),  // Convert DP to Pixels for Width
+                            6.dpToPx(this@MapActivity)   // Convert DP to Pixels for Height
+                        )
+                    }
                     mapFrameLayout.addView(dropPin)
                 }
-                val offsetX = 13.0f // Adjust as per your observation
-                val offsetY = -14.0f // Adjust as per your observation
+                val offsetX = 0.0f
+                val offsetY = 0.0f
 
                 val adjustedX = imageX + offsetX
                 val adjustedY = imageY + offsetY
-                // Adjust for button's width and height to make sure the center of the button is at the tapped point
-//                val adjustedX = imageX - dropPin!!.width / 2.0f
-//                val adjustedY = imageY - dropPin!!.height / 2.0f
-
                 mapPhotoView.addPin(dropPin!!, adjustedX.toDouble(), adjustedY.toDouble(), true)
                 Log.d(TAGX, "Tapped at image pixel coordinates: ($imageX, $imageY)")
-            }
-
-
-
-
-            fun onOutsidePhotoTap() {
-                // You can leave this blank or add code if you want to detect taps outside the photo within the `PhotoView`
             }
         })
 
@@ -208,7 +181,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
         // Setup the location request
         locationRequest = LocationRequest.create().apply {
             interval = 10000 // 10 seconds
-            fastestInterval = 5000 // 5 seconds
+            fastestInterval = 1000 // 1 seconds
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
@@ -223,9 +196,11 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     // Inflate Current Location Dynamically
                     // If the button (marker) hasn't been initialized, create it
                     if (currentLoc == null) {
+                        // Add a translation of 1 pixel in the Z-axis
                         currentLoc = Button(this@MapActivity)
+                        currentLoc!!.translationZ = 1f
                         currentLoc!!.isClickable = false
-                        currentLoc!!.setBackgroundResource(R.drawable.ic_my_location)
+                        currentLoc!!.setBackgroundResource(R.drawable.map_current_location)
 
                         currentLoc?.layoutParams = FrameLayout.LayoutParams(
                             FrameLayout.LayoutParams.WRAP_CONTENT,  // Width
@@ -294,7 +269,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ),
-            PERMISSION_ID
+            PERMISSIONID
         )
     }
 
@@ -305,7 +280,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)  // Call the super method
 
-        if (requestCode == PERMISSION_ID) {
+        if (requestCode == PERMISSIONID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startLocationUpdates()  // Call startLocationUpdates again here after permissions are granted
             } else {
@@ -399,6 +374,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
 }
+
+
+
 
     /* Test Custom Buttons
     val drawable = mapPhotoView.drawable

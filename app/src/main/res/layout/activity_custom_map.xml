@@ -31,6 +31,7 @@
         android:id="@+id/mapFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:foreground="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,13 +41,14 @@
             android:id="@+id/custom_map"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/gustavus_adolphus_map_3d_mini" />
+            android:scaleType="center"
+            android:src="@drawable/gac_map_3d_mini" />
 
     </FrameLayout>
 
     <Button
         android:id="@+id/buttonStream"
+        android:visibility="gone"
         android:text="Stream"
         android:layout_marginBottom="24dp"
         android:layout_width="wrap_content"

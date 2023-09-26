@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Map"
+        android:id="@+id/map"
+        android:icon="@drawable/navbar_map_24"
+        />
+    <item
+        android:title="Stream"
+        android:id="@+id/stream"
+        android:icon="@drawable/navbar_stream_24"
+        />
+    <item
+        android:title="Upload"
+        android:id="@+id/upload"
+        android:icon="@drawable/navbar_upload_24"
+        />
+    <item
+        android:title="Profile"
+        android:id="@+id/profile"
+        android:icon="@drawable/navbar_profile_24"
+        />
+</menu>
