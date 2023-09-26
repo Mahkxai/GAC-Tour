@@ -19,13 +19,13 @@ class LoginActivity : AppCompatActivity() {
         btnGuest = findViewById(R.id.btnGuest)
 
         btnStudent.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, StreamActivity::class.java)
                 .putExtra("user","student")
             startActivity(intent)
         }
 
         btnGuest.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, StreamActivity::class.java)
                 .putExtra("user","guest")
             startActivity(intent)
         }

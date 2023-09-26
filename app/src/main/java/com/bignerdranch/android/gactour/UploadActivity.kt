@@ -102,6 +102,8 @@ class UploadActivity : AppCompatActivity() {
             }
         }
 
+    /* Fetch media and display in appropriate view */
+    // todo: Introduce Modularity and Handle Uploading Custom Text Messages
     private fun uploadFile(uri: Uri, prefix: String, extension: String) {
         val fileID = "${prefix}_${buildingName}_${picCount + 1}${extension}"
         storageRef.child(fileID).putFile(uri)
@@ -233,80 +235,6 @@ class UploadActivity : AppCompatActivity() {
         return contentResolver.openInputStream(uri)?.bufferedReader().use { it?.readText() } ?: ""
     }
 
-    /*
-    // lambda expression to receive a result back, here we
-    // receive single item(photo) on selection
-    private var imagePickerActivityResult: ActivityResultLauncher<Intent> =
-        registerForActivityResult( ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result != null) {
-                // getting URI of selected Image
-                val imageUri: Uri? = result.data?.data
-                val imageID = "IMG_${buildingName}_${picCount+1}.jpg"
-
-                // extract the file name with extension
-                // val sd = getFileName(applicationContext, imageUri!!)
-
-                // getting realtime database values
-                dbRef.addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        // gets the first snapshot and values after change in db
-                        dbRef.get().addOnSuccessListener {
-                            picCount = it.childrenCount
-                            Log.d("UploadActivity", "${it.value} $picCount")
-                        }.addOnFailureListener{
-                            Log.d("UploadActivity", "Error getting data", it)
-                        }
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                        // Failed to read value
-                    }
-                })
-
-                // upload image to firebase storage and display it using Glide
-                val uploadTask = imageUri?.let { storageRef.child(imageID).putFile(it) }
-                uploadTask?.addOnSuccessListener {
-                    // upload to firebase db
-                    dbRef.child("${picCount+1}").setValue(imageID)
-                    // using glide library to display the image
-                    storageRef.child("$imageID").downloadUrl.addOnSuccessListener {
-                        Glide.with(this@UploadActivity)
-                            .load(it)
-                            .into(imageview)
-                    }.addOnFailureListener {
-                    }
-
-                    txtUploadMsg.text = "Picture Uploaded Successfully!"
-                    buttonUpload.text = "Upload New Picture"
-
-                    buttonUpload.setOnClickListener {
-                        val intent = intent
-                        finish()
-                        startActivity(intent)
-                    }
-
-                }?.addOnFailureListener {
-                    // failed to upload image
-                }
-            }
-        }
-
-    @SuppressLint("Range")
-    private fun getFileName(context: Context, uri: Uri): String? {
-        if (uri.scheme == "content") {
-            val cursor = context.contentResolver.query(uri, null, null, null, null)
-            cursor.use {
-                if (cursor != null) {
-                    if(cursor.moveToFirst()) {
-                        return cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
-                    }
-                }
-            }
-        }
-        return uri.path?.lastIndexOf('/')?.let { uri.path?.substring(it) }
-    }
-    */
-
-
     override fun onPause() {
         super.onPause()
     }
@@ -331,3 +259,79 @@ class UploadActivity : AppCompatActivity() {
     }
 
 }
+
+
+
+
+    /* Previous Media (image) fetcher using hardcoded file values
+   // lambda expression to receive a result back, here we
+   // receive single item(photo) on selection
+   private var imagePickerActivityResult: ActivityResultLauncher<Intent> =
+       registerForActivityResult( ActivityResultContracts.StartActivityForResult()) { result ->
+           if (result != null) {
+               // getting URI of selected Image
+               val imageUri: Uri? = result.data?.data
+               val imageID = "IMG_${buildingName}_${picCount+1}.jpg"
+
+               // extract the file name with extension
+               // val sd = getFileName(applicationContext, imageUri!!)
+
+               // getting realtime database values
+               dbRef.addValueEventListener(object : ValueEventListener {
+                   override fun onDataChange(dataSnapshot: DataSnapshot) {
+                       // gets the first snapshot and values after change in db
+                       dbRef.get().addOnSuccessListener {
+                           picCount = it.childrenCount
+                           Log.d("UploadActivity", "${it.value} $picCount")
+                       }.addOnFailureListener{
+                           Log.d("UploadActivity", "Error getting data", it)
+                       }
+                   }
+                   override fun onCancelled(error: DatabaseError) {
+                       // Failed to read value
+                   }
+               })
+
+               // upload image to firebase storage and display it using Glide
+               val uploadTask = imageUri?.let { storageRef.child(imageID).putFile(it) }
+               uploadTask?.addOnSuccessListener {
+                   // upload to firebase db
+                   dbRef.child("${picCount+1}").setValue(imageID)
+                   // using glide library to display the image
+                   storageRef.child("$imageID").downloadUrl.addOnSuccessListener {
+                       Glide.with(this@UploadActivity)
+                           .load(it)
+                           .into(imageview)
+                   }.addOnFailureListener {
+                   }
+
+                   txtUploadMsg.text = "Picture Uploaded Successfully!"
+                   buttonUpload.text = "Upload New Picture"
+
+                   buttonUpload.setOnClickListener {
+                       val intent = intent
+                       finish()
+                       startActivity(intent)
+                   }
+
+               }?.addOnFailureListener {
+                   // failed to upload image
+               }
+           }
+       }
+
+   @SuppressLint("Range")
+   private fun getFileName(context: Context, uri: Uri): String? {
+       if (uri.scheme == "content") {
+           val cursor = context.contentResolver.query(uri, null, null, null, null)
+           cursor.use {
+               if (cursor != null) {
+                   if(cursor.moveToFirst()) {
+                       return cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                   }
+               }
+           }
+       }
+       return uri.path?.lastIndexOf('/')?.let { uri.path?.substring(it) }
+   }
+   */

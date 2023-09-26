@@ -9,13 +9,13 @@ apply plugin: 'kotlin-kapt'
 
 android {
 //    compileSdk 32
-    compileSdk 31
+    compileSdk 32
 
     defaultConfig {
         applicationId "com.bignerdranch.android.gactour"
         minSdk 21
 //        minSdk 19
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -31,7 +31,7 @@ android {
 
     buildFeatures{
         dataBinding = true
-        viewBinding=true
+        viewBinding = true
     }
 
     compileOptions {
@@ -86,6 +86,14 @@ dependencies {
     // PhotoView library for better image handling
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
 
-    // Dependency to include Maps SDK for Android
+    // Maps SDK for Android
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
+
+    // Material Design Library
+    implementation 'com.google.android.material:material:1.9.0'
+
+    // Required for using fonts from Google Fonts
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.1'
+    implementation 'com.google.android.material:material:1.9.0'
+
 }
