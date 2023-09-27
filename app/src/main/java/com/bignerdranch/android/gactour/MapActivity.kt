@@ -115,7 +115,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
             )
 
             // Set the button's position on the custom map
-            mapPhotoView.addPin(button, locationData.longitude, locationData.latitude)
+            mapPhotoView.addView(button, locationData.longitude, locationData.latitude)
 
             // Inflate button to layout
             mapFrameLayout.addView(button)
@@ -170,7 +170,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
 
                 val adjustedX = imageX + offsetX
                 val adjustedY = imageY + offsetY
-                mapPhotoView.addPin(dropPin!!, adjustedX.toDouble(), adjustedY.toDouble(), true)
+                mapPhotoView.addView(dropPin!!, adjustedX.toDouble(), adjustedY.toDouble(), true)
                 Log.d(TAGX, "Tapped at image pixel coordinates: ($imageX, $imageY)")
             }
         })
@@ -216,7 +216,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback {
                     }
 
                     // Set the button's position on the custom map
-                    mapPhotoView.addPin(currentLoc!!, longitude, latitude)
+                    mapPhotoView.addView(currentLoc!!, longitude, latitude)
 
                 }
             }

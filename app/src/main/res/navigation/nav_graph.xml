@@ -1,0 +1,31 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@+id/mapFragment">
+
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.bignerdranch.android.gactour.MapFragment"
+        android:label="Map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
+        android:id="@+id/streamFragment"
+        android:name="com.bignerdranch.android.gactour.StreamFragment"
+        android:label="Stream"
+        tools:layout="@layout/fragment_stream" />
+
+    <fragment
+        android:id="@+id/uploadFragment"
+        android:name="com.bignerdranch.android.gactour.UploadFragment"
+        android:label="Upload"
+        tools:layout="@layout/fragment_upload" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.bignerdranch.android.gactour.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
+
+</navigation>
