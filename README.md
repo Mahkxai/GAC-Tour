@@ -103,8 +103,8 @@ Real-world and corresponding pixel coordinates are set for 4 reference points:
 - Allows the addition of views (e.g., pins) to the map.
 - Parameters:
   - `view`: The view to be added.
-  - `x`: x-coordinate. This can be either a pixel or a real-world coordinate, depending on `isPixel`.
-  - `y`: y-coordinate.
+  - `x`: x-coordinate. This can be either a pixel or a real-world logitude, depending on `isPixel`.
+  - `y`: y-coordinate. This can be either a pixel or a real-world latitude, depending on `isPixel`.
   - `isPixel`: A boolean that denotes whether the given coordinates are in pixels (true) or real-world (false). Default is `false`.
 
 ### `getPinPosition(x: Double, y: Double, isPixel: Boolean = false): Pair<Double, Double>`
