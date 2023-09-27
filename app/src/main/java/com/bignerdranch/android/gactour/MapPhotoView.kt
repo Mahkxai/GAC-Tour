@@ -6,8 +6,8 @@ import android.content.Context
 import android.graphics.Matrix
 import android.util.AttributeSet
 import android.util.Log
+import android.view.View
 import android.widget.Button
-import android.widget.FrameLayout
 import com.github.chrisbanes.photoview.PhotoView
 import org.opencv.android.OpenCVLoader
 import org.opencv.calib3d.Calib3d.findHomography
@@ -19,15 +19,13 @@ import org.opencv.core.Point
 class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, attrs) {
 
     private val pins = mutableListOf<Button>()
+    private val trackedViews = mutableListOf<View>()
 
     // Reference Real Coordinates
     private val realTennis = Pair(-93.972493, 44.329580)
     private val realPlex = Pair(-93.967557, 44.324720)
     private val realPitt = Pair(-93.973291, 44.319415)
     private val realRound = Pair(-93.984849, 44.326233)
-    private val realTornado = Pair(-93.972247, 44.323026)
-    private val realArb = Triple(-93.975110, 44.320171, 50f)
-    private val realThreeFlags = Triple(-93.969900, 44.324488, 50f)
 
     //  3D Map Reference Pixel Coordinates
     private val imgSize = Pair(4346.0, 2735.0)
@@ -35,15 +33,7 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
     private val pixelPlex = Pair(3839.0, -1773.0)   // Bottom right of Plex
     private val pixelPitt = Pair(1287.0, -2112.0)   // Bottom left of Pittman
     private val pixelRound = Pair(1426.0, -242.0)   // Roundabout near the High School (Top Left)
-    private val pixelTornado = Pair(2495.0, -1510.0)
-    private val pixelThreeFlags = Pair(3274.0, -1518.0)
-    private val pixelArb = Pair(1230.0, -1693.0)
 
-    /* //    2D Map Reference Pixel Coordinates
-    private val imgSize = Pair(2866.0, 2098.0)
-    private val pixelThreeflags = Pair(1947.0, -1493.0)
-    private val pixelArb = Pair(742.0, -1305.0)
-    */
 
     init {
         // Initialize OpenCV for Matrix transformations
@@ -54,19 +44,20 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         }
 
         setOnMatrixChangeListener {
-            for (button in pins) {
-                val originalX = button.tag as FloatArray
-                updatePinPosition(button, originalX[0].toDouble(), originalX[1].toDouble())
+            for (view in trackedViews) {
+                val originalX = view.tag as FloatArray
+                updateViewPosition(view, originalX[0].toDouble(), originalX[1].toDouble())
             }
         }
     }
 
-    /* Helper function to communicate with Activities */
-    fun addPin(button: Button, x: Double, y: Double, isPixel: Boolean = false) {
-        pins.add(button)
+    /* Communicates with Activities/Fragments and adds views */
+    fun addView(view: View, x: Double, y: Double, isPixel: Boolean = false) {
+        trackedViews.add(view)
         val (newX, newY) = getPinPosition(x, y, isPixel)
-        updatePinPosition(button, newX, newY)
+        updateViewPosition(view, newX, newY)
     }
+
 
     /* Transforms real coordinates to pixel coordinates */
     fun getPinPosition(x: Double, y: Double, isPixel: Boolean = false): Pair<Double, Double> {
@@ -123,44 +114,48 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
 
 
         if (isPixel) {
-//            Log.d("MapActivity", "Drop Pin: x = ${x}, y = ${y}")
             return Pair(x, y)
         }
 
         return Pair(finalX, finalY)
     }
 
-    /* Maps transformed points to matrix and applies to PhotoView */
-    private fun updatePinPosition(button: Button, x: Double, y: Double) {
+    /* Maps transformed to PhotoView */
+    private fun updateViewPosition(view: View, x: Double, y: Double) {
         val matrix = Matrix(imageMatrix)
         val points = floatArrayOf(x.toFloat(), y.toFloat())
         matrix.mapPoints(points)
 
-        button.translationX = points[0] - button.width / 2
-        button.translationY = points[1] - button.height / 2
+        view.translationX = points[0] - view.width / 2
+        view.translationY = points[1] - view.height / 2
 
-        /*
-        if (button.tag == "CURRENT_LOCATION") {
-            Log.d("MapActivity", "hi curr loc")
-            // Resize the button based on the inverse of the scale factor
-            val originalButtonSize = 500F
-            button.layoutParams = FrameLayout.LayoutParams(
-                originalButtonSize.toInt(),
-                originalButtonSize.toInt()
-            )
-            button.requestLayout()  // This line may be optional depending on your implementation.
+        // If you have any view-specific operations like the below, you can check for instance type
+        if (view is Button && view.tag == "CURRENT_LOCATION") {
+            // Your Button-specific operations
         }
-        */
 
-        button.tag = floatArrayOf(x.toFloat(), y.toFloat())
-
-
-        // Log.d("MapActivity", "${button.text} Map Point: x = ${button.translationX}, y = ${button.translationY}")
+        view.tag = floatArrayOf(x.toFloat(), y.toFloat())
     }
+
 }
 
 
 
+
+/*
+    /*
+    private val realTornado = Pair(-93.972247, 44.323026)
+    private val realArb = Triple(-93.975110, 44.320171, 50f)
+    private val realThreeFlags = Triple(-93.969900, 44.324488, 50f)
+    private val pixelTornado = Pair(2495.0, -1510.0)
+    private val pixelThreeFlags = Pair(3274.0, -1518.0)
+    private val pixelArb = Pair(1230.0, -1693.0)
+    /* //    2D Map Reference Pixel Coordinates
+    private val imgSize = Pair(2866.0, 2098.0)
+    private val pixelThreeflags = Pair(1947.0, -1493.0)
+    private val pixelArb = Pair(742.0, -1305.0)
+    */
+    */
 
     /*
     val buildingLoc = Pair(x, y)
@@ -264,3 +259,4 @@ class MapPhotoView(context: Context, attrs: AttributeSet?) : PhotoView(context, 
         return Pair(finalX, finalY)
     }
     */
+*/

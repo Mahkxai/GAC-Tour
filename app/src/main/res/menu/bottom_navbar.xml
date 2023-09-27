@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="Map"
-        android:id="@+id/map"
+        android:id="@+id/mapFragment"
         android:icon="@drawable/navbar_map_24"
         />
     <item
         android:title="Stream"
-        android:id="@+id/stream"
+        android:id="@+id/streamFragment"
         android:icon="@drawable/navbar_stream_24"
         />
     <item
         android:title="Upload"
-        android:id="@+id/upload"
+        android:id="@+id/uploadFragment"
         android:icon="@drawable/navbar_upload_24"
         />
     <item
         android:title="Profile"
-        android:id="@+id/profile"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/navbar_profile_24"
         />
 </menu>
