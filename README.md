@@ -1,4 +1,4 @@
-# GAC Tour App Documentation
+# GAC Tour App 
 
 ## Overview
 The GAC Tour App allows users to experience an interactive 3D image of the campus map. With geolocation tracking, users can navigate through the campus and access media streams within a 50m radius of their current location. Users can also contribute by dropping pins on the map to upload media, providing a rich, immersive, and constantly evolving tour experience.
