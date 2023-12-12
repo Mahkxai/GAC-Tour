@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">GAC Tour</string>
+
+    <string name="mapbox_access_token">
+        pk.eyJ1IjoiaGFyZGlrc2hyIiwiYSI6ImNsbnc1d3hmcjA1Z3Aya2xqYWlxaHRhYmEifQ.6EdnaDr856xXy_Jdz84orw
+    </string>
+    <string name="title_activity_login">LoginActivity</string>
+
+</resources>
