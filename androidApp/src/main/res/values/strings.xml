@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">GAC TOUR</string>
+
+    <string name="mapbox_access_token">pk.eyJ1IjoiaGFyZGlrc2hyIiwiYSI6ImNsbnc1d3hmcjA1Z3Aya2xqYWlxaHRhYmEifQ.6EdnaDr856xXy_Jdz84orw</string>
+
+    <string name="permission_ok">OK</string>
+    <string name="permission_allow">Allow Access</string>
+    <string name="permission_grant">Grant Permission</string>
+    <string name="permission_settings">Open Settings</string>
+    <string name="permission_deny">No Thanks</string>
+    <string name="permission_cancel">Cancel</string>
+    <string name="permission_redirect">Permission permanently denied. You can go to application settings to enable them.</string>
+
+    <string name="fine_location_permission_request">
+        Provide fine location access for better functionality.
+    </string>
+
+    <string name="location_permission_title">Location Permission Required</string>
+    <string name="location_permission_rationale">
+        This app needs location permission so that you can stream media in your vicinity.
+    </string>
+    <string name="location_permission_settings">
+        It seems you\'ve permanently declined location permission. You can go to the app settings to grant it.
+    </string>
+
+    <string name="microphone_permission_title">Microphone Permission Required</string>
+    <string name="microphone_permission_rationale">
+        This app needs access to your microphone so that you can record audio stories you want to share.
+    </string>
+    <string name="microphone_permission_settings">
+        It seems you\'ve permanently declined microphone permission. You can go to the app settings to grant it.
+    </string>
+
+    <string name="camera_permission_title">Camera and Microphone Permission Required</string>
+    <string name="camera_permission_rationale">
+        This app needs access to your camera and microphone so that you can capture media you want to share.</string>
+    <string name="camera_permission_settings">
+        It seems you\'ve permanently declined camera permission. You can go to the app settings to grant it.
+    </string>
+
+    <string name="storage_permission_title">Storage Access Required</string>
+    <string name="storage_permission_rationale">
+        This app needs access to your storage so that you can upload media you want to share.</string>
+    <string name="storage_permission_settings">
+        It seems you permanently declined storage permission. You can go to the app settings to grant it.
+    </string>
+
+    <string name="notification_permission_title">Notification Permission Required</string>
+    <string name="notification_permission_rationale">
+        This app needs permission to send you notification updates.</string>
+    <string name="notification_permission_settings">
+        It seems you permanently declined notification permission. You can go to the app settings to grant it.
+    </string>
+
+    <string name="navbar_map_icon_text">Map</string>
+    <string name="navbar_map_title_text">Map</string>
+    <string name="navbar_camera_icon_text">Camera</string>
+    <string name="navbar_camera_title_text">Camera</string>
+    <string name="navbar_profile_icon_text">Profile</string>
+    <string name="navbar_profile_title_text">Profile</string>
+    <string name="navbar_stream_icon_text">Stream</string>
+    <string name="navbar_stream_title_text">Stream</string>
+
+</resources>
