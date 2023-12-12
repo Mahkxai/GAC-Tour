@@ -39,8 +39,7 @@ class StreamViewModel @Inject constructor(
 
     fun fetchNearbyMedia(center: Point, radiusInMetres: Double) {
         viewModelScope.launch {
-            val geoLocation = center.toGeoLocation()
-            fetchNearbyMediaUseCase.execute(geoLocation, radiusInMetres).collect { mediaItems ->
+            fetchNearbyMediaUseCase.execute(center, radiusInMetres).collect { mediaItems ->
                 _streamState.value = _streamState.value.copy(mediaItems = mediaItems)
             }
         }

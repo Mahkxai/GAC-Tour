@@ -2,8 +2,13 @@ package com.mahkxai.gactour.android.mock
 
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
+import com.mapbox.geojson.Point
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 object MockData {
+
     val imageUrls: List<String> = listOf(
         "https://source.unsplash.com/random/484x800",
         "https://source.unsplash.com/random/483x800",
@@ -43,26 +48,59 @@ object MockData {
         "https://storage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg"
     )
 
-}
+    fun mediaItems(currentLocation: Point?): Map<GACTourMediaType, List<GACTourMediaItem>> {
+        val randomImageUrls = this.imageUrls.shuffleAndResizeList()
+        val randomVideoUrls = this.videoUrls.shuffleAndResizeList()
 
-fun MockData.toMediaItems(): Map<GACTourMediaType, List<GACTourMediaItem>> {
-    val beckLong = -93.972967
-    val beckLat = 44.323707
+        val imageList = randomImageUrls.map { url ->
+            val randomPoint = generateRandomPoint(currentLocation, 50.0)
+            GACTourMediaItem(
+                url = url,
+                latitude = randomPoint.latitude(),
+                longitude = randomPoint.longitude()
+            )
+        }
 
-    val imageList = this.imageUrls.map { url ->
-        GACTourMediaItem(url = url, latitude = beckLat, longitude = beckLong)
-    }
+        val videoList = randomVideoUrls.mapIndexed { index, url ->
+            val thumbnailUrl = this.thumbnailUrls[index]
+            val randomPoint = generateRandomPoint(currentLocation, 50.0)
 
-    val videoList = this.videoUrls.mapIndexed { index, url ->
-        val thumbnailUrl = this.thumbnailUrls[index]
-        GACTourMediaItem(
-            url = url, thumbnailUrl = thumbnailUrl, latitude = beckLat, longitude = beckLong
+            GACTourMediaItem(
+                url = url,
+                thumbnailUrl = thumbnailUrl,
+                latitude = randomPoint.latitude(),
+                longitude = randomPoint.longitude()
+            )
+        }
+
+        return mapOf(
+            GACTourMediaType.IMAGE to imageList,
+            GACTourMediaType.VIDEO to videoList
         )
     }
 
-    return mapOf(
-        GACTourMediaType.IMAGE to imageList,
-        GACTourMediaType.VIDEO to videoList
-    )
+    // take in current location and generate a random point within a certain radius in meters
+    private fun generateRandomPoint(currentLocation: Point?, radiusInM: Double): Point {
+        val lng = currentLocation?.longitude()
+        val lat = currentLocation?.latitude()
 
+        val r = radiusInM / 111300f
+
+        val u = Math.random()
+        val v = Math.random()
+        val w = r * sqrt(u)
+        val t = 2 * Math.PI * v
+        val x = w * cos(t)
+        val y = w * sin(t)
+
+        val newLng = x + lng!!
+        val newLat = y + lat!!
+
+        return Point.fromLngLat(newLng, newLat)
+    }
+
+    // shuffle and resize list to a random size
+    private fun List<String>.shuffleAndResizeList() =
+        this.shuffled().take((Math.random() * this.size).toInt())
 }
+
