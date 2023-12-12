@@ -1,0 +1,2 @@
+ninja: Entering directory `/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/opencv/.cxx/Debug/4t2w1o51/arm64-v8a'
+ninja: no work to do.
