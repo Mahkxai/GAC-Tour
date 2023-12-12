@@ -1,272 +1,599 @@
 1<?xml version="1.0" encoding="utf-8"?>
 2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-3    package="com.example.gactour"
+3    package="com.example.gac_tour"
 4    android:versionCode="1"
 5    android:versionName="1.0" >
 6
 7    <uses-sdk
 8        android:minSdkVersion="23"
-8-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml
 9        android:targetSdkVersion="33" />
-9-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml
 10
-11    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-11-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:5:5-81
-11-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:5:22-78
-12    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-12-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:6:5-79
-12-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:6:22-76
+11    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+11-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:5:5-79
+11-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:5:22-76
+12    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+12-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:6:5-81
+12-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:6:22-78
 13    <uses-permission android:name="android.permission.INTERNET" />
-13-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:7:5-67
-13-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:7:22-64
-14    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-14-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:8:5-85
-14-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:8:22-82
-15    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-15-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:9:5-77
-15-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:9:22-74
-16
-17    <!-- Include required permissions for Google Maps API to run. -->
-18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-18-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:23:5-79
-18-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:23:22-76
-19
-20    <uses-feature
-20-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:26:5-28:35
-21        android:glEsVersion="0x00020000"
-21-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:27:9-41
-22        android:required="true" />
-22-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:28:9-32
-23
-24    <queries>
-24-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:30:5-34:15
-25
-26        <!-- Needs to be explicitly declared on Android R+ -->
-27        <package android:name="com.google.android.apps.maps" />
-27-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:33:9-64
-27-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:33:18-61
-28    </queries>
-29
-30    <uses-feature
-30-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:13:5-15:36
-31        android:name="android.hardware.wifi"
-31-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:14:9-45
-32        android:required="false" />
-32-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:15:9-33
-33
-34    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-34-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:19:5-76
-34-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:19:22-73
-35
-36    <permission
-36-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
-37        android:name="com.example.gactour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-37-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
-38        android:protectionLevel="signature" />
-38-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
-39
-40    <uses-permission android:name="com.example.gactour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-40-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
-40-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
-41
-42    <application
-42-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:13:5-41:19
-43        android:name="com.example.gactour.MainApplication"
-43-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:14:9-40
-44        android:allowBackup="true"
-44-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:15:9-35
-45        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-45-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/c97336a94a508114529432a6cf166312/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
-46        android:dataExtractionRules="@xml/data_extraction_rules"
-46-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:16:9-65
-47        android:debuggable="true"
-48        android:extractNativeLibs="false"
-49        android:fullBackupContent="@xml/backup_rules"
-49-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:17:9-54
-50        android:icon="@mipmap/ic_launcher"
-50-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:18:9-43
-51        android:label="@string/app_name"
-51-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:19:9-41
-52        android:roundIcon="@mipmap/ic_launcher_round"
-52-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:20:9-54
-53        android:supportsRtl="true"
-53-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:21:9-35
-54        android:testOnly="true"
-55        android:theme="@style/Theme.GACTour" >
-55-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:22:9-45
-56        <service android:name="com.example.gactour.location.LocationService" />
-56-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:25:9-61
-56-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:25:18-58
-57
-58        <activity
-58-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:27:9-40:20
-59            android:name="com.example.gactour.MainActivity"
-59-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:28:13-41
-60            android:exported="true"
-60-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:29:13-36
-61            android:theme="@style/Theme.GACTour" >
-61-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:30:13-49
+13-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:7:5-67
+13-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:7:22-64
+14
+15    <uses-feature
+15-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:10:5-12:35
+16        android:glEsVersion="0x00020000"
+16-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:11:9-41
+17        android:required="true" />
+17-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:12:9-32
+18    <uses-feature
+18-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:13:5-15:36
+19        android:name="android.hardware.wifi"
+19-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:14:9-45
+20        android:required="false" />
+20-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:15:9-33
+21
+22    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+22-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:18:5-79
+22-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:18:22-76
+23    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+23-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:19:5-76
+23-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:19:22-73
+24
+25    <queries>
+25-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:30:5-34:15
+26
+27        <!-- Needs to be explicitly declared on Android R+ -->
+28        <package android:name="com.google.android.apps.maps" />
+28-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:33:9-64
+28-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:33:18-61
+29    </queries>
+30
+31    <permission
+31-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:22:5-24:47
+32        android:name="com.example.gac_tour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+32-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:23:9-81
+33        android:protectionLevel="signature" />
+33-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:24:9-44
+34
+35    <uses-permission android:name="com.example.gac_tour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+35-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:26:5-97
+35-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:26:22-94
+36
+37    <application
+37-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:9:5-161:19
+38        android:name="com.example.gac_tour.MapboxApplication"
+38-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:10:9-42
+39        android:allowBackup="true"
+39-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:11:9-35
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.9.0] /Users/mahkxai/.gradle/caches/transforms-3/7c298442ce1335145ed60e051b9846b0/transformed/core-1.9.0/AndroidManifest.xml:28:18-86
+41        android:dataExtractionRules="@xml/data_extraction_rules"
+41-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:12:9-65
+42        android:debuggable="true"
+43        android:extractNativeLibs="false"
+44        android:fullBackupContent="@xml/backup_rules"
+44-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:13:9-54
+45        android:icon="@mipmap/ic_launcher"
+45-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:14:9-43
+46        android:label="@string/app_name"
+46-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:15:9-41
+47        android:roundIcon="@mipmap/ic_launcher_round"
+47-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:16:9-54
+48        android:supportsRtl="true"
+48-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:17:9-35
+49        android:testOnly="true"
+50        android:theme="@style/Theme.GACTour" >
+50-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:18:9-45
+51        <meta-data
+51-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:20:9-22:59
+52            android:name="com.mapbox.token"
+52-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:21:13-44
+53            android:value="@string/mapbox_access_token" />
+53-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:22:13-56
+54
+55        <activity
+55-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:23:9-36:20
+56            android:name="com.example.gac_tour.MainActivity"
+56-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:24:13-41
+57            android:exported="true"
+57-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:25:13-36
+58            android:launchMode="singleTop"
+58-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:27:13-43
+59            android:theme="@style/Theme.GACTour" >
+59-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:26:13-49
+60
+61            <!--
 62            <intent-filter>
-62-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:31:13-35:29
 63                <action android:name="android.intent.action.MAIN" />
-63-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:32:17-69
-63-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:32:25-66
 64
 65                <category android:name="android.intent.category.LAUNCHER" />
-65-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:34:17-77
-65-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:34:27-74
 66            </intent-filter>
-67
+67            -->
 68            <meta-data
-68-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:37:13-39:36
+68-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:33:13-35:36
 69                android:name="android.app.lib_name"
-69-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:38:17-52
+69-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:34:17-52
 70                android:value="" />
-70-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GACTourV2/app/src/main/AndroidManifest.xml:39:17-33
+70-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:35:17-33
 71        </activity>
 72        <activity
-72-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/cc9f294733a88ea5ef5d512aa6ebd6ec/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:23:9-25:39
-73            android:name="androidx.activity.ComponentActivity"
-73-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/cc9f294733a88ea5ef5d512aa6ebd6ec/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:24:13-63
-74            android:exported="true" />
-74-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/cc9f294733a88ea5ef5d512aa6ebd6ec/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:25:13-36
-75        <activity
-75-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/60dd507ce42710ccb9402c3d4434071f/transformed/ui-tooling-1.4.3/AndroidManifest.xml:23:9-25:39
-76            android:name="androidx.compose.ui.tooling.PreviewActivity"
-76-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/60dd507ce42710ccb9402c3d4434071f/transformed/ui-tooling-1.4.3/AndroidManifest.xml:24:13-71
-77            android:exported="true" /> <!-- Needs to be explicitly declared on P+ -->
-77-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/60dd507ce42710ccb9402c3d4434071f/transformed/ui-tooling-1.4.3/AndroidManifest.xml:25:13-36
-78        <uses-library
-78-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:39:9-41:40
-79            android:name="org.apache.http.legacy"
-79-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
-80            android:required="false" />
-80-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/e8144427365b1904279f7f3a99c8dcca/transformed/play-services-maps-18.2.0/AndroidManifest.xml:41:13-37
-81
-82        <activity
-82-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/500555763b3ee1f81010ae949ffb0ce1/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
-83            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-83-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/500555763b3ee1f81010ae949ffb0ce1/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
-84            android:exported="false"
-84-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/500555763b3ee1f81010ae949ffb0ce1/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
-85            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-85-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/500555763b3ee1f81010ae949ffb0ce1/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
-86
-87        <meta-data
-87-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/8b502d3cbfab9f0aefd8f6c34602066c/transformed/play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
-88            android:name="com.google.android.gms.version"
-88-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/8b502d3cbfab9f0aefd8f6c34602066c/transformed/play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
-89            android:value="@integer/google_play_services_version" />
-89-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/8b502d3cbfab9f0aefd8f6c34602066c/transformed/play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
-90
-91        <provider
-91-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
-92            android:name="androidx.startup.InitializationProvider"
-92-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:25:13-67
-93            android:authorities="com.example.gactour.androidx-startup"
-93-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:26:13-68
-94            android:exported="false" >
-94-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:27:13-37
-95            <meta-data
-95-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
-96                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-96-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
-97                android:value="androidx.startup" />
-97-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/0dba50107539ae5e44d4e30f3e3e62c6/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
-98            <meta-data
-98-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/65f862409b458744565548d8b546b2d0/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
-99                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-99-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/65f862409b458744565548d8b546b2d0/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
-100                android:value="androidx.startup" />
-100-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/65f862409b458744565548d8b546b2d0/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
-101            <meta-data
-101-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:27:13-29:52
-102                android:name="com.mapbox.maps.loader.MapboxMapsInitializer"
-102-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:28:17-76
-103                android:value="androidx.startup" /> <!-- This entry makes MapboxSDKCommonInitializer discoverable. -->
-103-->[com.mapbox.maps:android-core:10.16.1] /Users/mahkxai/.gradle/caches/transforms-3/f81abbc120a3d2daaa12baecb6a8857b/transformed/android-core-10.16.1/AndroidManifest.xml:29:17-49
-104            <meta-data
-104-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:21:13-23:52
-105                android:name="com.mapbox.common.MapboxSDKCommonInitializer"
-105-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:22:17-76
-106                android:value="androidx.startup" />
-106-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:23:17-49
-107            <meta-data
-107-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
-108                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-108-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
-109                android:value="androidx.startup" />
-109-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
-110        </provider>
-111
-112        <receiver
-112-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:26:9-33:20
-113            android:name="com.mapbox.common.location.LocationUpdatesReceiver"
-113-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:27:13-78
-114            android:enabled="true"
-114-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:28:13-35
-115            android:exported="false" >
-115-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:29:13-37
-116            <intent-filter>
-116-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:30:13-32:29
-117                <action android:name="com.mapbox.common.location.LocationUpdatesReceiver.ACTION_PROCESS_LOCATION_UPDATES" />
-117-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:31:17-125
-117-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:31:25-122
-118            </intent-filter>
-119        </receiver>
-120
-121        <service
-121-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:35:9-37:40
-122            android:name="com.mapbox.common.LifecycleService"
-122-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:36:13-62
-123            android:exported="false" />
-123-->[com.mapbox.common:common:23.8.3] /Users/mahkxai/.gradle/caches/transforms-3/f4a20f3b85d84f78dff80188983044e3/transformed/common-23.8.3/AndroidManifest.xml:37:13-37
-124        <service
-124-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1fba6faf530846bbe9805e88498abb5e/transformed/room-runtime-2.3.0/AndroidManifest.xml:25:9-28:40
-125            android:name="androidx.room.MultiInstanceInvalidationService"
-125-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1fba6faf530846bbe9805e88498abb5e/transformed/room-runtime-2.3.0/AndroidManifest.xml:26:13-74
-126            android:directBootAware="true"
-126-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1fba6faf530846bbe9805e88498abb5e/transformed/room-runtime-2.3.0/AndroidManifest.xml:27:13-43
-127            android:exported="false" />
-127-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1fba6faf530846bbe9805e88498abb5e/transformed/room-runtime-2.3.0/AndroidManifest.xml:28:13-37
-128
-129        <receiver
-129-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
-130            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-130-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
-131            android:directBootAware="false"
-131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
-132            android:enabled="true"
-132-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
-133            android:exported="true"
-133-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
-134            android:permission="android.permission.DUMP" >
-134-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
-135            <intent-filter>
-135-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
-136                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
-137            </intent-filter>
-138            <intent-filter>
-138-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
-139                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
-140            </intent-filter>
-141            <intent-filter>
-141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
-142                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-142-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
-142-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
-143            </intent-filter>
-144            <intent-filter>
-144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
-145                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-145-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
-145-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/189895d6065ac8844832d850ac0c1147/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
-146            </intent-filter>
-147        </receiver>
-148    </application>
-149
-150</manifest>
+72-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:37:9-43:20
+73            android:name="com.example.gac_tour.ExampleOverviewActivity"
+73-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:38:13-52
+74            android:exported="true"
+74-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:39:13-36
+75            android:launchMode="singleTop" >
+75-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:40:13-43
+76        </activity>
+77        <activity
+77-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:44:9-61:20
+78            android:name="com.example.gac_tour.examples.gactour.GACTourActivity"
+78-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:45:13-61
+79            android:configChanges="orientation|screenSize|screenLayout"
+79-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:46:13-72
+80            android:description="@string/description_gac_tour"
+80-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:47:13-63
+81            android:exported="true"
+81-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:48:13-36
+82            android:label="@string/activity_gac_tour"
+82-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:50:13-54
+83            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity"
+83-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:51:13-66
+84            android:theme="@style/Theme.GACTour" >
+84-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:49:13-49
+85            <meta-data
+85-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+86                android:name="@string/category"
+86-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+87                android:value="@string/category_basic" />
+87-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+88
+89            <intent-filter>
+89-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:55:13-58:29
+90                <action android:name="android.intent.action.MAIN" />
+90-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:56:17-69
+90-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:56:25-66
+91
+92                <category android:name="android.intent.category.LAUNCHER" />
+92-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:57:17-77
+92-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:57:27-74
+93            </intent-filter>
+94        </activity>
+95        <activity
+95-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:62:9-72:20
+96            android:name="com.example.gac_tour.examples.basic.SimpleMapActivity"
+96-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:63:13-61
+97            android:configChanges="orientation|screenSize|screenLayout"
+97-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:64:13-72
+98            android:description="@string/description_simple_map"
+98-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:65:13-65
+99            android:exported="true"
+99-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:66:13-36
+100            android:label="@string/activity_simple_map"
+100-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:67:13-56
+101            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+101-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:68:13-66
+102            <meta-data
+102-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+103                android:name="@string/category"
+103-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+104                android:value="@string/category_basic" />
+104-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+105        </activity>
+106        <activity
+106-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:73:9-83:20
+107            android:name="com.example.gac_tour.examples.basic.DebugModeActivity"
+107-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:74:13-61
+108            android:configChanges="orientation|screenSize|screenLayout"
+108-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:75:13-72
+109            android:description="@string/description_debug_mode"
+109-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:76:13-65
+110            android:exported="true"
+110-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:77:13-36
+111            android:label="@string/activity_debug_mode"
+111-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:78:13-56
+112            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+112-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:79:13-66
+113            <meta-data
+113-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+114                android:name="@string/category"
+114-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+115                android:value="@string/category_basic" />
+115-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+116        </activity>
+117        <activity
+117-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:84:9-94:20
+118            android:name="com.example.gac_tour.examples.annotation.CircleAnnotationActivity"
+118-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:85:13-73
+119            android:configChanges="orientation|screenSize|screenLayout"
+119-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:86:13-72
+120            android:description="@string/description_circle_annotation"
+120-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:87:13-72
+121            android:exported="true"
+121-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:88:13-36
+122            android:label="@string/activity_circle_annotation"
+122-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:89:13-63
+123            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+123-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:90:13-66
+124            <meta-data
+124-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+125                android:name="@string/category"
+125-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+126                android:value="@string/category_annotation" />
+126-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+127        </activity>
+128        <activity
+128-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:95:9-105:20
+129            android:name="com.example.gac_tour.examples.annotation.PointAnnotationClusterActivity"
+129-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:96:13-79
+130            android:configChanges="orientation|screenSize|screenLayout"
+130-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:97:13-72
+131            android:description="@string/description_point_annotation_cluster"
+131-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:98:13-79
+132            android:exported="true"
+132-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:99:13-36
+133            android:label="@string/activity_point_annotation_cluster"
+133-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:100:13-70
+134            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+134-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:101:13-66
+135            <meta-data
+135-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+136                android:name="@string/category"
+136-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+137                android:value="@string/category_annotation" />
+137-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+138        </activity>
+139        <activity
+139-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:106:9-116:20
+140            android:name="com.example.gac_tour.examples.annotation.PolygonAnnotationActivity"
+140-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:107:13-74
+141            android:configChanges="orientation|screenSize|screenLayout"
+141-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:108:13-72
+142            android:description="@string/description_polygon_annotation"
+142-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:109:13-73
+143            android:exported="true"
+143-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:110:13-36
+144            android:label="@string/activity_polygon_annotation"
+144-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:111:13-64
+145            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+145-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:112:13-66
+146            <meta-data
+146-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+147                android:name="@string/category"
+147-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+148                android:value="@string/category_annotation" />
+148-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+149        </activity>
+150        <activity
+150-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:117:9-127:20
+151            android:name="com.example.gac_tour.examples.annotation.PolylineAnnotationActivity"
+151-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:118:13-75
+152            android:configChanges="orientation|screenSize|screenLayout"
+152-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:119:13-72
+153            android:description="@string/description_polyline_annotation"
+153-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:120:13-74
+154            android:exported="true"
+154-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:121:13-36
+155            android:label="@string/activity_polyline_annotation"
+155-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:122:13-65
+156            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+156-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:123:13-66
+157            <meta-data
+157-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+158                android:name="@string/category"
+158-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+159                android:value="@string/category_annotation" />
+159-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+160        </activity>
+161        <activity
+161-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:128:9-138:20
+162            android:name="com.example.gac_tour.examples.annotation.ViewAnnotationActivity"
+162-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:129:13-71
+163            android:configChanges="orientation|screenSize|screenLayout"
+163-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:130:13-72
+164            android:description="@string/description_view_annotation"
+164-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:131:13-70
+165            android:exported="true"
+165-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:132:13-36
+166            android:label="@string/activity_view_annotation"
+166-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:133:13-61
+167            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+167-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:134:13-66
+168            <meta-data
+168-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+169                android:name="@string/category"
+169-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+170                android:value="@string/category_annotation" />
+170-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+171        </activity>
+172        <activity
+172-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:139:9-149:20
+173            android:name="com.example.gac_tour.examples.animation.MapViewportAnimationsActivity"
+173-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:140:13-77
+174            android:configChanges="orientation|screenSize|screenLayout"
+174-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:141:13-72
+175            android:description="@string/description_map_viewport_animation"
+175-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:142:13-77
+176            android:exported="true"
+176-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:143:13-36
+177            android:label="@string/activity_map_viewport_animation"
+177-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:144:13-68
+178            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+178-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:145:13-66
+179            <meta-data
+179-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+180                android:name="@string/category"
+180-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+181                android:value="@string/category_camera" />
+181-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+182        </activity>
+183        <activity
+183-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:150:9-160:20
+184            android:name="com.example.gac_tour.examples.basic.MultiDisplayActivity"
+184-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:151:13-64
+185            android:configChanges="orientation|screenSize|screenLayout"
+185-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:152:13-72
+186            android:description="@string/description_multiple_display"
+186-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:153:13-71
+187            android:exported="true"
+187-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:154:13-36
+188            android:label="@string/activity_multiple_display"
+188-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:155:13-62
+189            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+189-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:156:13-66
+190            <meta-data
+190-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:52:13-54:58
+191                android:name="@string/category"
+191-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:53:17-48
+192                android:value="@string/category_basic" />
+192-->/Users/mahkxai/Projects/MahkxaiLab/GACTour/GAC-Tour/app/src/main/AndroidManifest.xml:54:17-55
+193        </activity>
+194
+195        <service
+195-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:9:9-15:19
+196            android:name="com.google.firebase.components.ComponentDiscoveryService"
+196-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:10:13-84
+197            android:directBootAware="true"
+197-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:32:13-43
+198            android:exported="false" >
+198-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:11:13-37
+199            <meta-data
+199-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:12:13-14:85
+200                android:name="com.google.firebase.components:com.google.firebase.database.ktx.FirebaseDatabaseLegacyRegistrar"
+200-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:13:17-127
+201                android:value="com.google.firebase.components.ComponentRegistrar" />
+201-->[com.google.firebase:firebase-database-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/da25664e4268363dd34bbaab7356e2fe/transformed/firebase-database-ktx-20.3.0/AndroidManifest.xml:14:17-82
+202            <meta-data
+202-->[com.google.firebase:firebase-firestore-ktx:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/d99587881f411107087fd64f8462e46e/transformed/firebase-firestore-ktx-24.9.1/AndroidManifest.xml:12:13-14:85
+203                android:name="com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreLegacyRegistrar"
+203-->[com.google.firebase:firebase-firestore-ktx:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/d99587881f411107087fd64f8462e46e/transformed/firebase-firestore-ktx-24.9.1/AndroidManifest.xml:13:17-129
+204                android:value="com.google.firebase.components.ComponentRegistrar" />
+204-->[com.google.firebase:firebase-firestore-ktx:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/d99587881f411107087fd64f8462e46e/transformed/firebase-firestore-ktx-24.9.1/AndroidManifest.xml:14:17-82
+205            <meta-data
+205-->[com.google.firebase:firebase-storage-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/7bf2c8fef585cebb0d93c9f5ec5a1e9f/transformed/firebase-storage-ktx-20.3.0/AndroidManifest.xml:12:13-14:85
+206                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageLegacyRegistrar"
+206-->[com.google.firebase:firebase-storage-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/7bf2c8fef585cebb0d93c9f5ec5a1e9f/transformed/firebase-storage-ktx-20.3.0/AndroidManifest.xml:13:17-125
+207                android:value="com.google.firebase.components.ComponentRegistrar" />
+207-->[com.google.firebase:firebase-storage-ktx:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/7bf2c8fef585cebb0d93c9f5ec5a1e9f/transformed/firebase-storage-ktx-20.3.0/AndroidManifest.xml:14:17-82
+208            <meta-data
+208-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:17:13-19:85
+209                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+209-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:18:17-122
+210                android:value="com.google.firebase.components.ComponentRegistrar" />
+210-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:19:17-82
+211            <meta-data
+211-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:20:13-22:85
+212                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+212-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:21:17-111
+213                android:value="com.google.firebase.components.ComponentRegistrar" />
+213-->[com.google.firebase:firebase-firestore:24.9.1] /Users/mahkxai/.gradle/caches/transforms-3/798d542ccb0d52ebc4d1808ede03888f/transformed/firebase-firestore-24.9.1/AndroidManifest.xml:22:17-82
+214            <meta-data
+214-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:29:13-31:85
+215                android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar"
+215-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:30:17-120
+216                android:value="com.google.firebase.components.ComponentRegistrar" />
+216-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:31:17-82
+217            <meta-data
+217-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:32:13-34:85
+218                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+218-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:33:17-109
+219                android:value="com.google.firebase.components.ComponentRegistrar" />
+219-->[com.google.firebase:firebase-database:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/b661aa197a003c3606b8cd74a9bccd1b/transformed/firebase-database-20.3.0/AndroidManifest.xml:34:17-82
+220            <meta-data
+220-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:30:13-32:85
+221                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
+221-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:31:17-118
+222                android:value="com.google.firebase.components.ComponentRegistrar" />
+222-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:32:17-82
+223            <meta-data
+223-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:33:13-35:85
+224                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+224-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:34:17-107
+225                android:value="com.google.firebase.components.ComponentRegistrar" />
+225-->[com.google.firebase:firebase-storage:20.3.0] /Users/mahkxai/.gradle/caches/transforms-3/01375fe993d58099239be1facca87ac7/transformed/firebase-storage-20.3.0/AndroidManifest.xml:35:17-82
+226            <meta-data
+226-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:25:13-27:85
+227                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
+227-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:26:17-120
+228                android:value="com.google.firebase.components.ComponentRegistrar" />
+228-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:27:17-82
+229            <meta-data
+229-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:28:13-30:85
+230                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
+230-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:29:17-117
+231                android:value="com.google.firebase.components.ComponentRegistrar" />
+231-->[com.google.firebase:firebase-appcheck:17.1.0] /Users/mahkxai/.gradle/caches/transforms-3/d21832faf31de56a450b102fdd9d1a1f/transformed/firebase-appcheck-17.1.0/AndroidManifest.xml:30:17-82
+232            <meta-data
+232-->[com.google.firebase:firebase-common-ktx:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/e632823da690216f0fadb5c35f62fb9c/transformed/firebase-common-ktx-20.4.2/AndroidManifest.xml:12:13-14:85
+233                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+233-->[com.google.firebase:firebase-common-ktx:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/e632823da690216f0fadb5c35f62fb9c/transformed/firebase-common-ktx-20.4.2/AndroidManifest.xml:13:17-116
+234                android:value="com.google.firebase.components.ComponentRegistrar" />
+234-->[com.google.firebase:firebase-common-ktx:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/e632823da690216f0fadb5c35f62fb9c/transformed/firebase-common-ktx-20.4.2/AndroidManifest.xml:14:17-82
+235            <meta-data
+235-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:35:13-37:85
+236                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+236-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:36:17-109
+237                android:value="com.google.firebase.components.ComponentRegistrar" />
+237-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:37:17-82
+238        </service>
+239
+240        <provider
+240-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:22:9-30:20
+241            android:name="androidx.startup.InitializationProvider"
+241-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:23:13-67
+242            android:authorities="com.example.gac_tour.androidx-startup"
+242-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:24:13-68
+243            android:exported="false" >
+243-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:25:13-37
+244            <meta-data
+244-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:27:13-29:52
+245                android:name="com.mapbox.maps.loader.MapboxMapsInitializer"
+245-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:28:17-76
+246                android:value="androidx.startup" />
+246-->[com.mapbox.maps:android-core:11.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/d97b0c26afe412f07827ecc35b055e08/transformed/android-core-11.0.0-beta.6/AndroidManifest.xml:29:17-49
+247            <!-- This entry makes MapboxSDKCommonInitializer discoverable. -->
+248            <meta-data
+248-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:21:13-23:52
+249                android:name="com.mapbox.common.MapboxSDKCommonInitializer"
+249-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:22:17-76
+250                android:value="androidx.startup" />
+250-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:23:17-49
+251            <meta-data
+251-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/87c55648113da685f29267796e969f7c/transformed/emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+252                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+252-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/87c55648113da685f29267796e969f7c/transformed/emoji2-1.3.0/AndroidManifest.xml:30:17-75
+253                android:value="androidx.startup" />
+253-->[androidx.emoji2:emoji2:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/87c55648113da685f29267796e969f7c/transformed/emoji2-1.3.0/AndroidManifest.xml:31:17-49
+254            <meta-data
+254-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/4ec6929c8acd74f1849068588bba92d1/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:29:13-31:52
+255                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+255-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/4ec6929c8acd74f1849068588bba92d1/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:30:17-78
+256                android:value="androidx.startup" />
+256-->[androidx.lifecycle:lifecycle-process:2.6.1] /Users/mahkxai/.gradle/caches/transforms-3/4ec6929c8acd74f1849068588bba92d1/transformed/lifecycle-process-2.6.1/AndroidManifest.xml:31:17-49
+257            <meta-data
+257-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+258                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+258-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+259                android:value="androidx.startup" />
+259-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+260        </provider>
+261
+262        <receiver
+262-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:26:9-33:20
+263            android:name="com.mapbox.common.location.LocationUpdatesReceiver"
+263-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:27:13-78
+264            android:enabled="true"
+264-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:28:13-35
+265            android:exported="false" >
+265-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:29:13-37
+266            <intent-filter>
+266-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:30:13-32:29
+267                <action android:name="com.mapbox.common.location.LocationUpdatesReceiver.ACTION_PROCESS_LOCATION_UPDATES" />
+267-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:31:17-125
+267-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:31:25-122
+268            </intent-filter>
+269        </receiver>
+270
+271        <service
+271-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:35:9-37:40
+272            android:name="com.mapbox.common.LifecycleService"
+272-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:36:13-62
+273            android:exported="false" />
+273-->[com.mapbox.common:common:24.0.0-beta.6] /Users/mahkxai/.gradle/caches/transforms-3/5ec6d35fe048514c9d6a3a63e9d0b127/transformed/common-24.0.0-beta.6/AndroidManifest.xml:37:13-37
+274
+275        <activity
+275-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/15a8d8d4eb5261f4aa66d622b10aede6/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:23:9-25:39
+276            android:name="androidx.activity.ComponentActivity"
+276-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/15a8d8d4eb5261f4aa66d622b10aede6/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:24:13-63
+277            android:exported="true" />
+277-->[androidx.compose.ui:ui-test-manifest:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/15a8d8d4eb5261f4aa66d622b10aede6/transformed/ui-test-manifest-1.4.3/AndroidManifest.xml:25:13-36
+278        <activity
+278-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/9425332ab2b3659bc56171efebc77e2d/transformed/ui-tooling-1.4.3/AndroidManifest.xml:23:9-25:39
+279            android:name="androidx.compose.ui.tooling.PreviewActivity"
+279-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/9425332ab2b3659bc56171efebc77e2d/transformed/ui-tooling-1.4.3/AndroidManifest.xml:24:13-71
+280            android:exported="true" /> <!-- Needs to be explicitly declared on P+ -->
+280-->[androidx.compose.ui:ui-tooling:1.4.3] /Users/mahkxai/.gradle/caches/transforms-3/9425332ab2b3659bc56171efebc77e2d/transformed/ui-tooling-1.4.3/AndroidManifest.xml:25:13-36
+281        <uses-library
+281-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:39:9-41:40
+282            android:name="org.apache.http.legacy"
+282-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
+283            android:required="false" />
+283-->[com.google.android.gms:play-services-maps:18.2.0] /Users/mahkxai/.gradle/caches/transforms-3/2999469fcad8b822c0e43473bd9ff181/transformed/play-services-maps-18.2.0/AndroidManifest.xml:41:13-37
+284
+285        <provider
+285-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:23:9-28:39
+286            android:name="com.google.firebase.provider.FirebaseInitProvider"
+286-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:24:13-77
+287            android:authorities="com.example.gac_tour.firebaseinitprovider"
+287-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:25:13-72
+288            android:directBootAware="true"
+288-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:26:13-43
+289            android:exported="false"
+289-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:27:13-37
+290            android:initOrder="100" />
+290-->[com.google.firebase:firebase-common:20.4.2] /Users/mahkxai/.gradle/caches/transforms-3/ac23018da4c605e7fee63fe40de2b738/transformed/firebase-common-20.4.2/AndroidManifest.xml:28:13-36
+291
+292        <activity
+292-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/7d176c63896551af08a0ecebaab6ccf9/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
+293            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+293-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/7d176c63896551af08a0ecebaab6ccf9/transformed/play-services-base-18.1.0/AndroidManifest.xml:20:19-85
+294            android:exported="false"
+294-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/7d176c63896551af08a0ecebaab6ccf9/transformed/play-services-base-18.1.0/AndroidManifest.xml:22:19-43
+295            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+295-->[com.google.android.gms:play-services-base:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/7d176c63896551af08a0ecebaab6ccf9/transformed/play-services-base-18.1.0/AndroidManifest.xml:21:19-78
+296
+297        <meta-data
+297-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/e4c7d18cfd79351481959c45831ca2f8/transformed/play-services-basement-18.1.0/AndroidManifest.xml:21:9-23:69
+298            android:name="com.google.android.gms.version"
+298-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/e4c7d18cfd79351481959c45831ca2f8/transformed/play-services-basement-18.1.0/AndroidManifest.xml:22:13-58
+299            android:value="@integer/google_play_services_version" />
+299-->[com.google.android.gms:play-services-basement:18.1.0] /Users/mahkxai/.gradle/caches/transforms-3/e4c7d18cfd79351481959c45831ca2f8/transformed/play-services-basement-18.1.0/AndroidManifest.xml:23:13-66
+300
+301        <service
+301-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/692ab8bcba3859fe315f0631a1d6dca7/transformed/room-runtime-2.3.0/AndroidManifest.xml:25:9-28:40
+302            android:name="androidx.room.MultiInstanceInvalidationService"
+302-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/692ab8bcba3859fe315f0631a1d6dca7/transformed/room-runtime-2.3.0/AndroidManifest.xml:26:13-74
+303            android:directBootAware="true"
+303-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/692ab8bcba3859fe315f0631a1d6dca7/transformed/room-runtime-2.3.0/AndroidManifest.xml:27:13-43
+304            android:exported="false" />
+304-->[androidx.room:room-runtime:2.3.0] /Users/mahkxai/.gradle/caches/transforms-3/692ab8bcba3859fe315f0631a1d6dca7/transformed/room-runtime-2.3.0/AndroidManifest.xml:28:13-37
+305
+306        <receiver
+306-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+307            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+307-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+308            android:directBootAware="false"
+308-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+309            android:enabled="true"
+309-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+310            android:exported="true"
+310-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+311            android:permission="android.permission.DUMP" >
+311-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+312            <intent-filter>
+312-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+313                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+313-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+313-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+314            </intent-filter>
+315            <intent-filter>
+315-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+316                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+316-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+316-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+317            </intent-filter>
+318            <intent-filter>
+318-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+319                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+319-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+319-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+320            </intent-filter>
+321            <intent-filter>
+321-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+322                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+322-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+322-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/mahkxai/.gradle/caches/transforms-3/1bcaa0d361b5c0fc0a40e1d0c83c80bc/transformed/profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+323            </intent-filter>
+324        </receiver>
+325    </application>
+326
+327</manifest>

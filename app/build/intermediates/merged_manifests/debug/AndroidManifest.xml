@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.gactour"
+    package="com.example.gac_tour"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -8,18 +8,19 @@
         android:minSdkVersion="23"
         android:targetSdkVersion="33" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-
-    <!-- Include required permissions for Google Maps API to run. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <queries>
 
@@ -27,20 +28,14 @@
         <package android:name="com.google.android.apps.maps" />
     </queries>
 
-    <uses-feature
-        android:name="android.hardware.wifi"
-        android:required="false" />
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <permission
-        android:name="com.example.gactour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.example.gac_tour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.example.gactour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.example.gac_tour.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
-        android:name="com.example.gactour.MainApplication"
+        android:name="com.example.gac_tour.MapboxApplication"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -53,56 +48,211 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.GACTour" >
-        <service android:name="com.example.gactour.location.LocationService" />
+        <meta-data
+            android:name="com.mapbox.token"
+            android:value="@string/mapbox_access_token" />
 
         <activity
-            android:name="com.example.gactour.MainActivity"
+            android:name="com.example.gac_tour.MainActivity"
             android:exported="true"
+            android:launchMode="singleTop"
             android:theme="@style/Theme.GACTour" >
+
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+            -->
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name="androidx.activity.ComponentActivity"
-            android:exported="true" />
+            android:name="com.example.gac_tour.ExampleOverviewActivity"
+            android:exported="true"
+            android:launchMode="singleTop" >
+        </activity>
         <activity
-            android:name="androidx.compose.ui.tooling.PreviewActivity"
-            android:exported="true" /> <!-- Needs to be explicitly declared on P+ -->
-        <uses-library
-            android:name="org.apache.http.legacy"
-            android:required="false" />
+            android:name="com.example.gac_tour.examples.gactour.GACTourActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_gac_tour"
+            android:exported="true"
+            android:label="@string/activity_gac_tour"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity"
+            android:theme="@style/Theme.GACTour" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_basic" />
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:name="com.example.gac_tour.examples.basic.SimpleMapActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_simple_map"
+            android:exported="true"
+            android:label="@string/activity_simple_map"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_basic" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.basic.DebugModeActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_debug_mode"
+            android:exported="true"
+            android:label="@string/activity_debug_mode"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_basic" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.annotation.CircleAnnotationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_circle_annotation"
+            android:exported="true"
+            android:label="@string/activity_circle_annotation"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_annotation" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.annotation.PointAnnotationClusterActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_point_annotation_cluster"
+            android:exported="true"
+            android:label="@string/activity_point_annotation_cluster"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_annotation" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.annotation.PolygonAnnotationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_polygon_annotation"
+            android:exported="true"
+            android:label="@string/activity_polygon_annotation"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_annotation" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.annotation.PolylineAnnotationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_polyline_annotation"
+            android:exported="true"
+            android:label="@string/activity_polyline_annotation"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_annotation" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.annotation.ViewAnnotationActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_view_annotation"
+            android:exported="true"
+            android:label="@string/activity_view_annotation"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_annotation" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.animation.MapViewportAnimationsActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_map_viewport_animation"
+            android:exported="true"
+            android:label="@string/activity_map_viewport_animation"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_camera" />
+        </activity>
+        <activity
+            android:name="com.example.gac_tour.examples.basic.MultiDisplayActivity"
+            android:configChanges="orientation|screenSize|screenLayout"
+            android:description="@string/description_multiple_display"
+            android:exported="true"
+            android:label="@string/activity_multiple_display"
+            android:parentActivityName="com.example.gac_tour.ExampleOverviewActivity" >
+            <meta-data
+                android:name="@string/category"
+                android:value="@string/category_basic" />
+        </activity>
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+        <service
+            android:name="com.google.firebase.components.ComponentDiscoveryService"
+            android:directBootAware="true"
+            android:exported="false" >
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.database.ktx.FirebaseDatabaseLegacyRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.firestore.ktx.FirebaseFirestoreLegacyRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.storage.ktx.FirebaseStorageLegacyRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.firestore.FirebaseFirestoreKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.database.FirebaseDatabaseKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.storage.FirebaseStorageKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.appcheck.FirebaseAppCheckRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+            <meta-data
+                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+                android:value="com.google.firebase.components.ComponentRegistrar" />
+        </service>
 
         <provider
             android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.example.gactour.androidx-startup"
+            android:authorities="com.example.gac_tour.androidx-startup"
             android:exported="false" >
+            <meta-data
+                android:name="com.mapbox.maps.loader.MapboxMapsInitializer"
+                android:value="androidx.startup" />
+            <!-- This entry makes MapboxSDKCommonInitializer discoverable. -->
+            <meta-data
+                android:name="com.mapbox.common.MapboxSDKCommonInitializer"
+                android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.emoji2.text.EmojiCompatInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-                android:value="androidx.startup" />
-            <meta-data
-                android:name="com.mapbox.maps.loader.MapboxMapsInitializer"
-                android:value="androidx.startup" /> <!-- This entry makes MapboxSDKCommonInitializer discoverable. -->
-            <meta-data
-                android:name="com.mapbox.common.MapboxSDKCommonInitializer"
                 android:value="androidx.startup" />
             <meta-data
                 android:name="androidx.profileinstaller.ProfileInstallerInitializer"
@@ -121,6 +271,33 @@
         <service
             android:name="com.mapbox.common.LifecycleService"
             android:exported="false" />
+
+        <activity
+            android:name="androidx.activity.ComponentActivity"
+            android:exported="true" />
+        <activity
+            android:name="androidx.compose.ui.tooling.PreviewActivity"
+            android:exported="true" /> <!-- Needs to be explicitly declared on P+ -->
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <provider
+            android:name="com.google.firebase.provider.FirebaseInitProvider"
+            android:authorities="com.example.gac_tour.firebaseinitprovider"
+            android:directBootAware="true"
+            android:exported="false"
+            android:initOrder="100" />
+
+        <activity
+            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <service
             android:name="androidx.room.MultiInstanceInvalidationService"
             android:directBootAware="true"

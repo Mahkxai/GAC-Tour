@@ -1,0 +1,14 @@
+<!-- res/drawable/mapbox_accuracy_ring.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- Light blue fill -->
+    <solid android:color="#3030B0FF" /> <!-- Using a semi-transparent light blue -->
+
+    <!-- Dark blue border -->
+    <stroke
+        android:width="2dp"
+        android:color="#60307AFF" /> <!-- Solid dark blue border -->
+
+    <!-- You can specify the size here, but it might be better to do so programmatically if you want to adjust the radius dynamically -->
+    <size android:width="100dp" android:height="100dp"/>
+</shape>

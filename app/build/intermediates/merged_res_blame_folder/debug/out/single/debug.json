@@ -1,110 +1,158 @@
 [
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_motto.png.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_motto.png"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_map_3d_extra.jpg.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_map_3d_extra.jpg"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_mapbox_lightpreset_dawn.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/mapbox_lightpreset_dawn.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_upload_audio.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/upload_audio.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_pin.png.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_pin.png"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_pin.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_pin.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable-v24/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.gactour.app-main-75:/xml/data_extraction_rules.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_intro.gif.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_intro.gif"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable_map_pin.xml.flat",
-        "source": "com.example.gactour.app-main-75:/drawable/map_pin.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/font_jetbrainsmono_font_family.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/font/jetbrainsmono_font_family.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/font_jetbrainsmono_regular.ttf.flat",
+        "source": "com.example.gac_tour.app-main-82:/font/jetbrainsmono_regular.ttf"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.gactour.app-main-75:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_map_user_enabled.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/map_user_enabled.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_mapbox_lightpreset_night.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/mapbox_lightpreset_night.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_map_3d_extra.jpg.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_map_3d_extra.jpg"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_logo.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_logo.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable_map_user_enabled.xml.flat",
-        "source": "com.example.gactour.app-main-75:/drawable/map_user_enabled.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_logo.png.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_logo.png"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_baseline_pause_24.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/baseline_pause_24.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable_map_user_disabled.xml.flat",
-        "source": "com.example.gactour.app-main-75:/drawable/map_user_disabled.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_mapbox_lightpreset_day.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/mapbox_lightpreset_day.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_sign.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_sign.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_sign.png.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_sign.png"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_map_3d.jpg.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_map_3d.jpg"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_intro.gif.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_intro.gif"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_map_3d.jpg.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_map_3d.jpg"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_ic_launcher_foreground.xml.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/ic_launcher_foreground.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_motto.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_motto.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.gactour.app-main-75:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_gac_map_2d.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/gac_map_2d.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/drawable-v24_gac_map_2d.png.flat",
-        "source": "com.example.gactour.app-main-75:/drawable-v24/gac_map_2d.png"
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_mapbox_red_marker.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/mapbox_red_marker.png"
     },
     {
-        "merged": "com.example.gactour.app-merged_res-73:/xml_backup_rules.xml.flat",
-        "source": "com.example.gactour.app-main-75:/xml/backup_rules.xml"
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_map_pin.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/map_pin.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_map_user_disabled.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/map_user_disabled.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_mapbox_lightpreset_dusk.png.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/mapbox_lightpreset_dusk.png"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_upload_video.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/upload_video.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_upload_photo.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/upload_photo.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/xml_backup_rules.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/drawable_map_mylocation_fetch_ring.xml.flat",
+        "source": "com.example.gac_tour.app-main-82:/drawable/map_mylocation_fetch_ring.xml"
+    },
+    {
+        "merged": "com.example.gac_tour.app-merged_res-80:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.gac_tour.app-main-82:/mipmap-mdpi/ic_launcher.webp"
     }
 ]
