@@ -16,4 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GAC Tour"
 include ':app'
-include ':sdk'
+include ':opencv'
