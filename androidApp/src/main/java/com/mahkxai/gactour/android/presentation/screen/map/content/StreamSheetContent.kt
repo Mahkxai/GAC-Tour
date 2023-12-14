@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -42,27 +43,32 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
-import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.database.DatabaseProvider
+import androidx.media3.database.StandaloneDatabaseProvider
+import androidx.media3.datasource.DefaultHttpDataSource
+import androidx.media3.datasource.cache.CacheDataSource
+import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
+import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM
 import coil.compose.AsyncImage
-import com.mahkxai.gactour.android.R
+import com.mahkxai.gactour.android.MainApplication
 import com.mahkxai.gactour.android.common.composables.ComposableLifecycle
 import com.mahkxai.gactour.android.common.composables.PlayerListener
 import com.mahkxai.gactour.android.common.util.LogTags
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
-import com.mahkxai.gactour.android.mock.MockData
 import com.mahkxai.gactour.android.presentation.screen.stream.content.rememberPlayerView
 import com.mapbox.maps.logE
+import java.io.File
 
 @Composable
 fun StreamSheetContent(
@@ -222,9 +228,6 @@ fun VideoStreamPreview(
     videoItems: List<GACTourMediaItem>,
     setSelectedMediaIndex: (Int) -> Unit,
 ) {
-    // val videoUrls = MockData.videoUrls
-    // val thumbnailUrls = MockData.thumbnailUrls
-
     val videoUrls = remember(videoItems) { videoItems.map { it.url } }
     val thumbnailUrls = remember(videoItems) { videoItems.map { it.thumbnailUrl } }
 
@@ -233,14 +236,22 @@ fun VideoStreamPreview(
     val playbackOffsetPx = with(LocalDensity.current) { 30.dp.toPx() }
 
     val context = LocalContext.current
+    val appContext = LocalContext.current.applicationContext as MainApplication
     val exoPlayer = remember { ExoPlayer.Builder(context).build() }
+    val cacheManager = appContext.cacheManager
+    val cacheDataSourceFactory = cacheManager.createCacheDataSourceFactory()
+    val mediaSourceFactory = ProgressiveMediaSource.Factory(cacheDataSourceFactory)
 
-    // Setup ExoPlayer as Playlist
-    // LaunchedEffect(Unit) {
-    //     val mediaItems = videoUrls.map { MediaItem.fromUri(it) }
-    //     exoPlayer.setMediaItems(mediaItems, false)
-    //     exoPlayer.prepare()
+    /* Test Cache Manager*/
+    // val cacheDir = File(context.cacheDir, "video_cache")
+    // val databaseProvider: DatabaseProvider = StandaloneDatabaseProvider(context)
+    // val cacheEvictor = LeastRecentlyUsedCacheEvictor(500 * 1024 * 1024) // 500 MB
+    // val simpleCache = SimpleCache(cacheDir, cacheEvictor, databaseProvider)
+    // val cacheDataSourceFactory = CacheDataSource.Factory().apply {
+    //     setCache(simpleCache)
+    //     setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory())
     // }
+
 
     LaunchedEffect(listState) {
         snapshotFlow { listState.layoutInfo }
@@ -262,9 +273,19 @@ fun VideoStreamPreview(
                         // exoPlayer.playWhenReady = true
 
                         val currentlyPlayingUrl = videoUrls[currentIndex]
-                        exoPlayer.setMediaItem(MediaItem.fromUri(currentlyPlayingUrl))
-                        exoPlayer.prepare()
-                        exoPlayer.playWhenReady = true
+                        val mediaItem = MediaItem.fromUri(currentlyPlayingUrl)
+                        val mediaSource = mediaSourceFactory.createMediaSource(mediaItem)
+                        exoPlayer.setMediaSource(mediaSource)
+
+                        try {
+                            exoPlayer.setMediaSource(mediaSource)
+                            exoPlayer.prepare()
+                            exoPlayer.playWhenReady = true
+                        } catch (e: Exception) {
+                            logE("VideoStream", "Error playing from cache: ${e.message}")
+                            // Handle error or notify the user
+                        }
+
                     }
                 }
             }
@@ -299,9 +320,17 @@ fun VideoStreamPreview(
         }
     }
 
+    /*//Setup ExoPlayer as Playlist
+    LaunchedEffect(Unit) {
+        val mediaItems = videoUrls.map { MediaItem.fromUri(it) }
+        exoPlayer.setMediaItems(mediaItems, false)
+        exoPlayer.prepare()
+    }*/
+
 }
 
-@androidx.annotation.OptIn(UnstableApi::class) @Composable
+@androidx.annotation.OptIn(UnstableApi::class)
+@Composable
 fun VideoPreviewContainer(
     exoPlayer: ExoPlayer,
     thumbnailUrl: String?,
@@ -356,7 +385,7 @@ fun BoxScope.VideoPreviewPauseIcon() {
             .align(Alignment.BottomEnd)
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.stream_pause_icon),
+            imageVector = Icons.Default.Pause,
             tint = Color.White,
             contentDescription = "Video Preview Pause"
         )

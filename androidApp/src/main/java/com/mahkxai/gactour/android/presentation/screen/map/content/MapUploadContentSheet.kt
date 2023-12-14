@@ -190,9 +190,7 @@ fun RowScope.VideoPicker(onUpload: (List<Uri>) -> Unit) {
     VisualMediaInputContainer(
         onMediaTypeSelected = {
             multipleVideoPickerLauncher.launch(
-                PickVisualMediaRequest(
-                    ActivityResultContracts.PickVisualMedia.VideoOnly
-                )
+                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.VideoOnly)
             )
         }
     ) {

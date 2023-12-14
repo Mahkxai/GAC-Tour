@@ -1,6 +1,5 @@
 package com.mahkxai.gactour.android.common.icon
 
-import android.provider.ContactsContract.Profile
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Map
@@ -9,7 +8,6 @@ import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.outlined.CameraAlt
 import androidx.compose.material.icons.outlined.Map
 import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.ArrowBack
@@ -17,7 +15,6 @@ import androidx.compose.material.icons.rounded.Check
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.Search
 import androidx.compose.material.icons.rounded.Settings
-import com.mahkxai.gactour.android.R
 
 object GACTourAppIcons {
     val Add = Icons.Rounded.Add

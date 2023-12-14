@@ -1,6 +1,7 @@
 package com.mahkxai.gactour.android.data.metadata.di
 
 import android.app.Application
+import android.content.Context
 import androidx.media3.common.Player
 import androidx.media3.exoplayer.ExoPlayer
 import com.mahkxai.gactour.android.data.metadata.MetaDataReader
@@ -9,7 +10,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
+import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
