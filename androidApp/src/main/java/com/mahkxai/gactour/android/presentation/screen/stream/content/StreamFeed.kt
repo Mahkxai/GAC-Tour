@@ -23,7 +23,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
-import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
@@ -31,9 +30,8 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import com.mahkxai.gactour.android.R
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
+import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
-import com.mahkxai.gactour.android.mock.MockData
 import com.mahkxai.gactour.android.common.composables.ComposableLifecycle
 import com.mahkxai.gactour.android.common.composables.PlayerListener
 import com.mahkxai.gactour.android.common.util.LogTags

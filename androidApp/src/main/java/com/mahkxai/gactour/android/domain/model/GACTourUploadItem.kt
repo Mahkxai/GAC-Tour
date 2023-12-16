@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.common.model
+package com.mahkxai.gactour.android.domain.model
 
 import android.net.Uri
 import com.mapbox.geojson.Point

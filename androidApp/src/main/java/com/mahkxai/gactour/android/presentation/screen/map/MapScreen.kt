@@ -30,14 +30,14 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
+import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
+import com.mahkxai.gactour.android.domain.model.GACTourMediaType
 import com.mahkxai.gactour.android.presentation.screen.map.content.StreamSheetContent
 import com.mahkxai.gactour.android.common.util.MapConstants
 import com.mahkxai.gactour.android.presentation.MainViewModel
 import com.mahkxai.gactour.android.common.ext.disableInteraction
 import com.mahkxai.gactour.android.common.ext.ignoreNextModifiers
-import com.mahkxai.gactour.android.common.model.GACTourUploadItem
+import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.presentation.navigation.BottomBarNavGraph
 import com.mahkxai.gactour.android.presentation.permission.MultiplePermissionsHandler
 import com.mahkxai.gactour.android.presentation.permission.PermissionKey

@@ -1,7 +1,5 @@
 package com.mahkxai.gactour.android.experiment.exp_firebase
 
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
-
 
 /*// FirestoreService and Impl
 fun fetchMediaUpdatesNearLocation(center: GeoLocation, radiusInM: Double):

@@ -13,7 +13,6 @@ import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import com.mahkxai.gactour.android.data.cache.CacheManager
-import com.mapbox.maps.logD
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
