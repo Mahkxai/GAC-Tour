@@ -50,12 +50,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.database.DatabaseProvider
-import androidx.media3.database.StandaloneDatabaseProvider
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.datasource.cache.CacheDataSource
-import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
-import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.ui.AspectRatioFrameLayout.RESIZE_MODE_ZOOM
@@ -68,7 +62,6 @@ import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.presentation.screen.stream.content.rememberPlayerView
 import com.mapbox.maps.logE
-import java.io.File
 
 @Composable
 fun StreamSheetContent(
@@ -236,7 +229,7 @@ fun VideoStreamPreview(
     val playbackOffsetPx = with(LocalDensity.current) { 30.dp.toPx() }
 
     val context = LocalContext.current
-    val appContext = LocalContext.current.applicationContext as MainApplication
+    val appContext = context.applicationContext as MainApplication
     val exoPlayer = remember { ExoPlayer.Builder(context).build() }
     val cacheManager = appContext.cacheManager
     val cacheDataSourceFactory = cacheManager.createCacheDataSourceFactory()
@@ -275,7 +268,6 @@ fun VideoStreamPreview(
                         val currentlyPlayingUrl = videoUrls[currentIndex]
                         val mediaItem = MediaItem.fromUri(currentlyPlayingUrl)
                         val mediaSource = mediaSourceFactory.createMediaSource(mediaItem)
-                        exoPlayer.setMediaSource(mediaSource)
 
                         try {
                             exoPlayer.setMediaSource(mediaSource)
@@ -283,7 +275,6 @@ fun VideoStreamPreview(
                             exoPlayer.playWhenReady = true
                         } catch (e: Exception) {
                             logE("VideoStream", "Error playing from cache: ${e.message}")
-                            // Handle error or notify the user
                         }
 
                     }

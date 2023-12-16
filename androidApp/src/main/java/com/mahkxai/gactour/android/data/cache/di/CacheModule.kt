@@ -15,9 +15,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object CacheModule {
 
-    @UnstableApi @Singleton
+    @UnstableApi
+    @Singleton
     @Provides
     fun provideCacheManager(@ApplicationContext context: Context): CacheManager {
         return CacheManagerImpl(context)
     }
+
 }

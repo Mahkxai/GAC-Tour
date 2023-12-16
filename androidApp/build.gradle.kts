@@ -102,8 +102,8 @@ dependencies {
     implementation(libs.coil.gif)
 
     // Media3 ExoPlayer
-    implementation(libs.exoplayer)
-    implementation(libs.exoplayer.ui)
+    implementation(libs.media3.ui)
+    implementation(libs.media3.exoplayer)
     implementation(libs.ffmpeg.kit)
 
     // CameraX

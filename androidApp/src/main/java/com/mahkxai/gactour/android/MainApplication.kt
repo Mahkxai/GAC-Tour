@@ -15,8 +15,6 @@ class MainApplication: Application() {
         cacheManager.initializeCache()
     }
 
-    override fun onTerminate() {
-        super.onTerminate()
-        cacheManager.releaseCache()
-    }
+    // TODO: Destroy the cache when the app is closed
+
 }
