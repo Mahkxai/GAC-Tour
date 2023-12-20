@@ -3,8 +3,10 @@ package com.mahkxai.gactour.android.presentation.screen.stream
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.media3.exoplayer.ExoPlayer
+import com.mahkxai.gactour.android.data.local.PlayerCacheManager
 import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
+import com.mahkxai.gactour.android.domain.model.GACTourMediaType
 import com.mahkxai.gactour.android.domain.usecase.FetchNearbyMediaUseCase
 import com.mahkxai.gactour.android.domain.usecase.UploadMediaUseCase
 import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
@@ -21,7 +23,9 @@ import javax.inject.Inject
 @HiltViewModel
 class StreamViewModel @Inject constructor(
     private val fetchNearbyMediaUseCase: FetchNearbyMediaUseCase,
-    private val uploadMediaUseCase: UploadMediaUseCase
+    private val uploadMediaUseCase: UploadMediaUseCase,
+    private val videoPlayer: ExoPlayer,
+    private val playerCacheManager: PlayerCacheManager,
 ) : ViewModel() {
 
     private val _streamState = MutableStateFlow(
@@ -35,6 +39,9 @@ class StreamViewModel @Inject constructor(
     private val _uploadState = MutableStateFlow<UploadState>(UploadState.Idle)
     val uploadState = _uploadState.asStateFlow()
 
+    init {
+        playerCacheManager.initializeCache()
+    }
 
     fun fetchNearbyMedia(center: Point, radiusInMetres: Double) {
         viewModelScope.launch {

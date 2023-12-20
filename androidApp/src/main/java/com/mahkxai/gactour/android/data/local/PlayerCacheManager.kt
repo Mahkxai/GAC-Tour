@@ -1,9 +1,8 @@
-package com.mahkxai.gactour.android.data.cache
+package com.mahkxai.gactour.android.data.local
 
 import androidx.media3.datasource.cache.CacheDataSource
-import java.io.File
 
-interface CacheManager {
+interface PlayerCacheManager {
     fun initializeCache()
 
     fun createCacheDataSourceFactory(): CacheDataSource.Factory

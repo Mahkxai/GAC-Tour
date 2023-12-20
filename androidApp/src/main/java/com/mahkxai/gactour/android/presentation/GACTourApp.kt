@@ -32,7 +32,7 @@ fun GACTourApp() {
             containerColor = Color.Black,
             contentColor = MaterialTheme.colorScheme.onBackground,
             bottomBar = {
-                if (appState.shoudShowBottomBar) {
+                if (appState.shouldShowBottomBar) {
                     GACTourBottomBar(
                         destinations = appState.navBarDestinations,
                         onNavigateToDestination = appState::navigateToScreenDestination,

@@ -1,7 +1,7 @@
 package com.mahkxai.gactour.android.data.mock
 
 import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
+import com.mahkxai.gactour.android.domain.model.GACTourMediaType
 import com.mapbox.geojson.Point
 import kotlin.math.cos
 import kotlin.math.sin

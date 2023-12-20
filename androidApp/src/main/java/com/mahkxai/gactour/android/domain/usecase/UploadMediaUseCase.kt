@@ -8,10 +8,10 @@ import com.firebase.geofire.GeoFireUtils
 import com.mahkxai.gactour.android.data.firebase.FirebaseStorageService
 import com.mahkxai.gactour.android.data.firebase.FirestoreService
 import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.common.ext.toGeoLocation
 import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.common.util.MediaProcessingUtil
+import com.mahkxai.gactour.android.domain.model.GACTourMediaType
 import kotlinx.coroutines.flow.collect
 import java.io.File
 import java.util.Date
