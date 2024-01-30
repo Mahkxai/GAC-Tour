@@ -16,7 +16,10 @@ data class GACTourMediaItem(
 )
 
 enum class GACTourMediaType {
-    IMAGE, VIDEO, AUDIO, TEXT;
+    IMAGE,
+    VIDEO,
+    AUDIO,
+    TEXT;
 
     fun collectionName(): String {
         return when(this) {

@@ -110,11 +110,9 @@ fun StreamFeed(
                     setSelectedMediaIndex(GACTourMediaType.VIDEO, it)
                 }
 
-            GACTourMediaType.AUDIO ->
-                AudioStream(activeCategoryMediaItems)
+            GACTourMediaType.AUDIO -> AudioStream(activeCategoryMediaItems)
 
-            GACTourMediaType.TEXT ->
-                TextStream(activeCategoryMediaItems)
+            GACTourMediaType.TEXT -> TextStream(activeCategoryMediaItems)
         }
     }
 }
