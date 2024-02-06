@@ -32,12 +32,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
-import com.mahkxai.gactour.android.presentation.screen.map.content.StreamSheetContent
+import com.mahkxai.gactour.android.presentation.screen.stream.common.StreamSheetContent
 import com.mahkxai.gactour.android.common.util.MapConstants
 import com.mahkxai.gactour.android.presentation.MainViewModel
 import com.mahkxai.gactour.android.common.ext.disableInteraction
 import com.mahkxai.gactour.android.common.ext.ignoreNextModifiers
-import com.mahkxai.gactour.android.common.model.GACTourUploadItem
+import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.presentation.navigation.BottomBarNavGraph
 import com.mahkxai.gactour.android.presentation.permission.MultiplePermissionsHandler
 import com.mahkxai.gactour.android.presentation.permission.PermissionKey
@@ -47,9 +47,9 @@ import com.mahkxai.gactour.android.presentation.screen.map.content.MapStyleContr
 import com.mahkxai.gactour.android.presentation.screen.map.content.MapUploadContentSheet
 import com.mahkxai.gactour.android.presentation.screen.stream.StreamViewModel
 import com.mahkxai.gactour.android.presentation.screen.stream.UploadState
-import com.mahkxai.gactour.android.presentation.screen.stream.content.StreamFeedContainer
-import com.mahkxai.gactour.android.presentation.screen.stream.content.StreamItemCounter
-import com.mahkxai.gactour.android.presentation.screen.stream.content.StreamTabRow
+import com.mahkxai.gactour.android.presentation.screen.stream.common.StreamFeedContainer
+import com.mahkxai.gactour.android.presentation.screen.stream.common.StreamItemCounter
+import com.mahkxai.gactour.android.presentation.screen.stream.common.StreamTabRow
 import com.mapbox.maps.MapboxExperimental
 import com.ramcosta.composedestinations.annotation.Destination
 

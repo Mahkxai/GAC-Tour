@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.content
+package com.mahkxai.gactour.android.presentation.screen.stream.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

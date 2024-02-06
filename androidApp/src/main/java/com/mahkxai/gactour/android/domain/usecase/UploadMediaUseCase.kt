@@ -13,7 +13,7 @@ import com.mahkxai.gactour.android.data.firebase.FirestoreService
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.common.ext.toGeoLocation
-import com.mahkxai.gactour.android.common.model.GACTourUploadItem
+import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.common.util.MediaProcessingUtil
 import com.mapbox.maps.logE
 import dagger.hilt.android.qualifiers.ApplicationContext
