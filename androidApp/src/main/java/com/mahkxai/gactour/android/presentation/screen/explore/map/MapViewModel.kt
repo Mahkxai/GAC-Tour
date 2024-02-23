@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map
+package com.mahkxai.gactour.android.presentation.screen.explore.map
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

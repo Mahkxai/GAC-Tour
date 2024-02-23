@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream
+package com.mahkxai.gactour.android.presentation.screen.explore.stream
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
@@ -9,6 +9,7 @@ import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
 import com.mahkxai.gactour.android.domain.model.GACTourMediaType
 import com.mahkxai.gactour.android.domain.usecase.FetchNearbyMediaUseCase
 import com.mahkxai.gactour.android.domain.usecase.UploadMediaUseCase
+import com.mahkxai.gactour.android.common.ext.toGeoLocation
 import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mapbox.geojson.Point
 import dagger.hilt.android.lifecycle.HiltViewModel

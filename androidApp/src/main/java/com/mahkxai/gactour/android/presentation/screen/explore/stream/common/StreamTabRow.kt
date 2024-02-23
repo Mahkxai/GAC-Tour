@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.content
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -28,7 +28,7 @@ fun StreamTabRow(
         modifier = Modifier.fillMaxWidth(0.9f),
         selectedTabIndex = selectedTabIndex,
         containerColor = Color.Transparent,
-        indicator = { tabPositions ->  StreamTabIndicator(selectedTabIndex, tabPositions)},
+        indicator = { tabPositions ->  StreamTabIndicator(selectedTabIndex, tabPositions) },
         divider = {},
     ) {
         GACTourMediaType.values().forEach { mediaCategory ->

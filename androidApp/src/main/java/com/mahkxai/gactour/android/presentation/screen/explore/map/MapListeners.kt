@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map
+package com.mahkxai.gactour.android.presentation.screen.explore.map
 
 import com.mahkxai.gactour.android.common.ext.calculatePixelRadius
 import com.mahkxai.gactour.android.common.util.CameraConstants
