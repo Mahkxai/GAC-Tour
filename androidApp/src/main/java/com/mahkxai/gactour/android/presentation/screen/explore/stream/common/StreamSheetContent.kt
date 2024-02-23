@@ -29,8 +29,8 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.image.ImageStreamPreview
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.video.VideoStreamPreview
 

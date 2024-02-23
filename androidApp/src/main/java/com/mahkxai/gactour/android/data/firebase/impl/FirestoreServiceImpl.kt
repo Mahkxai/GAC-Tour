@@ -6,8 +6,8 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.toObject
 import com.mahkxai.gactour.android.data.firebase.FirestoreService
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

@@ -40,7 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.presentation.permission.MultiplePermissionsHandler
 import com.mahkxai.gactour.android.presentation.permission.PermissionKey

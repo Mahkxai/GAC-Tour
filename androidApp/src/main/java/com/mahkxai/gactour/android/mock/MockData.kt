@@ -1,7 +1,7 @@
-package com.mahkxai.gactour.android.data.mock
+package com.mahkxai.gactour.android.mock
 
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mapbox.geojson.Point
 import kotlin.math.cos
 import kotlin.math.sin
@@ -49,8 +49,8 @@ object MockData {
     )
 
     fun mediaItems(currentLocation: Point?): Map<GACTourMediaType, List<GACTourMediaItem>> {
-        val randomImageUrls = imageUrls.shuffleAndResizeList()
-        val randomVideoUrls = videoUrls.shuffleAndResizeList()
+        val randomImageUrls = this.imageUrls.shuffleAndResizeList()
+        val randomVideoUrls = this.videoUrls.shuffleAndResizeList()
 
         val imageList = randomImageUrls.map { url ->
             val randomPoint = generateRandomPoint(currentLocation, 50.0)
@@ -62,7 +62,7 @@ object MockData {
         }
 
         val videoList = randomVideoUrls.mapIndexed { index, url ->
-            val thumbnailUrl = thumbnailUrls[index]
+            val thumbnailUrl = this.thumbnailUrls[index]
             val randomPoint = generateRandomPoint(currentLocation, 50.0)
 
             GACTourMediaItem(

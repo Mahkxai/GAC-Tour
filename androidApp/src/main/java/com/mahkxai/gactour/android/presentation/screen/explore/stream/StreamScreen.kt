@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.common.StreamFeedContainer
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.common.StreamItemCounter
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.common.StreamTabRow

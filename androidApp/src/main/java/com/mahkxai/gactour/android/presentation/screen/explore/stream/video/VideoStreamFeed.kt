@@ -22,7 +22,7 @@ import androidx.media3.exoplayer.ExoPlayer
 import com.mahkxai.gactour.android.common.composables.ComposableLifecycle
 import com.mahkxai.gactour.android.common.composables.PlayerListener
 import com.mahkxai.gactour.android.common.util.LogTags
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.presentation.screen.explore.stream.image.ImageFeedContainer
 import com.mapbox.maps.logE
 

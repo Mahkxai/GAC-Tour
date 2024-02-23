@@ -1,10 +1,10 @@
-package com.mahkxai.gactour.android.data.local.impl
+package com.mahkxai.gactour.android.data.metadata.impl
 
 import android.app.Application
 import android.net.Uri
 import android.provider.MediaStore
-import com.mahkxai.gactour.android.data.local.MetaDataReader
-import com.mahkxai.gactour.android.data.local.model.MetaData
+import com.mahkxai.gactour.android.data.metadata.MetaDataReader
+import com.mahkxai.gactour.android.data.metadata.model.MetaData
 
 class MetaDataReaderImpl(
     private val app: Application

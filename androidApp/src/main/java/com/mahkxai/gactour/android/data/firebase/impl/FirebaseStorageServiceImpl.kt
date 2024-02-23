@@ -5,7 +5,7 @@ import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.StorageReference
 import com.mahkxai.gactour.android.data.firebase.FirebaseStorageService
-import com.mahkxai.gactour.android.domain.model.GACTourMediaType
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import kotlinx.coroutines.tasks.await
 import java.util.Date
 import java.util.Locale

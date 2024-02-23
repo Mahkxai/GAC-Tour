@@ -42,7 +42,7 @@ class GACTourAppState(
     val navController: NavHostController,
 //    userNewsResourceRepository: UserNewsResourceRepository,
 ) {
-    var shouldShowBottomBar by mutableStateOf(true)
+    var shoudShowBottomBar by mutableStateOf(true)
         private set
 
     val navBarDestinations: List<NavigationBarDestination> =
@@ -61,6 +61,6 @@ class GACTourAppState(
     }
 
     fun showBottomBar(flag: Boolean) {
-        shouldShowBottomBar = flag
+        shoudShowBottomBar = flag
     }
 }

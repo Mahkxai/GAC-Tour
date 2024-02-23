@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)

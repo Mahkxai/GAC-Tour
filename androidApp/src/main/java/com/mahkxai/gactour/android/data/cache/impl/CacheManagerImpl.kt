@@ -1,6 +1,5 @@
-package com.mahkxai.gactour.android.data.local.impl
+package com.mahkxai.gactour.android.data.cache.impl
 
-import android.app.Application
 import android.content.Context
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.database.DatabaseProvider
@@ -13,29 +12,28 @@ import androidx.media3.datasource.cache.CacheDataSink
 import androidx.media3.datasource.cache.CacheDataSource
 import androidx.media3.datasource.cache.LeastRecentlyUsedCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
-import com.mahkxai.gactour.android.data.local.PlayerCacheManager
+import com.mahkxai.gactour.android.data.cache.CacheManager
+import com.mapbox.maps.logD
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @UnstableApi
 @Singleton
-class PlayerCacheManagerImpl @Inject constructor(
-    private val app: Application
-) : PlayerCacheManager {
+class CacheManagerImpl @Inject constructor(private val context: Context) : CacheManager {
     private lateinit var cache: Cache
 
     override fun initializeCache() {
-        val cacheDir = File(app.cacheDir, VIDEO_CACHE_DIR)
+        val cacheDir = File(context.cacheDir, VIDEO_CACHE_DIR)
         val cacheEvictor = LeastRecentlyUsedCacheEvictor(VIDEO_CACHE_SIZE)
-        val databaseProvider: DatabaseProvider = StandaloneDatabaseProvider(app) // SQLite
+        val databaseProvider: DatabaseProvider = StandaloneDatabaseProvider(context) // SQLite
 
         cache = SimpleCache(cacheDir, cacheEvictor, databaseProvider)
     }
 
     override fun createCacheDataSourceFactory(): CacheDataSource.Factory {
         val cacheSink = CacheDataSink.Factory().setCache(cache)
-        val upstreamFactory = DefaultDataSource.Factory(app, DefaultHttpDataSource.Factory())
+        val upstreamFactory = DefaultDataSource.Factory(context, DefaultHttpDataSource.Factory())
         val downStreamFactory = FileDataSource.Factory()
 
         return CacheDataSource.Factory()

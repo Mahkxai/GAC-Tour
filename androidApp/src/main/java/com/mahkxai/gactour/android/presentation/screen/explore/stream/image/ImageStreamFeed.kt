@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
-import com.mahkxai.gactour.android.domain.model.GACTourMediaItem
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
