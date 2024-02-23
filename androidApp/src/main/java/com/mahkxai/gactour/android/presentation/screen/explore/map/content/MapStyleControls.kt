@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map.content
+package com.mahkxai.gactour.android.presentation.screen.explore.map.content
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding

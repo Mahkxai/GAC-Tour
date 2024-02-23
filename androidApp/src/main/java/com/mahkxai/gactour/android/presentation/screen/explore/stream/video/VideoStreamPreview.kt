@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.video
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.video
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -41,8 +41,8 @@ import com.mahkxai.gactour.android.common.composables.ComposableLifecycle
 import com.mahkxai.gactour.android.common.composables.PlayerListener
 import com.mahkxai.gactour.android.common.util.LogTags
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
-import com.mahkxai.gactour.android.presentation.screen.stream.image.ImagePreviewContainer
-import com.mahkxai.gactour.android.presentation.screen.stream.common.VisualMediaPreviewCard
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.image.ImagePreviewContainer
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.common.VisualMediaPreviewCard
 import com.mapbox.maps.logE
 
 @androidx.annotation.OptIn(UnstableApi::class)

@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map.content
+package com.mahkxai.gactour.android.presentation.screen.explore.map.content
 
 import android.content.Context
 import androidx.compose.animation.core.FastOutSlowInEasing
@@ -37,9 +37,9 @@ import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.common.ext.resize
 import com.mahkxai.gactour.android.common.util.CameraConstants
 import com.mahkxai.gactour.android.common.util.MapConstants
-import com.mahkxai.gactour.android.presentation.screen.map.MapListeners
-import com.mahkxai.gactour.android.presentation.screen.map.MapUiState
-import com.mahkxai.gactour.android.presentation.screen.map.MapViewModel
+import com.mahkxai.gactour.android.presentation.screen.explore.map.MapListeners
+import com.mahkxai.gactour.android.presentation.screen.explore.map.MapUiState
+import com.mahkxai.gactour.android.presentation.screen.explore.map.MapViewModel
 import com.mapbox.bindgen.Value
 import com.mapbox.geojson.Point
 import com.mapbox.maps.CameraOptions

@@ -23,7 +23,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.mahkxai.gactour.android.R
 import com.mahkxai.gactour.android.presentation.NavGraphs
-import com.mahkxai.gactour.android.presentation.destinations.MapScreenDestination
+import com.mahkxai.gactour.android.presentation.destinations.ExploreScreenDestination
 import com.mahkxai.gactour.android.presentation.navigation.AuthNavGraph
 import com.mahkxai.gactour.android.presentation.startAppDestination
 import com.mahkxai.gactour.android.presentation.theme.RichGold
@@ -40,7 +40,7 @@ fun LoginScreen(
     navigator: DestinationsNavigator
 ) {
     LoginScreenContent {
-        navigator.navigate(MapScreenDestination) {
+        navigator.navigate(ExploreScreenDestination) {
             popUpTo(NavGraphs.root.startAppDestination) { inclusive = true }
         }
     }

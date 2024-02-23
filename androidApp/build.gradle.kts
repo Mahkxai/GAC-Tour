@@ -114,5 +114,8 @@ dependencies {
     implementation(libs.camerax.view)
     implementation(libs.camerax.extensions)
 
+    // Splash Screen
+    implementation(libs.splashscreen)
+
     debugImplementation(libs.compose.ui.tooling)
 }

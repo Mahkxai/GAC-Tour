@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map.content
+package com.mahkxai.gactour.android.presentation.screen.explore.map.content
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mahkxai.gactour.android.R
-import com.mahkxai.gactour.android.presentation.screen.map.MapUiState
+import com.mahkxai.gactour.android.presentation.screen.explore.map.MapUiState
 
 @Composable
 fun MapFABs(

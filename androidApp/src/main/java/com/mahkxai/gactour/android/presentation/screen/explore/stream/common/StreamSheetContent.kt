@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.common
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.common
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -31,8 +31,8 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
-import com.mahkxai.gactour.android.presentation.screen.stream.image.ImageStreamPreview
-import com.mahkxai.gactour.android.presentation.screen.stream.video.VideoStreamPreview
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.image.ImageStreamPreview
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.video.VideoStreamPreview
 
 @Composable
 fun StreamSheetContent(

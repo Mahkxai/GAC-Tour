@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.map.content
+package com.mahkxai.gactour.android.presentation.screen.explore.map.content
 
 import android.net.Uri
 import android.os.Build
@@ -44,7 +44,7 @@ import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
 import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
 import com.mahkxai.gactour.android.presentation.permission.MultiplePermissionsHandler
 import com.mahkxai.gactour.android.presentation.permission.PermissionKey
-import com.mahkxai.gactour.android.presentation.screen.stream.UploadState
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.UploadState
 import com.mapbox.geojson.Point
 
 @ExperimentalMaterial3Api

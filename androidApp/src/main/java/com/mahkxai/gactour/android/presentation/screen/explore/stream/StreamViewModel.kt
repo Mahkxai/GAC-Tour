@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream
+package com.mahkxai.gactour.android.presentation.screen.explore.stream
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel

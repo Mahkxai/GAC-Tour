@@ -6,13 +6,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mahkxai.gactour.android.presentation.NavGraphs
-import com.mahkxai.gactour.android.presentation.destinations.MapScreenDestination
 import com.mahkxai.gactour.android.presentation.GACTourAppState
 import com.mahkxai.gactour.android.R
 import com.mahkxai.gactour.android.presentation.MainViewModel
 import com.mahkxai.gactour.android.common.icon.NavBarIcons
 import com.mahkxai.gactour.android.presentation.destinations.CameraScreenDestination
 import com.mahkxai.gactour.android.presentation.destinations.DirectionDestination
+import com.mahkxai.gactour.android.presentation.destinations.ExploreScreenDestination
 import com.mahkxai.gactour.android.presentation.destinations.LoginScreenDestination
 import com.mahkxai.gactour.android.presentation.destinations.ProfileScreenDestination
 import com.ramcosta.composedestinations.annotation.NavGraph
@@ -27,7 +27,7 @@ fun GACTourDestinationsNavHost(
     appState: GACTourAppState,
     activity: ComponentActivity,
 ) {
-    val startRoute = NavigationBarDestination.MAP.direction
+    val startRoute = NavigationBarDestination.EXPLORE.direction
     val navController = appState.navController
 
     DestinationsNavHost(
@@ -35,7 +35,7 @@ fun GACTourDestinationsNavHost(
         navGraph = NavGraphs.bottomBar,
         modifier = modifier,
         dependenciesContainerBuilder = {
-            dependency(MapScreenDestination) { appState::showBottomBar }
+            dependency(ExploreScreenDestination) { appState::showBottomBar }
             dependency(hiltViewModel<MainViewModel>(activity))
         },
     )
@@ -59,8 +59,8 @@ enum class NavigationBarDestination(
     val iconTextId: Int,
     val titleTextId: Int,
 ) {
-    MAP(
-        direction = MapScreenDestination,
+    EXPLORE(
+        direction = ExploreScreenDestination,
         selectedIcon = NavBarIcons.Map,
         unselectedIcon = NavBarIcons.MapBorder,
         iconTextId = R.string.navbar_map_icon_text,

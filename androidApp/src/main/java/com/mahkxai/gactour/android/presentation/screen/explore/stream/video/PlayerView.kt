@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.video
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.video
 
 import android.view.LayoutInflater
 import android.widget.FrameLayout

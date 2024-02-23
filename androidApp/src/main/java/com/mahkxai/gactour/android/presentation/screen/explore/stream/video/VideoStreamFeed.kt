@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.video
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.video
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -23,7 +23,7 @@ import com.mahkxai.gactour.android.common.composables.ComposableLifecycle
 import com.mahkxai.gactour.android.common.composables.PlayerListener
 import com.mahkxai.gactour.android.common.util.LogTags
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
-import com.mahkxai.gactour.android.presentation.screen.stream.image.ImageFeedContainer
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.image.ImageFeedContainer
 import com.mapbox.maps.logE
 
 @OptIn(ExperimentalFoundationApi::class)

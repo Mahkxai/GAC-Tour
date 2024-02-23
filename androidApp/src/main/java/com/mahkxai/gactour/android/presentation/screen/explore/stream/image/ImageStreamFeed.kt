@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.image
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.image
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background

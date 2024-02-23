@@ -1,4 +1,4 @@
-package com.mahkxai.gactour.android.presentation.screen.stream.image
+package com.mahkxai.gactour.android.presentation.screen.explore.stream.image
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaItem
-import com.mahkxai.gactour.android.presentation.screen.stream.common.VisualMediaPreviewCard
+import com.mahkxai.gactour.android.presentation.screen.explore.stream.common.VisualMediaPreviewCard
 
 @Composable
 fun ImageStreamPreview(
