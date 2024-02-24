@@ -1,12 +1,14 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="50dp"
-    android:height="50dp"
+    android:width="30dp"
+    android:height="30dp"
     android:viewportWidth="375"
     android:viewportHeight="375">
     <group
         android:name="splashscreenAnimationGroup"
         android:pivotX="187.5"
-        android:pivotY="187.5">
+        android:pivotY="187.5"
+        android:scaleX="0.4"
+        android:scaleY="0.4">
         <path
             android:fillColor="#e7b104"
             android:fillType="evenOdd"
