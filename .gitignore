@@ -9,3 +9,5 @@ captures
 local.properties
 xcuserdata
 androidApp/src/main/java/com/mahkxai/gactour/android/experiment
+keystore.properties
+*.keystore

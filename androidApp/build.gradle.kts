@@ -1,4 +1,11 @@
 import com.android.build.api.dsl.Packaging
+import java.util.Properties
+import java.io.FileInputStream
+
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    load(FileInputStream(keystorePropertiesFile))
+}
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -17,7 +24,7 @@ android {
         minSdk = 24
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "2.1.0"
     }
     buildFeatures {
         compose = true
@@ -37,6 +44,14 @@ android {
             pickFirsts += "lib/x86_64/libc++_shared.so"
         }
     }
+    signingConfigs {
+        create("release") {
+            storeFile = File(keystoreProperties["storeFile"] as String)
+            storePassword = keystoreProperties["storePassword"] as String
+            keyAlias = keystoreProperties["keyAlias"] as String
+            keyPassword = keystoreProperties["keyPassword"] as String
+        }
+    }
     buildTypes {
         getByName("release") {
             isMinifyEnabled = true
@@ -44,6 +59,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
