@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -26,55 +25,78 @@ import com.ramcosta.composedestinations.annotation.Destination
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Matrix
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture.OnImageCapturedCallback
+import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.ImageProxy
 import androidx.camera.video.FileOutputOptions
 import androidx.camera.video.Recording
 import androidx.camera.video.VideoRecordEvent
 import androidx.camera.view.CameraController
 import androidx.camera.view.LifecycleCameraController
 import androidx.camera.view.video.AudioConfig
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.filled.Cameraswitch
-import androidx.compose.material.icons.filled.Photo
 import androidx.compose.material.icons.filled.PhotoCamera
-import androidx.compose.material.icons.filled.Videocam
-import androidx.compose.material3.BottomSheetScaffold
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.rememberBottomSheetScaffoldState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.exoplayer.ExoPlayer
-import kotlinx.coroutines.launch
+import com.mahkxai.gactour.android.data.firebase.model.GACTourMediaType
+import com.mahkxai.gactour.android.domain.model.GACTourUploadItem
+import com.mahkxai.gactour.android.presentation.MainViewModel
+import com.mahkxai.gactour.android.presentation.theme.RichGold
+import com.mapbox.geojson.Point
 import java.io.File
 
 //@NavigationBarNavGraph(start = true)
-@RequiresApi(Build.VERSION_CODES.R)
+@RequiresApi(Build.VERSION_CODES.S)
 @BottomBarNavGraph
 @Destination
 @Composable
 fun CameraScreen(
-    cameraViewModel: CameraViewModel = hiltViewModel()
+    mainViewModel: MainViewModel,
+    cameraViewModel: CameraViewModel = hiltViewModel(),
 ) {
+    val locationState by mainViewModel.locationState.collectAsStateWithLifecycle()
     var allCameraPermissionsGranted by remember { mutableStateOf(false) }
     var allLocationPermissionsGranted by remember { mutableStateOf(false) }
+    var currentLocation by remember { mutableStateOf<Point?>(null) }
 
     val bitmaps by cameraViewModel.bitmaps.collectAsState()
+
+    LaunchedEffect(allLocationPermissionsGranted) {
+        if (allLocationPermissionsGranted) mainViewModel.startLocationUpdate()
+    }
+
+    LaunchedEffect(locationState.location) {
+        locationState.apply {
+            location?.let { currentLocation = it }
+        }
+    }
 
     CameraScreenContent(
         cameraViewModel = cameraViewModel,
         bitmaps = bitmaps,
-        modifier = Modifier.disableInteraction(!allCameraPermissionsGranted),
+        currentLocation = currentLocation,
+        modifier = Modifier
+            .disableInteraction(
+                !(allLocationPermissionsGranted && allCameraPermissionsGranted)
+            ),
+        // onUpload = cameraViewModel::uploadMedia,
     )
 
     MultiplePermissionsHandler(
@@ -92,13 +114,19 @@ fun CameraScreen(
                 PermissionKey.COARSE_LOCATION,
             ),
             isFeatureOverlay = true
-        )
+        ) { allLocationPermissionsGranted = it }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CameraScreenContent(cameraViewModel: CameraViewModel, bitmaps: List<Bitmap>, modifier: Modifier = Modifier) {
+fun CameraScreenContent(
+    cameraViewModel: CameraViewModel,
+    bitmaps: List<Bitmap>,
+    currentLocation: Point?,
+    modifier: Modifier = Modifier,
+    // onUpload: (GACTourMediaType, GACTourUploadItem, (Double) -> Unit) -> Unit
+) {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val scaffoldState = rememberBottomSheetScaffoldState()
@@ -113,14 +141,29 @@ fun CameraScreenContent(cameraViewModel: CameraViewModel, bitmaps: List<Bitmap>,
         }
     }
 
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    var imageBitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var shouldShowUploadPreview by remember { mutableStateOf(false) }
     var videoUri by remember { mutableStateOf<Uri?>(null) }
 
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        sheetPeekHeight = 0.dp,
-        sheetContent = {
-            PhotoBottomSheetContent(bitmaps = bitmaps, modifier = Modifier.fillMaxWidth())
-        }
+    Scaffold(
+        floatingActionButton = {
+            if (!shouldShowUploadPreview) {
+                MediaCaptureButton(
+                    onPhotoTaken = {
+                        takePhoto(
+                            context = context,
+                            controller = controller,
+                            onPhotoTaken = { uri ->
+                                imageUri = uri
+                                shouldShowUploadPreview = true
+                            },
+                        )
+                    },
+                )
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center
     ) { padding ->
         Box(
             modifier = Modifier
@@ -149,76 +192,76 @@ fun CameraScreenContent(cameraViewModel: CameraViewModel, bitmaps: List<Bitmap>,
                 )
             }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .padding(16.dp),
-                horizontalArrangement = Arrangement.SpaceAround
+            /*// Video Capture
+            IconButton(
+                onClick = {
+                    recordVideo(context, recording, controller, exoPlayer, {recording = it}) {
+                        videoUri = it
+                    }
+                }
             ) {
-                IconButton(
-                    onClick = {
-                        scope.launch {
-                            scaffoldState.bottomSheetState.expand()
-                        }
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Photo,
-                        contentDescription = "Open gallery"
-                    )
-                }
-                IconButton(
-                    onClick = {
-                        takePhoto(
-                            context = context,
-                            controller = controller,
-                            onPhotoTaken = cameraViewModel::onTakePhoto
-                        )
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.PhotoCamera,
-                        contentDescription = "Take photo"
-                    )
-                }
-                IconButton(
-                    onClick = {
-                        recordVideo(context, recording, controller, exoPlayer, {recording = it}) {
-                            videoUri = it
-                        }
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Videocam,
-                        contentDescription = "Record video"
+                Icon(
+                    imageVector = Icons.Default.Videocam,
+                    contentDescription = "Record video"
+                )
+            }*/
+
+            if (shouldShowUploadPreview) {
+                println("ImageBitmap: $imageBitmap")
+                imageUri?.let { uri ->
+                    CameraUploadPreview(
+                        mediaType = GACTourMediaType.IMAGE,
+                        mediaUri = uri,
+                        currentLocation = currentLocation,
+                        onBackPressed = { shouldShowUploadPreview = false },
+                        onUpload = cameraViewModel::uploadMedia,
                     )
                 }
             }
         }
     }
+}
 
-
-    /*Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.BottomCenter
+@Composable
+fun MediaCaptureButton(
+    onPhotoTaken: () -> Unit,
+) {
+    FloatingActionButton(
+        onClick = onPhotoTaken,
+        containerColor = RichGold,
+        shape = CircleShape,
     ) {
-        IconButton(
-            modifier = Modifier.padding(16.dp),
-            onClick = { println("Snap Snap!") }
-        ) {
-            Image(imageVector = Icons.Outlined.Info, contentDescription = "Capture")
-        }
-    }*/
-
+        Icon(
+            imageVector = Icons.Default.PhotoCamera,
+            contentDescription = "Take photo",
+        )
+    }
 }
 
 private fun takePhoto(
     context: Context,
     controller: LifecycleCameraController,
-    onPhotoTaken: (Bitmap) -> Unit
+    onPhotoTaken: (Uri) -> Unit,
+    // onPhotoTaken: (Bitmap) -> Unit
 ) {
+    val tempFile = File.createTempFile("temp", ".jpg", context.cacheDir)
+
     controller.takePicture(
+        // Uri version
+        ImageCapture.OutputFileOptions.Builder(tempFile).build(),
+        ContextCompat.getMainExecutor(context),
+        object : ImageCapture.OnImageSavedCallback {
+            override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                val imageUri = Uri.fromFile(tempFile)
+                onPhotoTaken(imageUri)
+            }
+
+            override fun onError(exception: ImageCaptureException) {
+                Log.e("Camera", "Couldn't take photo: ", exception)
+            }
+        }
+
+        /*// Bitmap version
         ContextCompat.getMainExecutor(context),
         object : OnImageCapturedCallback() {
             override fun onCaptureSuccess(image: ImageProxy) {
@@ -244,7 +287,7 @@ private fun takePhoto(
                 super.onError(exception)
                 Log.e("Camera", "Couldn't take photo: ", exception)
             }
-        }
+        }*/
     )
 }
 

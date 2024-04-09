@@ -69,7 +69,7 @@ class StreamViewModel @Inject constructor(
         _streamState.value = _streamState.value.copy(mediaCategoryIndices = updatedIndices)
     }
 
-    fun resetUploadState() {
+    private fun resetUploadState() {
         _uploadState.value = UploadState.Idle
     }
 

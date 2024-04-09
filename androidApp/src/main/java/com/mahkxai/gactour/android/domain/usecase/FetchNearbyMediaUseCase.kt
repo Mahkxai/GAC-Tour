@@ -21,10 +21,11 @@ class FetchNearbyMediaUseCase @Inject constructor(
         location: Point,
         radiusInM: Double
     ): Flow<Map<GACTourMediaType, List<GACTourMediaItem>>> {
-        // val geoLocation = GeoLocation(location.latitude(), location.longitude())
-        // return firestoreService.fetchMediaNearLocation(geoLocation, radiusInM)
+        val geoLocation = GeoLocation(location.latitude(), location.longitude())
+        return firestoreService.fetchMediaNearLocation(geoLocation, radiusInM)
 
-        // TODO: Remove this mock data
+        /*// Mock data
         return flowOf(MockData.mediaItems(location))
+        */
     }
 }

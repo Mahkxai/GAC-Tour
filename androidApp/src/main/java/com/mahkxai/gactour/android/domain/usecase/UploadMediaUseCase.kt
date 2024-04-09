@@ -35,7 +35,7 @@ class UploadMediaUseCase @Inject constructor(
     suspend fun execute(
         mediaType: GACTourMediaType,
         uploadItem: GACTourUploadItem,
-        onProgress: (Double) -> Unit
+        onProgress: (Double) -> Unit = {}
     ) {
         var mediaUri = uploadItem.mediaUri
         var compressedVideoFile: File? = null
