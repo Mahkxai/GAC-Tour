@@ -45,6 +45,7 @@ class LocationServiceImpl @Inject constructor(
 
         val request = LocationRequest.Builder(1000)
             .setIntervalMillis(1000)
+            .setMinUpdateDistanceMeters(5f)
             .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
             .build()
 

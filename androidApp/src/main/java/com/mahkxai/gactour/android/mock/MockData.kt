@@ -10,6 +10,18 @@ import kotlin.math.sqrt
 object MockData {
 
     val imageUrls: List<String> = listOf(
+        "https://picsum.photos/484/800?random",
+        "https://picsum.photos/483/800?random",
+        "https://picsum.photos/720/1280?random",
+        "https://picsum.photos/481/800?random",
+        "https://picsum.photos/480/800?random",
+        "https://picsum.photos/489/800?random",
+        "https://picsum.photos/720/1600?random",
+        "https://picsum.photos/477/800?random",
+        "https://picsum.photos/725/1600?random",
+        "https://picsum.photos/475/800?random",
+
+        /*// source.unsplash.com is down
         "https://source.unsplash.com/random/484x800",
         "https://source.unsplash.com/random/483x800",
         "https://source.unsplash.com/random/720x1280",
@@ -19,7 +31,7 @@ object MockData {
         "https://source.unsplash.com/random/720x1600",
         "https://source.unsplash.com/random/477x800",
         "https://source.unsplash.com/random/725x1600",
-        "https://source.unsplash.com/random/475x800"
+        "https://source.unsplash.com/random/475x800"*/
     )
 
     val videoUrls: List<String> = listOf(
