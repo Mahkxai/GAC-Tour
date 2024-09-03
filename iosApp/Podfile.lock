@@ -1,16 +1,36 @@
 PODS:
+  - MapboxCommon (24.6.0)
+  - MapboxCoreMaps (11.6.0):
+    - MapboxCommon (~> 24.6)
+  - MapboxMaps (11.6.0):
+    - MapboxCommon (= 24.6.0)
+    - MapboxCoreMaps (= 11.6.0)
+    - Turf (= 2.8.0)
   - shared (1.0)
+  - Turf (2.8.0)
 
 DEPENDENCIES:
+  - MapboxMaps (= 11.6.0)
   - shared (from `../shared`)
+
+SPEC REPOS:
+  trunk:
+    - MapboxCommon
+    - MapboxCoreMaps
+    - MapboxMaps
+    - Turf
 
 EXTERNAL SOURCES:
   shared:
     :path: "../shared"
 
 SPEC CHECKSUMS:
+  MapboxCommon: 6008e74b1312a093dec291497a036fc8b47f344f
+  MapboxCoreMaps: bd097795c5ae4f002181769e7151474a33ce878a
+  MapboxMaps: fc1b2ab98563d0157ba01f6e4a2fd8a8af556d92
   shared: 2d3b24a8fe27b7d9e65b8d075a9672fbc6a1aa10
+  Turf: aa2ede4298009639d10db36aba1a7ebaad072a5e
 
-PODFILE CHECKSUM: f282da88f39e69507b0a255187c8a6b644477756
+PODFILE CHECKSUM: dbc29670a50d7aa2bd82f61061e23b1b0046a8d4
 
 COCOAPODS: 1.14.2

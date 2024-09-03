@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>MBXAccessToken</key>
+	<string>pk.eyJ1IjoiaGFyZGlrc2hyIiwiYSI6ImNsbnc1d3hmcjA1Z3Aya2xqYWlxaHRhYmEifQ.6EdnaDr856xXy_Jdz84orw</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
